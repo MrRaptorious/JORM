@@ -1,7 +1,0 @@
-package testpackage;
-
-import jormCore.PersistentObject;
-
-public class MyTestClass extends PersistentObject{
-
-}
