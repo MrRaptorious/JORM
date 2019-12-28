@@ -1,0 +1,7 @@
+package testpackage;
+
+import jormCore.PersistentObject;
+
+public class HelloClass extends PersistentObject {
+
+}

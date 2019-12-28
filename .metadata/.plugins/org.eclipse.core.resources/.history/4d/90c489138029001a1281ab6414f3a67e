@@ -1,0 +1,21 @@
+package testpackage;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import jormCore.*;
+import jormCore.Tracing.LogLevel;
+
+public class Program {
+
+	public static void main(String[] args) {
+
+		JormApplication app = JormApplication.getApplication();
+		app.registerType(MyTestClass.class);
+		
+		
+		
+	}
+
+}

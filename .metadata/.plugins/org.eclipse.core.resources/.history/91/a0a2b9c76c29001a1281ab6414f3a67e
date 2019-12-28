@@ -1,0 +1,18 @@
+package jormCore;
+
+public class JormApplication {
+
+	private static JormApplication application;
+	
+	private JormApplication()
+	{}
+	
+	public static JormApplication getApplication()
+	{
+		if(application == null)
+			application = new JormApplication();
+			
+		return application;
+	}
+	
+}

@@ -1,0 +1,36 @@
+package jormCore.DBConnection;
+import java.sql.ResultSet;
+
+import jormCore.JormApplication;
+import jormCore.PersistentObject;
+import java.sql.SQLException;
+import java.util.List;
+
+public abstract class DatabaseConnection {
+
+	protected String _connectionString;
+	
+	public DatabaseConnection(String connectionSting) 
+	{
+		_connectionString = connectionSting;
+	}
+	
+	protected void initDatabase() throws SQLException {
+		List<Class<? extends PersistentObject>> types = JormApplication.getApplication().getTypeList();
+		for(Class<? extends PersistentObject> type : types)
+		{
+			String createStatement = generateCreateTypeStatement(type);
+			
+			if(createStatement != null)
+				execute(createStatement);
+		}
+	}
+
+	public abstract ResultSet GetTable(String name);
+	public abstract void update(PersistentObject obj);
+	public abstract void delete(PersistentObject obj);
+	public abstract void create(PersistentObject obj);
+	public abstract void execute(String statement) throws SQLException;
+	
+	public abstract String generateCreateTypeStatement(Class<? extends PersistentObject> type);
+}

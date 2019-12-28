@@ -1,0 +1,8 @@
+1577535885219	Delete element
+1577536825146	Delete element
+1577536833763	Rename type 'ObjectSpace_TODO'
+1577537226378	Rename field '_id'
+1577537308518	Rename field 'typeList'
+1577538781478	Rename field 'level'
+1577538938543	Rename field '_connectionString'
+1577538947178	Rename method 'GetTable'

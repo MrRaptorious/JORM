@@ -1,0 +1,31 @@
+1576092644656	Copy package
+1576092651704	Delete element
+1576092680886	Move compilation units
+1576092685409	Delete element
+1576092818197	Delete element
+1576093556166	Infer generic type arguments
+1576094508959	Rename method 'GetID'
+1576094515153	Rename method 'GetPersistentProperties'
+1576094520655	Rename method 'GetPersistentPropertiesWithValues'
+1576094525326	Rename method 'GetPersistentProperties'
+1576094534926	Rename method 'GetMemberValue'
+1576094541179	Rename method 'SetMemberValue'
+1576094563225	Rename method 'Update'
+1576094565782	Rename method 'Delete'
+1576094568536	Rename method 'Create'
+1576094571085	Rename method 'Execute'
+1576094574520	Rename method 'GenerateCreateTypeStatement'
+1576094579690	Rename method 'InitDatabase'
+1576096667010	Rename method 'RegisterTypes'
+1576096670617	Rename method 'RegisterType'
+1576096675930	Rename method 'GetTypeList'
+1576097042230	Rename package 'jormCore.Logging'
+1576097096843	Rename type 'Logger'
+1576097211853	Rename local variable 'll'
+1576097292004	Move compilation unit
+1576097296534	Move compilation unit
+1576097559365	Move compilation unit
+1576097944865	Rename type 'ObjectSpace'
+1576097956341	Rename type 'JORM'
+1576101049273	Delete element
+1576101053111	Delete element
