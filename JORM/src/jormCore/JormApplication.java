@@ -43,8 +43,6 @@ public class JormApplication {
 	
 	public void initDatabase()
 	{	
-//		ObjectSpace os = new ObjectSpace(connection);
-		
 		connection.createSchema();
 		connection.updateSchema();
 	}

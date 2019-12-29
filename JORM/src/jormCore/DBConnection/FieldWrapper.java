@@ -1,39 +1,49 @@
 package jormCore.DBConnection;
 
 public class FieldWrapper {
-	
-	private String _name;
-	private String _type;
-	private boolean _isPrimaryKey;
-	private boolean _canNotBeNull;
-	private boolean _autoincrement;
 
-	public FieldWrapper(String name, String type, boolean isPrimaryKey, boolean canBeNull, boolean autoincrement)
-	{
-	_name = name;
-	_type = type;
-	_isPrimaryKey = isPrimaryKey;
-	_canNotBeNull = canBeNull;
-	_autoincrement = autoincrement;
+	private String name;
+	private String type;
+	private boolean isPrimaryKey;
+	private boolean canNotBeNull;
+	private boolean autoincrement;
+	private ForeignKey foreigenKey;
+
+	public FieldWrapper(String name, String type, ForeignKey foreigenKey, boolean isPrimaryKey, boolean canBeNull,
+			boolean autoincrement) {
+		this.foreigenKey = foreigenKey;
+		this.name = name;
+		this.type = type;
+		this.isPrimaryKey = isPrimaryKey;
+		this.canNotBeNull = canBeNull;
+		this.autoincrement = autoincrement;
 	}
 
-	public String get_name() {
-		return _name;
+	public boolean isForeigenKey() {
+		return foreigenKey != null;
 	}
 
-	public String get_type() {
-		return _type;
+	public ForeignKey getForeigenKey() {
+		return foreigenKey;
 	}
 
-	public boolean is_isPrimaryKey() {
-		return _isPrimaryKey;
+	public String getName() {
+		return name;
 	}
 
-	public boolean is_canNotBeNull() {
-		return _canNotBeNull;
+	public String getType() {
+		return type;
 	}
 
-	public boolean is_autoincrement() {
-		return _autoincrement;
+	public boolean isPrimaryKey() {
+		return isPrimaryKey;
+	}
+
+	public boolean isCanNotBeNull() {
+		return canNotBeNull;
+	}
+
+	public boolean isAutoincrement() {
+		return autoincrement;
 	}
 }

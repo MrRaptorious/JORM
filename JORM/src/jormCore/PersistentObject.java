@@ -13,9 +13,9 @@ public class PersistentObject {
 	@PrimaryKey
 	@Persistent
 	private int id;
-//	@Persistent
+	@Persistent
 	private Date creationDate;
-//	@Persistent
+	@Persistent
 	private Date LastChange;
 
 	public int getID() {
@@ -26,22 +26,39 @@ public class PersistentObject {
 		return getPersistentProperties(this.getClass());
 	}
 	
-	public static List<Field> getPersistentProperties(Class<?> classToSave) {
+	public static List<Field> getPersistentProperties(Class<?> persistentClass) {
 		List<Field> members = new ArrayList<Field>();
 		
-		while (classToSave != null) {
-			for (Field field : classToSave.getDeclaredFields()) {
-				if (classToSave.isAnnotationPresent(jormCore.Annotaions.Persistent.class)
+		while (persistentClass != null) {
+			for (Field field : persistentClass.getDeclaredFields()) {
+				if (persistentClass.isAnnotationPresent(jormCore.Annotaions.Persistent.class)
 						|| field.isAnnotationPresent(jormCore.Annotaions.Persistent.class)) {
 					field.setAccessible(true);
 					members.add(field);
 				}
 			}
 
-			classToSave = classToSave.getSuperclass();
+			persistentClass = persistentClass.getSuperclass();
 		}
 
 		return members;
+	}
+	
+	public static Field getPrimaryKey(Class<?> persistentClass) {
+		while (persistentClass != null) {
+			for (Field field : persistentClass.getDeclaredFields()) {
+				if ((persistentClass.isAnnotationPresent(jormCore.Annotaions.Persistent.class)
+						|| field.isAnnotationPresent(jormCore.Annotaions.Persistent.class))
+						&& field.isAnnotationPresent(jormCore.Annotaions.PrimaryKey.class)) {
+					field.setAccessible(true);
+					return field;
+				}
+			}
+
+			persistentClass = persistentClass.getSuperclass();
+		}
+
+		return null;
 	}
 
 	public Map<Field, Object> getPersistentPropertiesWithValues() {

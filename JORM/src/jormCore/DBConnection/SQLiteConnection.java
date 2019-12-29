@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -68,6 +69,7 @@ public class SQLiteConnection extends DatabaseConnection {
 	@Override
 	public String generateCreateTypeStatement(Class<? extends PersistentObject> type) {
 		List<Field> props = PersistentObject.getPersistentProperties(type);
+		List<String> fKStatements = new ArrayList<>();
 
 		String result = "CREATE TABLE IF NOT EXISTS " + type.getSimpleName() + " (";
 
@@ -78,8 +80,22 @@ public class SQLiteConnection extends DatabaseConnection {
 
 			result += generateFieldDefinition(wr);
 
-			if (i < props.size() - 1)
+			if (wr.isForeigenKey()) {
+				fKStatements.add(generateForeignKeyDefinition(wr));
+			}
+
+			if (i < props.size() - 1 || fKStatements.size() > 0)
 				result += " ,";
+		}
+
+		// add FK definitions
+		for (int i = 0; i < fKStatements.size(); i++) {
+
+			result += fKStatements.get(i);
+
+			if (i < fKStatements.size() - 1)
+				result += " ,";
+
 		}
 
 		result += " )";
@@ -90,28 +106,42 @@ public class SQLiteConnection extends DatabaseConnection {
 	public String generateFieldDefinition(FieldWrapper wr) {
 		String result = "";
 
-		result += wr.get_name();
+		result += wr.getName();
 		result += " ";
-		result += wr.get_type();
+		result += wr.getType();
 
-		if (wr.is_isPrimaryKey())
+		if (wr.isPrimaryKey())
 			result += " PRIMARY KEY ";
-		if (wr.is_autoincrement())
+		if (wr.isAutoincrement())
 			result += " AUTOINCREMENT ";
-		if (wr.is_canNotBeNull())
+		if (wr.isCanNotBeNull())
 			result += " NOT NULL ";
 
 		return result;
 	}
 
+	public String generateForeignKeyDefinition(FieldWrapper wr) {
+		if (wr.isForeigenKey()) {
+			return " FOREIGN KEY(" + wr.getName() + ") REFERENCES " + wr.getForeigenKey().getReferencingTypeName() + "("
+					+ wr.getForeigenKey().getReferencingPrimaryKeyName() + ") ";
+		}
+		return "";
+	}
+
+	@SuppressWarnings("unchecked")
 	private FieldWrapper WrapField(Field field) {
 		String name = field.getName();
 		String type = ParseFieldType(field);
 		boolean isPrimaryKey = field.isAnnotationPresent(PrimaryKey.class);
 		boolean canNotBeNull = field.isAnnotationPresent(CanNotBeNull.class);
 		boolean autoincrement = field.isAnnotationPresent(Autoincrement.class);
+		ForeignKey fKey = null;
 
-		return new FieldWrapper(name, type, isPrimaryKey, canNotBeNull, autoincrement);
+		if (PersistentObject.class.isAssignableFrom(field.getType())) {
+			fKey = new ForeignKey((Class<? extends PersistentObject>) field.getType());
+		}
+
+		return new FieldWrapper(name, type, fKey, isPrimaryKey, canNotBeNull, autoincrement);
 	}
 
 	private String ParseFieldType(Field field) {
@@ -120,34 +150,38 @@ public class SQLiteConnection extends DatabaseConnection {
 		if (type == String.class || type == char.class)
 			return "TEXT";
 
-		if (type == int.class)
+		if (type == int.class || type == Date.class || PersistentObject.class.isAssignableFrom(type))
 			return "INTEGER";
 
 		return "TEXT";
 	}
 
 	@Override
-	public void createSchema()
-	{
-		for (Class<? extends PersistentObject> cl : JormApplication.getApplication().getTypeList()) {
-			try {
+	public void createSchema() {
+		try {
+			execute("PRAGMA foreign_keys=off");
+			
+			for (Class<? extends PersistentObject> cl : JormApplication.getApplication().getTypeList()) {
 				execute(generateCreateTypeStatement(cl));
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
+			
+			execute("PRAGMA foreign_keys=on");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public void updateSchema() {
 		ArrayList<String> updateStatements = new ArrayList<>();
-		
+
 		for (Class<? extends PersistentObject> cl : JormApplication.getApplication().getTypeList()) {
 
 			String getTypeSchemaStatement = "PRAGMA table_info(" + cl.getSimpleName() + ")";
 			ArrayList<String> persistentColumns = new ArrayList<>();
-			
+
 			List<Field> runtimeFields = new ArrayList<>();
 
 			// collect persistentColumns
@@ -172,7 +206,7 @@ public class SQLiteConnection extends DatabaseConnection {
 			}
 
 		}
-		
+
 		for (String statement : updateStatements) {
 			try {
 				execute(statement);

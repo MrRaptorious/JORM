@@ -10,5 +10,8 @@ public class MyTestClass extends PersistentObject{
 	
 	@Persistent
 	private int naechsteProperty;
+
+	@Persistent
+	private TestRefClass refClass;
 	
 }
