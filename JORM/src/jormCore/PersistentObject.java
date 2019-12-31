@@ -6,29 +6,38 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import jormCore.Annotaions.*;
 
 public class PersistentObject {
 	@PrimaryKey
-	@Persistent
-	private int id;
-	@Persistent
+	@Persistent(name = "ID")
+	private UUID id;
+	@Persistent(name = "CREATIONDATE")
 	private Date creationDate;
-	@Persistent
-	private Date LastChange;
+	@Persistent(name = "LASTCHANGE")
+	private Date lastChange;
+	@Persistent(name = "DELETED")
+	private boolean isDeleted;
 
-	public int getID() {
+	public PersistentObject() {
+		id = UUID.randomUUID();
+		creationDate = new Date();
+		lastChange = new Date();
+	}
+
+	public UUID getID() {
 		return id;
 	}
 
 	public List<Field> getPersistentProperties() {
 		return getPersistentProperties(this.getClass());
 	}
-	
+
 	public static List<Field> getPersistentProperties(Class<?> persistentClass) {
 		List<Field> members = new ArrayList<Field>();
-		
+
 		while (persistentClass != null) {
 			for (Field field : persistentClass.getDeclaredFields()) {
 				if (persistentClass.isAnnotationPresent(jormCore.Annotaions.Persistent.class)
@@ -43,7 +52,7 @@ public class PersistentObject {
 
 		return members;
 	}
-	
+
 	public static Field getPrimaryKey(Class<?> persistentClass) {
 		while (persistentClass != null) {
 			for (Field field : persistentClass.getDeclaredFields()) {

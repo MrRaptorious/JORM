@@ -1,4 +1,5 @@
 package jormCore;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,16 @@ public class ObjectSpace{
 	{
 		this.connection = connection;
 //		RefreshCache();
+	}
+	
+	public void SaveObject(PersistentObject obj)
+	{
+		try {
+			connection.create(obj);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public ObjectSpace(List<Class> typeList)

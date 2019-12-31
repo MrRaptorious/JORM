@@ -16,11 +16,9 @@ public class Program {
 		app.registerType(TestRefClass.class);
 		app.registerType(MyTestClass.class);
 		app.initDatabase();
-////		
-//		Date date = new Date();
-//	
-//		
-//		System.out.println(date.getTime());
-//		
+		
+		ObjectSpace os = app.createObjectSpace();
+		
+		os.SaveObject(new MyTestClass("Dies ist ein Testwert"));
 	}
 }

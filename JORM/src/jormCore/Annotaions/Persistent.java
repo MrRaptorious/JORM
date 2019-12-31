@@ -4,4 +4,6 @@ import static java.lang.annotation.ElementType.*;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = {FIELD , TYPE })
-public @interface Persistent{}
+public @interface Persistent{
+	public String name() default "";
+}

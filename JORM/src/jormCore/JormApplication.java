@@ -16,8 +16,7 @@ public class JormApplication {
 	private DatabaseConnection connection; 
 	
 	private List<Class<? extends PersistentObject>> persistentTypeList;
-	
-	
+
 	private JormApplication()
 	{
 		persistentTypeList = new ArrayList<>();
@@ -45,6 +44,11 @@ public class JormApplication {
 	{	
 		connection.createSchema();
 		connection.updateSchema();
+	}
+
+	public ObjectSpace createObjectSpace()
+	{
+		return new ObjectSpace(connection);
 	}
 
 	public LogLevel getLogLevel()

@@ -14,4 +14,11 @@ public class MyTestClass extends PersistentObject{
 	@Persistent
 	private TestRefClass refClass;
 	
+	@Persistent
+	private String text;
+	
+	public MyTestClass(String txt)
+	{
+		text = txt;
+	}
 }

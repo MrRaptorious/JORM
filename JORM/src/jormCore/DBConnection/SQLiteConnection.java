@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -48,22 +49,99 @@ public class SQLiteConnection extends DatabaseConnection {
 	}
 
 	@Override
-	public void create(PersistentObject obj) {
+	public void create(PersistentObject obj) throws SQLException {
 
-		Map<Field, Object> mapping = obj.getPersistentPropertiesWithValues();
+		String result = "INSERT INTO ";
+		String columnPart = "(";
+		String valuePart = " VALUES(";
 
-		String result = "INSERT OR REPLACE INTO " + obj.getClass().getSimpleName();
-		String typePart = "( ";
-		String valuePart = "VALUES ( ";
+		Map<Field, Object> objectValues = obj.getPersistentPropertiesWithValues();
 
-		for (Entry<Field, Object> i : mapping.entrySet()) {
+		result += obj.getClass().getSimpleName();
+
+		String delimiter = "";
+
+		for (Entry<Field, Object> elem : objectValues.entrySet()) {
+
+			if( elem.getValue() == null)
+				continue;
+			
+			columnPart += delimiter + elem.getKey().getName();
+			valuePart += delimiter + normalizeValue(elem.getKey().getType(), elem.getValue());
+
+			if (delimiter == "")
+				delimiter = " , ";
 		}
 
+		 result += columnPart+ ") " + valuePart + ")";
+
+		 execute(result);
 	}
 
 	@Override
 	public void execute(String statement) throws SQLException {
 		_connection.createStatement().execute(statement);
+	}
+
+	@Override
+	public void createSchema() {
+		try {
+			execute("PRAGMA foreign_keys=off");
+
+			for (Class<? extends PersistentObject> cl : JormApplication.getApplication().getTypeList()) {
+				execute(generateCreateTypeStatement(cl));
+			}
+
+			execute("PRAGMA foreign_keys=on");
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void updateSchema() {
+		ArrayList<String> updateStatements = new ArrayList<>();
+
+		for (Class<? extends PersistentObject> cl : JormApplication.getApplication().getTypeList()) {
+
+			String getTypeSchemaStatement = "PRAGMA table_info(" + cl.getSimpleName() + ")";
+			ArrayList<String> persistentColumns = new ArrayList<>();
+
+			List<Field> runtimeFields = new ArrayList<>();
+
+			// collect persistentColumns
+			try {
+				ResultSet resultSet = _connection.createStatement().executeQuery(getTypeSchemaStatement);
+				while (resultSet.next()) {
+					persistentColumns.add(resultSet.getString("name"));
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			// collect runtimeColumns (also columns which are already persistent)
+			runtimeFields = PersistentObject.getPersistentProperties(cl);
+
+			// set runtimeColumns to ONLY runtimeColumns
+			runtimeFields.removeIf(field -> (persistentColumns.contains(field.getName())));
+
+			for (Field nonPersistentField : runtimeFields) {
+				updateStatements.add(generateAddColumnToTableStatement(cl, nonPersistentField));
+			}
+
+		}
+
+		for (String statement : updateStatements) {
+			try {
+				execute(statement);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@Override
@@ -128,98 +206,39 @@ public class SQLiteConnection extends DatabaseConnection {
 		return "";
 	}
 
-	@SuppressWarnings("unchecked")
-	private FieldWrapper WrapField(Field field) {
-		String name = field.getName();
-		String type = ParseFieldType(field);
-		boolean isPrimaryKey = field.isAnnotationPresent(PrimaryKey.class);
-		boolean canNotBeNull = field.isAnnotationPresent(CanNotBeNull.class);
-		boolean autoincrement = field.isAnnotationPresent(Autoincrement.class);
-		ForeignKey fKey = null;
-
-		if (PersistentObject.class.isAssignableFrom(field.getType())) {
-			fKey = new ForeignKey((Class<? extends PersistentObject>) field.getType());
-		}
-
-		return new FieldWrapper(name, type, fKey, isPrimaryKey, canNotBeNull, autoincrement);
-	}
-
-	private String ParseFieldType(Field field) {
+	@Override
+	protected String ParseFieldType(Field field) {
 		Class<?> type = field.getType();
 
-		if (type == String.class || type == char.class)
+		if (type == String.class || type == char.class || type == UUID.class || PersistentObject.class.isAssignableFrom(type))
 			return "TEXT";
-
-		if (type == int.class || type == Date.class || PersistentObject.class.isAssignableFrom(type))
+		
+		if (type == int.class || type == Date.class )
 			return "INTEGER";
 
 		return "TEXT";
-	}
-
-	@Override
-	public void createSchema() {
-		try {
-			execute("PRAGMA foreign_keys=off");
-			
-			for (Class<? extends PersistentObject> cl : JormApplication.getApplication().getTypeList()) {
-				execute(generateCreateTypeStatement(cl));
-			}
-			
-			execute("PRAGMA foreign_keys=on");
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void updateSchema() {
-		ArrayList<String> updateStatements = new ArrayList<>();
-
-		for (Class<? extends PersistentObject> cl : JormApplication.getApplication().getTypeList()) {
-
-			String getTypeSchemaStatement = "PRAGMA table_info(" + cl.getSimpleName() + ")";
-			ArrayList<String> persistentColumns = new ArrayList<>();
-
-			List<Field> runtimeFields = new ArrayList<>();
-
-			// collect persistentColumns
-			try {
-				ResultSet resultSet = _connection.createStatement().executeQuery(getTypeSchemaStatement);
-				while (resultSet.next()) {
-					persistentColumns.add(resultSet.getString("name"));
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			// collect runtimeColumns (also columns which are already persistent)
-			runtimeFields = PersistentObject.getPersistentProperties(cl);
-
-			// set runtimeColumns to ONLY runtimeColumns
-			runtimeFields.removeIf(field -> (persistentColumns.contains(field.getName())));
-
-			for (Field nonPersistentField : runtimeFields) {
-				updateStatements.add(generateAddColumnToTableStatement(cl, nonPersistentField));
-			}
-
-		}
-
-		for (String statement : updateStatements) {
-			try {
-				execute(statement);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
 	}
 
 	public String generateAddColumnToTableStatement(Class<? extends PersistentObject> cl, Field nonPersistentField) {
 		FieldWrapper wr = WrapField(nonPersistentField);
 
 		return "ALTER TABLE " + cl.getSimpleName() + " ADD " + generateFieldDefinition(wr);
+	}
+
+	private String normalizeValue(Class<?> type, Object value) {
+
+		if (type == String.class)
+			return "'" + (String) value + "'";
+
+		if (PersistentObject.class.isAssignableFrom(type))
+			return "" + ((PersistentObject) value).getID();
+
+		if(type == Date.class)
+			return "" + ((Date)value).getTime();
+		
+		if(type == UUID.class)
+			return "'" + ((UUID)value).toString() + "'";
+		
+		return value.toString();
 	}
 }
