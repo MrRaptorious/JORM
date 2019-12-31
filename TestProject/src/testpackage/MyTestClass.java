@@ -17,6 +17,9 @@ public class MyTestClass extends PersistentObject{
 	@Persistent
 	private String text;
 	
+	@Persistent(name = "DERZWEITETEXT")
+	private String text2;
+	
 	public MyTestClass(String txt)
 	{
 		text = txt;

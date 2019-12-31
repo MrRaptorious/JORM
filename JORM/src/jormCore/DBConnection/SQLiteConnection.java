@@ -57,7 +57,7 @@ public class SQLiteConnection extends DatabaseConnection {
 
 		Map<Field, Object> objectValues = obj.getPersistentPropertiesWithValues();
 
-		result += obj.getClass().getSimpleName();
+		result += calculateClassName(obj.getClass());
 
 		String delimiter = "";
 
@@ -66,7 +66,7 @@ public class SQLiteConnection extends DatabaseConnection {
 			if( elem.getValue() == null)
 				continue;
 			
-			columnPart += delimiter + elem.getKey().getName();
+			columnPart += delimiter + calculateFieldName(elem.getKey());
 			valuePart += delimiter + normalizeValue(elem.getKey().getType(), elem.getValue());
 
 			if (delimiter == "")
@@ -126,7 +126,7 @@ public class SQLiteConnection extends DatabaseConnection {
 			runtimeFields = PersistentObject.getPersistentProperties(cl);
 
 			// set runtimeColumns to ONLY runtimeColumns
-			runtimeFields.removeIf(field -> (persistentColumns.contains(field.getName())));
+			runtimeFields.removeIf(field -> (persistentColumns.contains(calculateFieldName(field))));
 
 			for (Field nonPersistentField : runtimeFields) {
 				updateStatements.add(generateAddColumnToTableStatement(cl, nonPersistentField));
@@ -149,7 +149,7 @@ public class SQLiteConnection extends DatabaseConnection {
 		List<Field> props = PersistentObject.getPersistentProperties(type);
 		List<String> fKStatements = new ArrayList<>();
 
-		String result = "CREATE TABLE IF NOT EXISTS " + type.getSimpleName() + " (";
+		String result = "CREATE TABLE IF NOT EXISTS " + calculateClassName(type) + " (";
 
 		for (int i = 0; i < props.size(); i++) {
 			Field field = props.get(i);
@@ -172,7 +172,7 @@ public class SQLiteConnection extends DatabaseConnection {
 			result += fKStatements.get(i);
 
 			if (i < fKStatements.size() - 1)
-				result += " ,";
+				result += " , ";
 
 		}
 

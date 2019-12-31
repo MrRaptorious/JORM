@@ -1,5 +1,10 @@
 package jormCore.DBConnection;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+
+import jormCore.Annotaions.Persistent;
+
 public class FieldWrapper {
 
 	private String name;
@@ -46,4 +51,18 @@ public class FieldWrapper {
 	public boolean isAutoincrement() {
 		return autoincrement;
 	}
+	
+//	public static String calculateFieldName(Field field)
+//	{
+//		String name = "";
+//		Persistent persistentAnnotation = field.getAnnotation(Persistent.class);
+//		
+//		if(persistentAnnotation != null)
+//			name = persistentAnnotation.name();
+//		
+//		if(name == null || name == "")
+//			name = field.getName();
+//		
+//		return name;
+//	}
 }
