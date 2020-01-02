@@ -1,6 +1,6 @@
 package jormCore;
 
-import java.lang.reflect.Field;
+//import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -9,8 +9,12 @@ import java.util.Map;
 import java.util.UUID;
 
 import jormCore.Annotaions.*;
+import jormCore.Wrapping.FieldWrapper;
+import jormCore.Wrapping.WrappingHandler;
 
 public class PersistentObject {
+	private ObjectSpace objectSpace;
+	
 	@PrimaryKey
 	@Persistent(name = "ID")
 	private UUID id;
@@ -21,62 +25,26 @@ public class PersistentObject {
 	@Persistent(name = "DELETED")
 	private boolean isDeleted;
 
-	public PersistentObject() {
+	public PersistentObject(ObjectSpace os) {
 		id = UUID.randomUUID();
 		creationDate = new Date();
 		lastChange = new Date();
+		
+		this.objectSpace = os;
+		os.SaveObject(this);
 	}
 
 	public UUID getID() {
 		return id;
 	}
 
-	public List<Field> getPersistentProperties() {
-		return getPersistentProperties(this.getClass());
-	}
+	public Map<FieldWrapper, Object> getPersistentPropertiesWithValues() {
+		List<FieldWrapper> wrappedFields = WrappingHandler.getWrappingHandler().getClassWrapper(this.getClass()).getWrappedFields();
+		Map<FieldWrapper, Object> mapping = new HashMap<FieldWrapper, Object>();
 
-	public static List<Field> getPersistentProperties(Class<?> persistentClass) {
-		List<Field> members = new ArrayList<Field>();
-
-		while (persistentClass != null) {
-			for (Field field : persistentClass.getDeclaredFields()) {
-				if (persistentClass.isAnnotationPresent(jormCore.Annotaions.Persistent.class)
-						|| field.isAnnotationPresent(jormCore.Annotaions.Persistent.class)) {
-					field.setAccessible(true);
-					members.add(field);
-				}
-			}
-
-			persistentClass = persistentClass.getSuperclass();
-		}
-
-		return members;
-	}
-
-	public static Field getPrimaryKey(Class<?> persistentClass) {
-		while (persistentClass != null) {
-			for (Field field : persistentClass.getDeclaredFields()) {
-				if ((persistentClass.isAnnotationPresent(jormCore.Annotaions.Persistent.class)
-						|| field.isAnnotationPresent(jormCore.Annotaions.Persistent.class))
-						&& field.isAnnotationPresent(jormCore.Annotaions.PrimaryKey.class)) {
-					field.setAccessible(true);
-					return field;
-				}
-			}
-
-			persistentClass = persistentClass.getSuperclass();
-		}
-
-		return null;
-	}
-
-	public Map<Field, Object> getPersistentPropertiesWithValues() {
-		List<Field> fields = getPersistentProperties();
-		Map<Field, Object> mapping = new HashMap<Field, Object>();
-
-		for (Field f : fields) {
+		for (FieldWrapper fw : wrappedFields) {
 			try {
-				mapping.put(f, f.get(this));
+				mapping.put(fw, fw.getOriginalField().get(this));
 			} catch (IllegalArgumentException | IllegalAccessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

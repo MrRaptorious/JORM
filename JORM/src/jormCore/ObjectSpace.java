@@ -1,6 +1,7 @@
 package jormCore;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.*;
@@ -9,12 +10,13 @@ import jormCore.DBConnection.DatabaseConnection;
 
 public class ObjectSpace{
 	
-	// dbConnection Variable
-	private Map<Class, List<PersistentObject>> _objectCache;
+//	private Map<Class, List<PersistentObject>> changedObjects;
+	private Map<Class, List<PersistentObject>> objectCache;
 	private DatabaseConnection connection;
 	
 	public ObjectSpace(DatabaseConnection connection)
 	{
+		objectCache = new HashMap<Class, List<PersistentObject>>();
 		this.connection = connection;
 //		RefreshCache();
 	}
@@ -32,17 +34,17 @@ public class ObjectSpace{
 	public ObjectSpace(List<Class> typeList)
 	{
 		for(Class cls : typeList)
-			RefreshCache(cls);
+			refreshCache(cls);
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T extends PersistentObject> List<T> GetObjects(Class<T> cls)
+	public <T extends PersistentObject> List<T> getObjects(Class<T> cls)
 	{
-		if(_objectCache != null && _objectCache.containsKey(cls))
+		if(objectCache != null && objectCache.containsKey(cls))
 		{
 			List<T> castedList = new ArrayList<T>();
 			
-			for(PersistentObject obj : _objectCache.get(cls))
+			for(PersistentObject obj : objectCache.get(cls))
 			{
 				castedList.add((T)obj);
 			}
@@ -53,17 +55,17 @@ public class ObjectSpace{
 		return null;
 	}
 	
-	private void RefreshCache(Class type)
+	private void refreshCache(Class type)
 	{
 		// Fill _objectCache from DB for type
 	}
 	
-	private <T extends PersistentObject> void LoadCache()
+	private <T extends PersistentObject> void loadCache()
 	{
 		
 	}
 
-	private <T extends PersistentObject> List<T> CastListToT(List<PersistentObject> pList)
+	private <T extends PersistentObject> List<T> castListToT(List<PersistentObject> pList)
 	{
 		List<T> castedList = new ArrayList<T>();
 		
@@ -75,16 +77,15 @@ public class ObjectSpace{
 		return castedList;
 	}
 	
-	public <T extends PersistentObject> List<T> FindObejcts(Class<T> type, Function<List<T>,List<T>> filter)
+	public <T extends PersistentObject> List<T> findObejcts(Class<T> type, Function<List<T>,List<T>> filter)
 	{
-		if(_objectCache != null && _objectCache.containsKey(type))
+		if(objectCache != null && objectCache.containsKey(type))
 		{
-			List<T> castedList = this.<T>CastListToT(_objectCache.get(type));
+			List<T> castedList = this.<T>castListToT(objectCache.get(type));
 			
 			return filter.apply(castedList);
 		}
 		
 		return null;
 	}
-	
 }

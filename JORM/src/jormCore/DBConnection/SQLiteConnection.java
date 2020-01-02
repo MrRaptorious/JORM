@@ -18,6 +18,9 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import jormCore.Annotaions.*;
+import jormCore.Wrapping.ClassWrapper;
+import jormCore.Wrapping.FieldWrapper;
+import jormCore.Wrapping.WrappingHandler;
 import jormCore.JormApplication;
 import jormCore.PersistentObject;
 
@@ -55,27 +58,28 @@ public class SQLiteConnection extends DatabaseConnection {
 		String columnPart = "(";
 		String valuePart = " VALUES(";
 
-		Map<Field, Object> objectValues = obj.getPersistentPropertiesWithValues();
+		Map<FieldWrapper, Object> objectValues = obj.getPersistentPropertiesWithValues();
 
-		result += calculateClassName(obj.getClass());
+		// add tableName
+		result += WrappingHandler.getWrappingHandler().getClassWrapper(obj.getClass()).getName();
 
 		String delimiter = "";
 
-		for (Entry<Field, Object> elem : objectValues.entrySet()) {
+		for (Entry<FieldWrapper, Object> elem : objectValues.entrySet()) {
 
-			if( elem.getValue() == null)
+			if (elem.getValue() == null)
 				continue;
-			
-			columnPart += delimiter + calculateFieldName(elem.getKey());
-			valuePart += delimiter + normalizeValue(elem.getKey().getType(), elem.getValue());
+
+			columnPart += delimiter + elem.getKey().getName();
+			valuePart += delimiter + normalizeValueForInsertStatement(elem.getKey().getOriginalField().getType(), elem.getValue());
 
 			if (delimiter == "")
 				delimiter = " , ";
 		}
 
-		 result += columnPart+ ") " + valuePart + ")";
+		result += columnPart + ") " + valuePart + ")";
 
-		 execute(result);
+		execute(result);
 	}
 
 	@Override
@@ -88,7 +92,7 @@ public class SQLiteConnection extends DatabaseConnection {
 		try {
 			execute("PRAGMA foreign_keys=off");
 
-			for (Class<? extends PersistentObject> cl : JormApplication.getApplication().getTypeList()) {
+			for (ClassWrapper cl : WrappingHandler.getWrappingHandler().getWrapperList()) {
 				execute(generateCreateTypeStatement(cl));
 			}
 
@@ -104,12 +108,10 @@ public class SQLiteConnection extends DatabaseConnection {
 	public void updateSchema() {
 		ArrayList<String> updateStatements = new ArrayList<>();
 
-		for (Class<? extends PersistentObject> cl : JormApplication.getApplication().getTypeList()) {
+		for (ClassWrapper cl : WrappingHandler.getWrappingHandler().getWrapperList()) {
 
-			String getTypeSchemaStatement = "PRAGMA table_info(" + cl.getSimpleName() + ")";
-			ArrayList<String> persistentColumns = new ArrayList<>();
-
-			List<Field> runtimeFields = new ArrayList<>();
+			String getTypeSchemaStatement = "PRAGMA table_info(" + cl.getName() + ")";
+			List<String> persistentColumns = new ArrayList<>();
 
 			// collect persistentColumns
 			try {
@@ -122,16 +124,10 @@ public class SQLiteConnection extends DatabaseConnection {
 				e.printStackTrace();
 			}
 
-			// collect runtimeColumns (also columns which are already persistent)
-			runtimeFields = PersistentObject.getPersistentProperties(cl);
-
-			// set runtimeColumns to ONLY runtimeColumns
-			runtimeFields.removeIf(field -> (persistentColumns.contains(calculateFieldName(field))));
-
-			for (Field nonPersistentField : runtimeFields) {
-				updateStatements.add(generateAddColumnToTableStatement(cl, nonPersistentField));
+			for (FieldWrapper fieldWrapper : cl.getWrappedFields()) {
+				if(!persistentColumns.contains(fieldWrapper.getName()))
+					updateStatements.add(generateAddColumnToTableStatement(fieldWrapper));
 			}
-
 		}
 
 		for (String statement : updateStatements) {
@@ -145,16 +141,14 @@ public class SQLiteConnection extends DatabaseConnection {
 	}
 
 	@Override
-	public String generateCreateTypeStatement(Class<? extends PersistentObject> type) {
-		List<Field> props = PersistentObject.getPersistentProperties(type);
+	public String generateCreateTypeStatement(ClassWrapper cw) {
 		List<String> fKStatements = new ArrayList<>();
 
-		String result = "CREATE TABLE IF NOT EXISTS " + calculateClassName(type) + " (";
+		String result = "CREATE TABLE IF NOT EXISTS " + cw.getName() + " (";
 
-		for (int i = 0; i < props.size(); i++) {
-			Field field = props.get(i);
+		for (int i = 0; i < cw.getWrappedFields().size(); i++) {
 
-			FieldWrapper wr = WrapField(field);
+			FieldWrapper wr = cw.getWrappedFields().get(i);
 
 			result += generateFieldDefinition(wr);
 
@@ -162,7 +156,7 @@ public class SQLiteConnection extends DatabaseConnection {
 				fKStatements.add(generateForeignKeyDefinition(wr));
 			}
 
-			if (i < props.size() - 1 || fKStatements.size() > 0)
+			if (i < cw.getWrappedFields().size() - 1 || fKStatements.size() > 0)
 				result += " ,";
 		}
 
@@ -186,7 +180,7 @@ public class SQLiteConnection extends DatabaseConnection {
 
 		result += wr.getName();
 		result += " ";
-		result += wr.getType();
+		result += wr.getDBType();
 
 		if (wr.isPrimaryKey())
 			result += " PRIMARY KEY ";
@@ -206,26 +200,12 @@ public class SQLiteConnection extends DatabaseConnection {
 		return "";
 	}
 
-	@Override
-	protected String ParseFieldType(Field field) {
-		Class<?> type = field.getType();
-
-		if (type == String.class || type == char.class || type == UUID.class || PersistentObject.class.isAssignableFrom(type))
-			return "TEXT";
+	public String generateAddColumnToTableStatement(FieldWrapper fw) {
 		
-		if (type == int.class || type == Date.class )
-			return "INTEGER";
-
-		return "TEXT";
+		return "ALTER TABLE " + fw.getClassWrapper().getName() + " ADD " + generateFieldDefinition(fw);
 	}
 
-	public String generateAddColumnToTableStatement(Class<? extends PersistentObject> cl, Field nonPersistentField) {
-		FieldWrapper wr = WrapField(nonPersistentField);
-
-		return "ALTER TABLE " + cl.getSimpleName() + " ADD " + generateFieldDefinition(wr);
-	}
-
-	private String normalizeValue(Class<?> type, Object value) {
+	private String normalizeValueForInsertStatement(Class<?> type, Object value) {
 
 		if (type == String.class)
 			return "'" + (String) value + "'";
@@ -233,12 +213,25 @@ public class SQLiteConnection extends DatabaseConnection {
 		if (PersistentObject.class.isAssignableFrom(type))
 			return "" + ((PersistentObject) value).getID();
 
-		if(type == Date.class)
-			return "" + ((Date)value).getTime();
-		
-		if(type == UUID.class)
-			return "'" + ((UUID)value).toString() + "'";
-		
+		if (type == Date.class)
+			return "" + ((Date) value).getTime();
+
+		if (type == UUID.class)
+			return "'" + ((UUID) value).toString() + "'";
+
 		return value.toString();
 	}
+
+	@Override
+	public String parseFieldType(Class<?> type) {
+		if (type == String.class || type == char.class || type == UUID.class
+				|| PersistentObject.class.isAssignableFrom(type))
+			return "TEXT";
+
+		if (type == int.class || type == Date.class || type == boolean.class)
+			return "INTEGER";
+
+		return "TEXT";
+	}
+
 }

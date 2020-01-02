@@ -19,6 +19,6 @@ public class Program {
 		
 		ObjectSpace os = app.createObjectSpace();
 		
-		os.SaveObject(new MyTestClass("Dies ist ein Testwert"));
+		new MyTestClass(os);
 	}
 }

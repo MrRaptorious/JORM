@@ -5,82 +5,73 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jormCore.DBConnection.DatabaseConnection;
+import jormCore.DBConnection.FieldTypeParser;
 import jormCore.DBConnection.SQLiteConnection;
 import jormCore.Tracing.LogLevel;
+import jormCore.Wrapping.WrappingHandler;
 
 public class JormApplication {
 
 	private static JormApplication application;
 	private LogLevel logLevel;
 	private String connectionSting;
-	private DatabaseConnection connection; 
-	
-	private List<Class<? extends PersistentObject>> persistentTypeList;
+	private DatabaseConnection connection;
+	private FieldTypeParser currentParser;
+	private WrappingHandler wrappingHandler;
 
-	private JormApplication()
-	{
-		persistentTypeList = new ArrayList<>();
-		//TODO Load from settings File
+	private JormApplication() {
+		// TODO Load from settings File
 		logLevel = LogLevel.Error;
 		connectionSting = "jdbc:sqlite:testdb.sqlite";
-		
+
 		try {
 			connection = new SQLiteConnection(connectionSting);
+			currentParser = connection;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	public static JormApplication getApplication()
-	{
-		if(application == null)
+
+	public FieldTypeParser getCurrentFieldTypeParser() {
+		return currentParser;
+	}
+
+	public static JormApplication getApplication() {
+		if (application == null)
 			application = new JormApplication();
-			
+
 		return application;
 	}
-	
-	public void initDatabase()
-	{	
+
+	public void initDatabase() {
+
 		connection.createSchema();
 		connection.updateSchema();
 	}
 
-	public ObjectSpace createObjectSpace()
-	{
+	public ObjectSpace createObjectSpace() {
 		return new ObjectSpace(connection);
 	}
 
-	public LogLevel getLogLevel()
-	{
+	public LogLevel getLogLevel() {
 		return logLevel;
 	}
-	
-	public String getConnectionString()
-	{
+
+	public String getConnectionString() {
 		return connectionSting;
 	}
-	
-    /*Type Handling*/
-	public void registerType(Class<? extends PersistentObject> type)
-	{
-		if(!persistentTypeList.contains(type))
-			persistentTypeList.add(type);
+
+	/* Type Handling */
+	public void registerType(Class<? extends PersistentObject> type) {
+		WrappingHandler.getWrappingHandler().registerType(type);
 	}
-	
-	public void registerTypes(List<Class<? extends PersistentObject>> types)
-	{
-		if(types != null)
-		{
-			for(Class<? extends PersistentObject> type : types)
-			{
+
+	public void registerTypes(List<Class<? extends PersistentObject>> types) {
+		if (types != null) {
+			for (Class<? extends PersistentObject> type : types) {
 				registerType(type);
 			}
 		}
-	}
-	
-	public List<Class<? extends PersistentObject>> getTypeList()
-	{
-		return persistentTypeList;
 	}
 }
