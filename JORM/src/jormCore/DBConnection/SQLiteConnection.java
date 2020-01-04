@@ -1,26 +1,21 @@
 package jormCore.DBConnection;
 
-import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import jormCore.Annotaions.*;
 import jormCore.Wrapping.ClassWrapper;
 import jormCore.Wrapping.FieldWrapper;
 import jormCore.Wrapping.WrappingHandler;
+import jormCore.ChangedObject;
 import jormCore.JormApplication;
 import jormCore.PersistentObject;
 
@@ -35,14 +30,56 @@ public class SQLiteConnection extends DatabaseConnection {
 
 	@Override
 	public ResultSet getTable(String name) {
-		// TODO Auto-generated method stub
-		return null;
+
+		String result = "SELECT * FROM " + name + " WHERE DELETED = 0";
+		ResultSet set = null;
+
+		try {
+			set = _connection.createStatement().executeQuery(result);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return set;
 	}
 
 	@Override
-	public void update(PersistentObject obj) {
-		// TODO Auto-generated method stub
+	public void update(ChangedObject obj) {
 
+		ClassWrapper currentClassWrapper = WrappingHandler.getWrappingHandler()
+				.getClassWrapper(obj.getRuntimeObject().getClass());
+
+		String result = "UPDATE ";
+		result += currentClassWrapper.getName();
+
+		result += " SET ";
+
+		String delimiter = "";
+
+		for (Entry<String, Object> elm : obj.getChanedFields().entrySet()) {
+
+			FieldWrapper currentFieldWrapper = currentClassWrapper.getFieldWrapper(elm.getKey());
+
+			result += delimiter + currentFieldWrapper.getName();
+			result += " = ";
+			result += normalizeValueForInsertStatement(currentFieldWrapper.getOriginalField().getType(),
+					elm.getValue());
+
+			if (delimiter == "")
+				delimiter = " , ";
+		}
+
+		result += " WHERE ";
+		result += currentClassWrapper.getPrimaryKey().getName() + " = ";
+		result += "'" + obj.getRuntimeObject().getID() + "'";
+
+		try {
+			execute(result);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -71,7 +108,8 @@ public class SQLiteConnection extends DatabaseConnection {
 				continue;
 
 			columnPart += delimiter + elem.getKey().getName();
-			valuePart += delimiter + normalizeValueForInsertStatement(elem.getKey().getOriginalField().getType(), elem.getValue());
+			valuePart += delimiter
+					+ normalizeValueForInsertStatement(elem.getKey().getOriginalField().getType(), elem.getValue());
 
 			if (delimiter == "")
 				delimiter = " , ";
@@ -125,7 +163,7 @@ public class SQLiteConnection extends DatabaseConnection {
 			}
 
 			for (FieldWrapper fieldWrapper : cl.getWrappedFields()) {
-				if(!persistentColumns.contains(fieldWrapper.getName()))
+				if (!persistentColumns.contains(fieldWrapper.getName()))
 					updateStatements.add(generateAddColumnToTableStatement(fieldWrapper));
 			}
 		}
@@ -201,7 +239,7 @@ public class SQLiteConnection extends DatabaseConnection {
 	}
 
 	public String generateAddColumnToTableStatement(FieldWrapper fw) {
-		
+
 		return "ALTER TABLE " + fw.getClassWrapper().getName() + " ADD " + generateFieldDefinition(fw);
 	}
 
@@ -232,6 +270,31 @@ public class SQLiteConnection extends DatabaseConnection {
 			return "INTEGER";
 
 		return "TEXT";
+	}
+
+	@Override
+	public Object castValue(Class<?> type, Object value) {
+
+		if(value == null)
+			return null;
+		
+		if (type == String.class)
+			return value.toString();
+		
+		if (type == int.class)
+			return Integer.parseInt(value.toString());
+
+		if (type == Date.class)
+			return new Date(Long.parseLong(value.toString()));
+
+		if (type == boolean.class)
+			return !value.toString().equals("0");
+
+		if(type == UUID.class)
+			return UUID.fromString(value.toString());
+		
+		return null;
+
 	}
 
 }

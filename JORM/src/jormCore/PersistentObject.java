@@ -1,7 +1,6 @@
 package jormCore;
 
 //import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +13,7 @@ import jormCore.Wrapping.WrappingHandler;
 
 public class PersistentObject {
 	private ObjectSpace objectSpace;
-	
+
 	@PrimaryKey
 	@Persistent(name = "ID")
 	private UUID id;
@@ -26,20 +25,31 @@ public class PersistentObject {
 	private boolean isDeleted;
 
 	public PersistentObject(ObjectSpace os) {
-		id = UUID.randomUUID();
-		creationDate = new Date();
-		lastChange = new Date();
-		
+		if (!os.isLoadingObjects()) {
+			id = UUID.randomUUID();
+			creationDate = new Date();
+			lastChange = new Date();
+			os.addCreatedObject(this);
+		}
 		this.objectSpace = os;
-		os.SaveObject(this);
+
 	}
 
 	public UUID getID() {
 		return id;
 	}
+	
+	public Date getLastChange() {
+		return lastChange;
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
 
 	public Map<FieldWrapper, Object> getPersistentPropertiesWithValues() {
-		List<FieldWrapper> wrappedFields = WrappingHandler.getWrappingHandler().getClassWrapper(this.getClass()).getWrappedFields();
+		List<FieldWrapper> wrappedFields = WrappingHandler.getWrappingHandler().getClassWrapper(this.getClass())
+				.getWrappedFields();
 		Map<FieldWrapper, Object> mapping = new HashMap<FieldWrapper, Object>();
 
 		for (FieldWrapper fw : wrappedFields) {
@@ -64,10 +74,18 @@ public class PersistentObject {
 
 	public boolean setMemberValue(String memberName, Object value) {
 		try {
-			this.getClass().getDeclaredField(memberName).set(this, value);
+
+			WrappingHandler.getWrappingHandler().getClassWrapper(this.getClass()).getFieldWrapper(memberName)
+					.getOriginalField().set(this, value);
 			return true;
-		} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+		} catch (IllegalArgumentException | IllegalAccessException | SecurityException e) {
+			e.printStackTrace();
 			return false;
 		}
+	}
+
+	protected void setPropertyValue(String changedMember, Object newValue) {
+		objectSpace.addChangedObject(this, changedMember, newValue);
+		this.setMemberValue(changedMember, newValue);
 	}
 }

@@ -2,9 +2,11 @@ package jormCore.DBConnection;
 
 import java.sql.ResultSet;
 
+import jormCore.ChangedObject;
 import jormCore.JormApplication;
 import jormCore.PersistentObject;
 import jormCore.Wrapping.ClassWrapper;
+import jormCore.Wrapping.FieldWrapper;
 import jormCore.Wrapping.WrappingHandler;
 
 import java.sql.SQLException;
@@ -39,7 +41,7 @@ public abstract class DatabaseConnection implements FieldTypeParser {
 
 	public abstract ResultSet getTable(String name);
 
-	public abstract void update(PersistentObject obj);
+	public abstract void update(ChangedObject obj);
 
 	public abstract void delete(PersistentObject obj);
 

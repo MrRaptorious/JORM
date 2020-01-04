@@ -4,4 +4,5 @@ module jorm {
 	exports jormCore.Annotaions;
 	exports jormCore.DBConnection;
 	exports jormCore.Tracing;
+	exports jormCore.Wrapping;
 }

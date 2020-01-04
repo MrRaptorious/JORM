@@ -45,4 +45,9 @@ public class WrappingHandler {
 		
 		return null;
 	}
+	
+	public FieldWrapper getFieldWrapper(Class<? extends PersistentObject> type, String fieldName)
+	{
+		return classWrapper.get(type).getFieldWrapper(fieldName);
+	}
 }

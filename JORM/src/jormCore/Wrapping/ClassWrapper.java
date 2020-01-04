@@ -2,7 +2,10 @@ package jormCore.Wrapping;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import jormCore.JormApplication;
 import jormCore.PersistentObject;
@@ -12,7 +15,8 @@ public class ClassWrapper {
 
 	private Class<? extends PersistentObject> classToWrap;
 	private String name;
-	private List<FieldWrapper> wrappedFields;
+//	private List<FieldWrapper> wrappedFields;
+	private Map<String, FieldWrapper> wrappedFields;
 	private FieldWrapper primaryKey;
 
 	public ClassWrapper(Class<? extends PersistentObject> cls) {
@@ -22,30 +26,28 @@ public class ClassWrapper {
 	}
 
 	private void initialize() {
-		wrappedFields = new ArrayList<>();
-		
+//		wrappedFields = new ArrayList<>();
+		wrappedFields = new HashMap<>();
+
 		name = calculateClassName(classToWrap);
 		calculateWrappedFields();
 	}
-	
-	public FieldWrapper getPrimaryKey()
-	{
-		if(primaryKey == null)
-		{
-			for (FieldWrapper fieldWrapper : wrappedFields) {
-				if(fieldWrapper.isPrimaryKey())
-				{
-					primaryKey = fieldWrapper;
+
+	public FieldWrapper getPrimaryKey() {
+		if (primaryKey == null) {
+			for (Entry<String, FieldWrapper> fieldWrapper : wrappedFields.entrySet()) {
+				if (fieldWrapper.getValue().isPrimaryKey()) {
+					primaryKey = fieldWrapper.getValue();
 					return primaryKey;
 				}
 			}
 		}
-		
+
 		return primaryKey;
 	}
 
 	public List<FieldWrapper> getWrappedFields() {
-		return wrappedFields;
+		return new ArrayList<FieldWrapper>(wrappedFields.values());
 	}
 
 	public String getName() {
@@ -60,7 +62,7 @@ public class ClassWrapper {
 				if (persistentClass.isAnnotationPresent(jormCore.Annotaions.Persistent.class)
 						|| field.isAnnotationPresent(jormCore.Annotaions.Persistent.class)) {
 					field.setAccessible(true);
-					wrappedFields.add(new FieldWrapper(this, field));
+					wrappedFields.put(field.getName(), new FieldWrapper(this, field));
 				}
 			}
 
@@ -80,5 +82,13 @@ public class ClassWrapper {
 			name = cls.getSimpleName();
 
 		return name;
+	}
+
+	public FieldWrapper getFieldWrapper(String fieldName) {
+		return wrappedFields.get(fieldName);
+	}
+
+	public Class<? extends PersistentObject> getClassToWrap() {
+		return classToWrap;
 	}
 }
