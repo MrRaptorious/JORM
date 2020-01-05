@@ -46,6 +46,22 @@ public class ObjectSpace {
 			createdObjects.get(obj.getClass()).add(obj);
 	}
 
+	public <T extends PersistentObject> T createObject(Class<T> type) {
+
+		T newObject = null;
+
+		try {
+			Constructor<T> ctor = type.getConstructor(ObjectSpace.class);
+			newObject = ctor.newInstance(this);
+		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
+				| IllegalArgumentException | InvocationTargetException e) {
+			// TODO 
+			e.printStackTrace();
+		}
+
+		return newObject;
+	}
+
 	@SuppressWarnings("unchecked")
 	public <T extends PersistentObject> List<T> getObjects(Class<T> cls) {
 		if (objectCache != null && objectCache.containsKey(cls)) {
@@ -74,8 +90,8 @@ public class ObjectSpace {
 				// create Object
 				try {
 					Constructor<? extends PersistentObject> ctor = classWrapper.getClassToWrap()
-
 							.getConstructor(ObjectSpace.class);
+
 					PersistentObject pobject;
 					pobject = ctor.newInstance(this);
 
@@ -109,30 +125,6 @@ public class ObjectSpace {
 
 		for (ClassWrapper clsWr : typeList)
 			refreshType(clsWr);
-	}
-
-	private <T extends PersistentObject> void loadCache() {
-
-	}
-
-	private <T extends PersistentObject> List<T> castListToT(List<PersistentObject> pList) {
-		List<T> castedList = new ArrayList<T>();
-
-		for (PersistentObject obj : pList) {
-			castedList.add((T) obj);
-		}
-
-		return castedList;
-	}
-
-	public <T extends PersistentObject> List<T> findObejcts(Class<T> type, Function<List<T>, List<T>> filter) {
-		if (objectCache != null && objectCache.containsKey(type)) {
-			List<T> castedList = this.<T>castListToT(objectCache.get(type));
-
-			return filter.apply(castedList);
-		}
-
-		return null;
 	}
 
 	public void addChangedObject(PersistentObject changedObject, String fieldName, Object newValue) {

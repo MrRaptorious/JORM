@@ -17,21 +17,25 @@ public class Program {
 		app.registerType(TestRefClass.class);
 		app.registerType(MyTestClass.class);
 		app.initDatabase();
-		
+
 		ObjectSpace os = app.createObjectSpace();
-		
-		MyTestClass tc = new MyTestClass(os);
-			tc.setText("TollerText");
-			
-			
-			MyTestClass tc1 = new MyTestClass(os);
-			tc1.setText("TollerText New!");
-		
-			
-			os.commitChanges();
-		
-		
 //		
+//		MyTestClass tc = new MyTestClass(os);
+//			tc.setText("TollerText");
+//			
+//			
+//			MyTestClass tc1 = new MyTestClass(os);
+//			tc1.setText("TollerText New!");
+//		
+
+		MyTestClass cl1 = new MyTestClass(os);
+		
+		MyTestClass cl2 = os.createObject(MyTestClass.class);
+
+		cl1.setText("Thats also working!");
+
+		os.commitChanges();
+
 //			List<MyTestClass> objectList = os.getObjects(MyTestClass.class);	
 //			for (MyTestClass myTestClass : objectList) {
 //				System.out.println(myTestClass.getID());
