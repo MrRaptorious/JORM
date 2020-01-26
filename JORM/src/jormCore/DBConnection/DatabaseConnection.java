@@ -41,6 +41,12 @@ public abstract class DatabaseConnection implements FieldTypeParser {
 
 	public abstract ResultSet getTable(String name);
 
+	public abstract void beginTransaction();
+	
+	public abstract void commitTransaction();
+	
+	public abstract void rollbackTransaction();
+	
 	public abstract void update(ChangedObject obj);
 
 	public abstract void delete(PersistentObject obj);

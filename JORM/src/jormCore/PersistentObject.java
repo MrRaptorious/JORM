@@ -1,6 +1,7 @@
 package jormCore;
 
-//import java.lang.reflect.Field;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +39,7 @@ public class PersistentObject {
 	public UUID getID() {
 		return id;
 	}
-	
+
 	public Date getLastChange() {
 		return lastChange;
 	}
@@ -66,8 +67,12 @@ public class PersistentObject {
 
 	public Object getMemberValue(String memberName) {
 		try {
-			return this.getClass().getDeclaredField(memberName).get(this);
+			Field f = this.getClass().getDeclaredField(memberName);
+			f.setAccessible(true);
+			return f.get(this);
 		} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+			
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -88,4 +93,10 @@ public class PersistentObject {
 		objectSpace.addChangedObject(this, changedMember, newValue);
 		this.setMemberValue(changedMember, newValue);
 	}
+//
+//	public <T extends PersistentObject> ArrayList<T> getList(Class<T> cls, String memberName)
+//	{
+//		return null;
+//	}
+
 }

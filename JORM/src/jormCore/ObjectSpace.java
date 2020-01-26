@@ -55,15 +55,24 @@ public class ObjectSpace {
 			newObject = ctor.newInstance(this);
 		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
 				| IllegalArgumentException | InvocationTargetException e) {
-			// TODO 
+			// TODO
 			e.printStackTrace();
 		}
 
 		return newObject;
 	}
 
-	@SuppressWarnings("unchecked")
 	public <T extends PersistentObject> List<T> getObjects(Class<T> cls) {
+		return getObjects(cls, false);
+	}
+
+	@SuppressWarnings("unchecked")
+	public <T extends PersistentObject> List<T> getObjects(Class<T> cls, boolean loadFromDB) {
+
+		if (loadFromDB) {
+			refreshType(WrappingHandler.getWrappingHandler().getClassWrapper(cls));
+		}
+
 		if (objectCache != null && objectCache.containsKey(cls)) {
 			List<T> castedList = new ArrayList<T>();
 
@@ -140,22 +149,48 @@ public class ObjectSpace {
 	}
 
 	public void commitChanges() {
-		for (Entry<Class<? extends PersistentObject>, List<PersistentObject>> type : createdObjects.entrySet()) {
-			for (PersistentObject createdObject : type.getValue()) {
-				try {
+		try {
+			connection.beginTransaction();
+
+			// create objects
+			for (Entry<Class<? extends PersistentObject>, List<PersistentObject>> type : createdObjects.entrySet()) {
+				for (PersistentObject createdObject : type.getValue()) {
+
+					// extract all relations in objects to create and add them to the changed objects
+					
+					List<FieldWrapper> relationFields = WrappingHandler.getWrappingHandler()
+							.getClassWrapper(createdObject.getClass()).getSingleRelationWrapper();
+
+					for (FieldWrapper relation : relationFields) {
+
+						String relationMemberName = relation.getOriginalField().getName();
+
+						Object o = createdObject.getMemberValue(relationMemberName);
+
+						if (o != null) {
+							addChangedObject(createdObject, relationMemberName, o);
+							createdObject.setMemberValue(relationMemberName, null);
+						}
+					}
+
 					connection.create(createdObject);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
 			}
-		}
 
-		for (Entry<Class<? extends PersistentObject>, Map<PersistentObject, ChangedObject>> type : changedObjects
-				.entrySet()) {
-			for (Entry<PersistentObject, ChangedObject> typeObject : type.getValue().entrySet()) {
-				connection.update(typeObject.getValue());
+			// update objects
+			for (Entry<Class<? extends PersistentObject>, Map<PersistentObject, ChangedObject>> type : changedObjects
+					.entrySet()) {
+				for (Entry<PersistentObject, ChangedObject> typeObject : type.getValue().entrySet()) {
+					connection.update(typeObject.getValue());
+				}
 			}
+
+			connection.commitTransaction();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			connection.rollbackTransaction();
 		}
 	}
 

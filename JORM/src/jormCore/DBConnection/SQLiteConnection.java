@@ -249,7 +249,7 @@ public class SQLiteConnection extends DatabaseConnection {
 			return "'" + (String) value + "'";
 
 		if (PersistentObject.class.isAssignableFrom(type))
-			return "" + ((PersistentObject) value).getID();
+			return "'" + ((PersistentObject) value).getID() + "'";
 
 		if (type == Date.class)
 			return "" + ((Date) value).getTime();
@@ -297,4 +297,36 @@ public class SQLiteConnection extends DatabaseConnection {
 
 	}
 
+	
+	@Override
+	public void beginTransaction() {
+		try {
+			execute("BEGIN TRANSACTION;");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+
+	@Override
+	public void commitTransaction() {
+		try {
+			execute("COMMIT;");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+
+	@Override
+	public void rollbackTransaction() {
+		try {
+			execute("ROLLBACK;");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
