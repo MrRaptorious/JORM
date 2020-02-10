@@ -1,67 +1,88 @@
 package testpackage;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import jormCore.*;
-import jormCore.Tracing.LogLevel;
 
 public class Program {
 
 	public static void main(String[] args) throws IOException {
 
 		JormApplication app = JormApplication.getApplication();
-		app.registerType(TestRefClass.class);
-		app.registerType(MyTestClass.class);
-		app.initDatabase();
+		RegisterTypes(app);
+		app.start();
 
 		ObjectSpace os = app.createObjectSpace();
 		
-		
-		createObjects(os);
-	
-//		for (MyTestClass obj : getObjects(os, MyTestClass.class)) {
-//			System.out.println(obj.getText());
-//			System.out.println(obj.getrefClass().getText());
-//			
-//		}
-		
-		
+		// createABC(os);
+
+		for (TestA a : os.getObjects(TestA.class)) {
+			System.out.println(a.getText());
+			System.out.println(a.getTestB().getText());
+			System.out.println(a.getTestB().getTestC().getText());
+		}
 	}
-	
-	public static void createObjects(ObjectSpace os)
-	{
 
-		ArrayList<MyTestClass> tcList = new ArrayList<MyTestClass>();
-		ArrayList<TestRefClass> rcList = new ArrayList<TestRefClass>();
-		Random random = new Random();
-		
-		
-		for(int i = 0; i<10; i++)
-		{
-			MyTestClass mt = new MyTestClass(os);
-			TestRefClass rc = new TestRefClass(os);
-			
-			mt.setText("tc Text " + i);
-			rc.setText("rc Text" + i);
-			
-			tcList.add(mt);
-			rcList.add(rc);
-		}
-		
-		for (MyTestClass tc : tcList) {
+	private static void createABC(ObjectSpace os) {
+		TestA a = os.createObject(TestA.class);
+		TestB b = os.createObject(TestB.class);
+		TestC c = os.createObject(TestC.class);
 
-			TestRefClass trc = rcList.remove(random.nextInt(rcList.size()));
-			
-			tc.setrefClass(trc);
+		a.setText("thisIsA");
+		b.setText("thisIsB");
+		c.setText("thisIsC");
+
+		a.setTestB(b);
+		b.setTestC(c);
+
+		os.commitChanges();
+	}
+
+	private static void RegisterTypes(JormApplication app) {
+		app.registerType(TestRefClass.class);
+		app.registerType(MyTestClass.class);
+		app.registerType(TestA.class);
+		app.registerType(TestB.class);
+		app.registerType(TestC.class);
+	}
+
+	private static void printMTC(ObjectSpace os) {
+		for (MyTestClass mtc : os.getObjects(MyTestClass.class)) {
+			System.out.println(mtc.getText());
+			if(mtc.getrefClass() != null)
+			System.out.println(mtc.getrefClass().getText());
+			System.out.println();
+			System.out.println();
 		}
+	}
+
+	private static void createObjects(ObjectSpace os) {
+		MyTestClass tc = os.createObject(MyTestClass.class);
+		MyTestClass tc2 = os.createObject(MyTestClass.class);
+		MyTestClass tc3 = os.createObject(MyTestClass.class);
+
+		TestRefClass rc = os.createObject(TestRefClass.class);
+		TestRefClass rc2 = os.createObject(TestRefClass.class);
+		TestRefClass rc3 = os.createObject(TestRefClass.class);
+
+
+		tc.setText("TestClass1");
+		tc.setrefClass(rc);
+		rc.setText("RefClass1");
+
 		
-	
+		tc2.setText("TestClass2");
+		tc2.setrefClass(rc2);
+		rc2.setText("RefClass2");
 		
+		tc3.setText("TestClass3");
+		tc3.setrefClass(rc3);
+		rc3.setText("RefClass3");
+
 		os.commitChanges();
 	}
 
@@ -69,5 +90,4 @@ public class Program {
 	{
 		return os.getObjects(cls);
 	}
-
 }

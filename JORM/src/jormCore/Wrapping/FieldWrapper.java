@@ -3,17 +3,17 @@ package jormCore.Wrapping;
 import java.lang.reflect.Field;
 import jormCore.JormApplication;
 import jormCore.PersistentObject;
+import jormCore.Annotaions.Association;
 import jormCore.Annotaions.Autoincrement;
 import jormCore.Annotaions.CanNotBeNull;
 import jormCore.Annotaions.Persistent;
 import jormCore.Annotaions.PrimaryKey;
 
 public class FieldWrapper {
-	// perhaps not needed
 	private ClassWrapper declaringClassWrapper;
 	private Field fieldToWrap;
 
-	private ForeignKey foreigenKey;
+	private AssociationWrapper association;
 	private String name;
 	private String type;
 	private boolean isPrimaryKey;
@@ -21,32 +21,23 @@ public class FieldWrapper {
 	private boolean autoincrement;
 
 	@SuppressWarnings("unchecked")
-	public FieldWrapper(ClassWrapper cw, Field field)
-	{
+	public FieldWrapper(ClassWrapper cw, Field field) {
 		fieldToWrap = field;
-		
-		 name = calculateFieldName(field);
-		 type = JormApplication.getApplication().getCurrentFieldTypeParser().parseFieldType(field.getClass());
-		 isPrimaryKey = field.isAnnotationPresent(PrimaryKey.class);
-		 canNotBeNull = field.isAnnotationPresent(CanNotBeNull.class);
-		 autoincrement = field.isAnnotationPresent(Autoincrement.class);
-		 declaringClassWrapper = cw;
-		 
-		 foreigenKey = null;
-
-		if (PersistentObject.class.isAssignableFrom(field.getType())) {
-			foreigenKey = new ForeignKey(WrappingHandler.getWrappingHandler()
-					.getClassWrapper((Class<? extends PersistentObject>)field.getType()));
-		}
-		
+		name = calculateFieldName(field);
+		type = JormApplication.getApplication().getCurrentFieldTypeParser().parseFieldType(field.getClass());
+		isPrimaryKey = field.isAnnotationPresent(PrimaryKey.class);
+		canNotBeNull = field.isAnnotationPresent(CanNotBeNull.class);
+		autoincrement = field.isAnnotationPresent(Autoincrement.class);
+		declaringClassWrapper = cw;
+		association = null;
 	}
 
 	public boolean isForeigenKey() {
-		return foreigenKey != null;
+		return association != null;
 	}
 
-	public ForeignKey getForeigenKey() {
-		return foreigenKey;
+	public AssociationWrapper getForeigenKey() {
+		return association;
 	}
 
 	public String getName() {
@@ -71,6 +62,20 @@ public class FieldWrapper {
 
 	public ClassWrapper getClassWrapper() {
 		return declaringClassWrapper;
+	}
+
+	public void updateAssociation() {
+		if (PersistentObject.class.isAssignableFrom(fieldToWrap.getType())) {
+			String name = null;
+
+			if (fieldToWrap.getAnnotation(Association.class) != null)
+				name = fieldToWrap.getAnnotation(Association.class).name();
+
+			ClassWrapper foreigneClassWrapper = WrappingHandler.getWrappingHandler()
+					.getClassWrapper((Class<? extends PersistentObject>) fieldToWrap.getType());
+
+			this.association = new AssociationWrapper(foreigneClassWrapper, name);
+		}
 	}
 
 	public static String calculateFieldName(Field field) {

@@ -4,15 +4,15 @@ import jormCore.ObjectSpace;
 import jormCore.PersistentObject;
 import jormCore.Annotaions.Persistent;
 
-@Persistent
-public class TestRefClass extends PersistentObject{
- 
-	public TestRefClass(ObjectSpace os) {
+public class TestC extends PersistentObject {
+
+	@Persistent
+	private String text;
+
+	public TestC(ObjectSpace os) {
 		super(os);
 	}
-	
-	private String text;
-	
+
 	public void setText(String myText) {
 		setPropertyValue("text", myText);
 	}
@@ -20,4 +20,5 @@ public class TestRefClass extends PersistentObject{
 	public String getText() {
 		return text;
 	}
+
 }

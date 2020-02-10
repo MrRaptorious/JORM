@@ -24,7 +24,7 @@ public class JormList<T extends PersistentObject> extends ArrayList<T> {
 	public boolean add(T o)
 	{
 		try {
-			WrappingHandler.getWrappingHandler().getClassWrapper(o.getClass()).getRelationMember(relationName).getOriginalField().set(o, owner);
+			WrappingHandler.getWrappingHandler().getClassWrapper(o.getClass()).getRelationWrapper(relationName).getOriginalField().set(o, owner);
 			return super.add(o);
 		
 		} catch (IllegalArgumentException | IllegalAccessException e) {
@@ -48,7 +48,7 @@ public class JormList<T extends PersistentObject> extends ArrayList<T> {
 			try {
 				// set reference to null
 				WrappingHandler.getWrappingHandler().getClassWrapper(castedObejct.getClass())
-				.getRelationMember(relationName).getOriginalField().set(castedObejct, null);
+				.getRelationWrapper(relationName).getOriginalField().set(castedObejct, null);
 				return true;
 			} catch (IllegalArgumentException | IllegalAccessException e) {
 				// TODO Auto-generated catch block
@@ -73,7 +73,7 @@ public class JormList<T extends PersistentObject> extends ArrayList<T> {
 		{
 			try {
 				WrappingHandler.getWrappingHandler().getClassWrapper(removedObject.getClass())
-				.getRelationMember(relationName).getOriginalField().set(removedObject, null);
+				.getRelationWrapper(relationName).getOriginalField().set(removedObject, null);
 				return removedObject;
 			} catch (IllegalArgumentException | IllegalAccessException e) {
 				// TODO Auto-generated catch block

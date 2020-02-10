@@ -2,20 +2,23 @@ package jormCore;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.Map.Entry;
-import java.util.function.*;
 import jormCore.DBConnection.DatabaseConnection;
+import jormCore.Wrapping.AssociationWrapper;
 import jormCore.Wrapping.ClassWrapper;
 import jormCore.Wrapping.FieldWrapper;
 import jormCore.Wrapping.WrappingHandler;
 
+/**
+ * Main object to handle datamanipulation from user
+ */
 public class ObjectSpace {
 
 	private Map<Class<? extends PersistentObject>, Map<PersistentObject, ChangedObject>> changedObjects;
@@ -30,6 +33,9 @@ public class ObjectSpace {
 		refresh();
 	}
 
+	/**
+	 * Initializes the object and loads it with data
+	 */
 	private void initObjectSpace() {
 		isLoadingObjects = false;
 		objectCache = new HashMap<Class<? extends PersistentObject>, List<PersistentObject>>();
@@ -38,6 +44,11 @@ public class ObjectSpace {
 		refresh();
 	}
 
+	/**
+	 * Marks that there is a object to be created in the database
+	 * 
+	 * @param obj the newly created object which needs to be saved in the database
+	 */
 	public void addCreatedObject(PersistentObject obj) {
 		if (!createdObjects.containsKey(obj.getClass()))
 			createdObjects.put(obj.getClass(), new ArrayList<>());
@@ -46,6 +57,13 @@ public class ObjectSpace {
 			createdObjects.get(obj.getClass()).add(obj);
 	}
 
+	/**
+	 * Creates an object from the requested type
+	 * 
+	 * @param <T>  the requested type
+	 * @param type the class of the requested type
+	 * @return an object from type T
+	 */
 	public <T extends PersistentObject> T createObject(Class<T> type) {
 
 		T newObject = null;
@@ -62,10 +80,72 @@ public class ObjectSpace {
 		return newObject;
 	}
 
+	/**
+	 * Returns a list of cached objects from the requested type.
+	 * 
+	 * @param <T> the requested type
+	 * @param cls the class of the requested type
+	 * @return a list of objects from the requested type
+	 */
 	public <T extends PersistentObject> List<T> getObjects(Class<T> cls) {
 		return getObjects(cls, false);
 	}
 
+	public <T extends PersistentObject> T getObject(Class<T> cls, UUID id) {
+		return getObject(cls, id, false);
+	}
+
+	@SuppressWarnings("unchecked")
+	public <T extends PersistentObject> T getObject(Class<T> cls, UUID id, boolean loadFromDB) {
+		// check cache
+		T objToReturn = null;
+
+		if (objectCache != null && objectCache.containsKey(cls)) {
+
+			for (PersistentObject obj : objectCache.get(cls)) {
+				if (obj.getID().equals(id)) {
+					objToReturn = (T) obj;
+					break;
+				}
+			}
+		}
+
+		if (objToReturn == null && loadFromDB) {
+
+			this.isLoadingObjects = true;
+
+			ClassWrapper clsWrapper = WrappingHandler.getWrappingHandler().getClassWrapper(cls);
+
+			ResultSet set = connection.getObject(clsWrapper.getName(), id);
+
+			objectCache.put(clsWrapper.getClassToWrap(), new ArrayList<>());
+
+			try {
+				while (set.next()) {
+					objToReturn = (T) createObject(clsWrapper, set);
+					objectCache.get(clsWrapper.getClassToWrap()).add(objToReturn);
+				}
+			} catch (SQLException | SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				this.isLoadingObjects = false;
+			}
+
+		}
+
+		return objToReturn;
+	}
+
+	/**
+	 * Returns a list of objects from the requested type (LOADS POSSIBLY FROM DB)
+	 * 
+	 * @param <T>        the requested type
+	 * @param cls        the class of the requested type
+	 * @param loadFromDB determines if only cached or also non cached objects will
+	 *                   be returned
+	 * @return a list of objects from the requested type
+	 */
 	@SuppressWarnings("unchecked")
 	public <T extends PersistentObject> List<T> getObjects(Class<T> cls, boolean loadFromDB) {
 
@@ -86,6 +166,11 @@ public class ObjectSpace {
 		return null;
 	}
 
+	/**
+	 * Reloads a type from the database and updates the cache
+	 * 
+	 * @param classWrapper the requested type
+	 */
 	private void refreshType(ClassWrapper classWrapper) {
 		this.isLoadingObjects = true;
 
@@ -96,30 +181,9 @@ public class ObjectSpace {
 		try {
 			while (set.next()) {
 
-				// create Object
-				try {
-					Constructor<? extends PersistentObject> ctor = classWrapper.getClassToWrap()
-							.getConstructor(ObjectSpace.class);
+				PersistentObject ob = createObject(classWrapper, set);
 
-					PersistentObject pobject;
-					pobject = ctor.newInstance(this);
-
-					// set Object fields
-					for (FieldWrapper fw : classWrapper.getWrappedFields()) {
-
-						Object value = set.getString(fw.getName());
-
-						pobject.setMemberValue(fw.getOriginalField().getName(),
-								connection.castValue(fw.getOriginalField().getType(), value));
-
-					}
-
-					objectCache.get(classWrapper.getClassToWrap()).add(pobject);
-
-				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-						| InvocationTargetException | NoSuchMethodException e) {
-					e.printStackTrace();
-				}
+				objectCache.get(classWrapper.getClassToWrap()).add(ob);
 			}
 		} catch (SQLException | SecurityException e) {
 			// TODO Auto-generated catch block
@@ -129,6 +193,52 @@ public class ObjectSpace {
 		}
 	}
 
+	private PersistentObject createObject(ClassWrapper classWrapper, ResultSet set) throws SQLException {
+		PersistentObject pobject = null;
+
+		// create Object
+		try {
+			Constructor<? extends PersistentObject> ctor = classWrapper.getClassToWrap()
+					.getConstructor(ObjectSpace.class);
+
+			pobject = ctor.newInstance(this);
+
+			// set Object fields
+			for (FieldWrapper fw : classWrapper.getWrappedValueMemeberWrapper()) {
+				Object value = set.getString(fw.getName());
+
+				pobject.setMemberValue(fw.getOriginalField().getName(),
+						connection.castValue(fw.getOriginalField().getType(), value));
+			}
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+				| NoSuchMethodException e) {
+			e.printStackTrace();
+		}
+
+		for (FieldWrapper fw : classWrapper.getRelationWrapper()) {
+
+			String oid = set.getString(fw.getName());
+
+			if(oid != null && !oid.equals(""))
+			{
+				AssociationWrapper as = fw.getForeigenKey();
+				ClassWrapper cw = as.getReferencingType();
+				Class cl = cw.getClassToWrap();
+
+
+				PersistentObject refObj  = getObject(cl,UUID.fromString(oid),true);
+				pobject.setRelation(fw.getOriginalField().getName(), refObj);
+			}
+
+		}
+
+	return pobject;
+
+	}
+
+	/**
+	 * Reloads all types from the database and updates the cache
+	 */
 	public void refresh() {
 		List<ClassWrapper> typeList = WrappingHandler.getWrappingHandler().getWrapperList();
 
@@ -136,6 +246,13 @@ public class ObjectSpace {
 			refreshType(clsWr);
 	}
 
+	/**
+	 * Marks a change to an object to update the database
+	 * 
+	 * @param changedObject the PersistentObject which has changed
+	 * @param fieldName     the name of the changed member
+	 * @param newValue      the new value from the changed member
+	 */
 	public void addChangedObject(PersistentObject changedObject, String fieldName, Object newValue) {
 		if (!changedObjects.containsKey(changedObject.getClass())) {
 			changedObjects.put(changedObject.getClass(), new HashMap<PersistentObject, ChangedObject>());
@@ -148,6 +265,9 @@ public class ObjectSpace {
 		changedObjects.get(changedObject.getClass()).get(changedObject).addChangedField(fieldName, newValue);
 	}
 
+	/**
+	 * Updates database and commits all changes to all objects
+	 */
 	public void commitChanges() {
 		try {
 			connection.beginTransaction();
@@ -156,10 +276,11 @@ public class ObjectSpace {
 			for (Entry<Class<? extends PersistentObject>, List<PersistentObject>> type : createdObjects.entrySet()) {
 				for (PersistentObject createdObject : type.getValue()) {
 
-					// extract all relations in objects to create and add them to the changed objects
-					
+					// extract all relations in objects to create and add them to the changed
+					// objects
+
 					List<FieldWrapper> relationFields = WrappingHandler.getWrappingHandler()
-							.getClassWrapper(createdObject.getClass()).getSingleRelationWrapper();
+							.getClassWrapper(createdObject.getClass()).getRelationWrapper();
 
 					for (FieldWrapper relation : relationFields) {
 
@@ -194,6 +315,11 @@ public class ObjectSpace {
 		}
 	}
 
+	/**
+	 * Determines if the ObjectSpace is currently loading from the database
+	 * 
+	 * @return
+	 */
 	public boolean isLoadingObjects() {
 		return isLoadingObjects;
 	}

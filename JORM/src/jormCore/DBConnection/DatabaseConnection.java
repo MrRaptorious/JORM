@@ -3,16 +3,16 @@ package jormCore.DBConnection;
 import java.sql.ResultSet;
 
 import jormCore.ChangedObject;
-import jormCore.JormApplication;
 import jormCore.PersistentObject;
 import jormCore.Wrapping.ClassWrapper;
-import jormCore.Wrapping.FieldWrapper;
 import jormCore.Wrapping.WrappingHandler;
-
+import java.util.UUID;
 import java.sql.SQLException;
 import java.util.LinkedList;
-import java.util.List;
 
+/**
+ * Abstract base class to represent a generic relational database connection
+ */
 public abstract class DatabaseConnection implements FieldTypeParser {
 
 	protected String connectionString;
@@ -21,6 +21,11 @@ public abstract class DatabaseConnection implements FieldTypeParser {
 		connectionString = connectionSting;
 	}
 
+	/**
+	 * Initializes database (create then update schema)
+	 * 
+	 * @throws SQLException
+	 */
 	protected void initDatabase() throws SQLException {
 
 		LinkedList<String> createStatements = new LinkedList<>();
@@ -40,6 +45,8 @@ public abstract class DatabaseConnection implements FieldTypeParser {
 	}
 
 	public abstract ResultSet getTable(String name);
+
+	public abstract ResultSet getObject(String name, UUID id);
 
 	public abstract void beginTransaction();
 	

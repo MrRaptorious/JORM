@@ -11,12 +11,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 
-import jormCore.Annotaions.*;
 import jormCore.Wrapping.ClassWrapper;
 import jormCore.Wrapping.FieldWrapper;
 import jormCore.Wrapping.WrappingHandler;
 import jormCore.ChangedObject;
-import jormCore.JormApplication;
 import jormCore.PersistentObject;
 
 public class SQLiteConnection extends DatabaseConnection {
@@ -38,6 +36,22 @@ public class SQLiteConnection extends DatabaseConnection {
 			set = _connection.createStatement().executeQuery(result);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return set;
+	}
+
+	@Override
+	public ResultSet getObject(String name, UUID id) {
+		String statement = "select * from " + name + " where id = "
+				+ normalizeValueForInsertStatement(id.getClass(), id);
+
+		ResultSet set = null;
+
+		try {
+			set = _connection.createStatement().executeQuery(statement);
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
@@ -71,7 +85,7 @@ public class SQLiteConnection extends DatabaseConnection {
 		}
 
 		result += " WHERE ";
-		result += currentClassWrapper.getPrimaryKey().getName() + " = ";
+		result += currentClassWrapper.getPrimaryKeyMember().getName() + " = ";
 		result += "'" + obj.getRuntimeObject().getID() + "'";
 
 		try {
@@ -232,7 +246,7 @@ public class SQLiteConnection extends DatabaseConnection {
 
 	public String generateForeignKeyDefinition(FieldWrapper wr) {
 		if (wr.isForeigenKey()) {
-			return " FOREIGN KEY(" + wr.getName() + ") REFERENCES " + wr.getForeigenKey().getReferencingTypeName() + "("
+			return " FOREIGN KEY(" + wr.getName() + ") REFERENCES " + wr.getForeigenKey().getReferencingType().getName() + "("
 					+ wr.getForeigenKey().getReferencingPrimaryKeyName() + ") ";
 		}
 		return "";
@@ -275,12 +289,12 @@ public class SQLiteConnection extends DatabaseConnection {
 	@Override
 	public Object castValue(Class<?> type, Object value) {
 
-		if(value == null)
+		if (value == null)
 			return null;
-		
+
 		if (type == String.class)
 			return value.toString();
-		
+
 		if (type == int.class)
 			return Integer.parseInt(value.toString());
 
@@ -290,14 +304,13 @@ public class SQLiteConnection extends DatabaseConnection {
 		if (type == boolean.class)
 			return !value.toString().equals("0");
 
-		if(type == UUID.class)
+		if (type == UUID.class)
 			return UUID.fromString(value.toString());
-		
+
 		return null;
 
 	}
 
-	
 	@Override
 	public void beginTransaction() {
 		try {
@@ -307,7 +320,6 @@ public class SQLiteConnection extends DatabaseConnection {
 			e.printStackTrace();
 		}
 	}
-	
 
 	@Override
 	public void commitTransaction() {
@@ -318,7 +330,6 @@ public class SQLiteConnection extends DatabaseConnection {
 			e.printStackTrace();
 		}
 	}
-	
 
 	@Override
 	public void rollbackTransaction() {

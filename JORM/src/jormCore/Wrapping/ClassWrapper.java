@@ -6,37 +6,42 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import jormCore.JormApplication;
 import jormCore.PersistentObject;
 import jormCore.Annotaions.*;
 
+/**
+ * Wraps a type at runtime
+ */
 public class ClassWrapper {
 
-	private Class<? extends PersistentObject> classToWrap;
 	private String name;
-	private Map<String, FieldWrapper> wrappedFields;
+	private Class<? extends PersistentObject> classToWrap;
 	private FieldWrapper primaryKey;
-	private Map<String, FieldWrapper> wrappedMultipleRelations;
-	private Map<String, FieldWrapper> wrappedRelations;
+	private Map<String, FieldWrapper> wrappedFields;
+	// private Map<String, FieldWrapper> wrappedMultipleRelations; // n:m relation
+	private Map<String, FieldWrapper> wrappedRelations; // all relations
+	private Map<String, FieldWrapper> wrappedValueMember; // only values (int, string, double)
+	private Map<String, FieldWrapper> wrappedAnonymousAssociations;
+	private Map<String, FieldWrapper> wrappedIdentifiedAssociations;
 
 	public ClassWrapper(Class<? extends PersistentObject> cls) {
 		classToWrap = cls;
-
 		initialize();
 	}
 
 	private void initialize() {
-//		wrappedFields = new ArrayList<>();
 		wrappedFields = new HashMap<>();
-		wrappedMultipleRelations = new HashMap<>();
+		// wrappedMultipleRelations = new HashMap<>();
 		wrappedRelations = new HashMap<>();
+		wrappedValueMember = new HashMap<>();
+		wrappedAnonymousAssociations = new HashMap<>();
+		wrappedIdentifiedAssociations = new HashMap<>();
 
 		name = calculateClassName(classToWrap);
 		calculateWrappedFields();
 	}
 
-	public FieldWrapper getPrimaryKey() {
+	public FieldWrapper getPrimaryKeyMember() {
 		if (primaryKey == null) {
 			for (Entry<String, FieldWrapper> fieldWrapper : wrappedFields.entrySet()) {
 				if (fieldWrapper.getValue().isPrimaryKey()) {
@@ -65,26 +70,40 @@ public class ClassWrapper {
 				if ((persistentClass.isAnnotationPresent(Persistent.class)
 						|| field.isAnnotationPresent(Persistent.class))
 						&& !field.isAnnotationPresent(NonPersistent.class)) {
+
+					FieldWrapper wrapper = new FieldWrapper(this, field);
+
 					field.setAccessible(true);
-					wrappedFields.put(field.getName(), new FieldWrapper(this, field));
+					wrappedFields.put(field.getName(), wrapper);
 
-					Association associationAnnotation = field.getAnnotation(Association.class);
+					if (PersistentObject.class.isAssignableFrom(field.getType())) {
 
-					// fill wrappedMultipleRelations 
-					if (associationAnnotation != null) {
-						wrappedMultipleRelations.put(associationAnnotation.name(), wrappedFields.get(field.getName()));
-//						wrappedRelations.put(field.getName(),wrappedFields.get(field.getName()));
-					}
-					
-					// fill all wrappedRelations
-					if(PersistentObject.class.isAssignableFrom(field.getType()))
-					{
-						wrappedRelations.put(field.getName(),wrappedFields.get(field.getName()));
+						// add to all wrappedRelations
+						wrappedRelations.put(field.getName(), wrapper);
+
+						jormCore.Annotaions.Association associationAnnotation = field
+								.getAnnotation(jormCore.Annotaions.Association.class);
+
+						// add also to anonymous or identified relations
+						if (associationAnnotation == null) {
+							wrappedAnonymousAssociations.put(field.getName(), wrapper);
+						} else {
+							wrappedIdentifiedAssociations.put(associationAnnotation.name(), wrapper);
+						}
+					} else {
+						// add to value relations
+						wrappedValueMember.put(field.getName(), wrapper);
 					}
 				}
 			}
 
 			persistentClass = persistentClass.getSuperclass();
+		}
+	}
+
+	public void updateRelations() {
+		for (Entry<String, FieldWrapper> entry : wrappedRelations.entrySet()) {
+			entry.getValue().updateAssociation();
 		}
 	}
 
@@ -106,16 +125,26 @@ public class ClassWrapper {
 		return wrappedFields.get(fieldName);
 	}
 
-	public FieldWrapper getRelationMember(String relationName) {
+	public FieldWrapper getRelationWrapper(String relationName) {
 		return wrappedRelations.get(relationName);
 	}
 
-	public List<FieldWrapper> getSingleRelationWrapper() {
+	public List<FieldWrapper> getRelationWrapper() {
 		return new ArrayList<FieldWrapper>(wrappedRelations.values());
 	}
-	
 
 	public Class<? extends PersistentObject> getClassToWrap() {
 		return classToWrap;
+	}
+
+	public List<FieldWrapper> getWrappedValueMemeberWrapper() {
+		return new ArrayList<FieldWrapper>(wrappedValueMember.values());
+	}
+
+	public FieldWrapper getWrappedAssociation(String associationName) {
+		if (wrappedIdentifiedAssociations.containsKey(associationName))
+			return wrappedIdentifiedAssociations.get(associationName);
+
+		return null;
 	}
 }

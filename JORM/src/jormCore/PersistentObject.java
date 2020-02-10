@@ -1,7 +1,6 @@
 package jormCore;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -9,10 +8,15 @@ import java.util.Map;
 import java.util.UUID;
 
 import jormCore.Annotaions.*;
+import jormCore.Wrapping.AssociationWrapper;
 import jormCore.Wrapping.FieldWrapper;
 import jormCore.Wrapping.WrappingHandler;
 
+/**
+ * Represents the base class for all objects in the database
+ */
 public class PersistentObject {
+
 	private ObjectSpace objectSpace;
 
 	@PrimaryKey
@@ -48,6 +52,11 @@ public class PersistentObject {
 		return creationDate;
 	}
 
+	/**
+	 * Gets all fields with values from calling object
+	 * 
+	 * @return Map of all fields and values
+	 */
 	public Map<FieldWrapper, Object> getPersistentPropertiesWithValues() {
 		List<FieldWrapper> wrappedFields = WrappingHandler.getWrappingHandler().getClassWrapper(this.getClass())
 				.getWrappedFields();
@@ -61,22 +70,34 @@ public class PersistentObject {
 				e.printStackTrace();
 			}
 		}
-
 		return mapping;
 	}
 
+	/**
+	 * Gets the value of a member with the given name
+	 * 
+	 * @param memberName the name of the field from which to get the value
+	 * @return the value of the given member
+	 */
 	public Object getMemberValue(String memberName) {
 		try {
 			Field f = this.getClass().getDeclaredField(memberName);
 			f.setAccessible(true);
 			return f.get(this);
 		} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
-			
+
 			e.printStackTrace();
 			return null;
 		}
 	}
 
+	/**
+	 * Sets the value of a member with the given name (WILL NOT RESULT IN DB-UPDATE)
+	 * 
+	 * @param memberName the name of the field to which to set the value to
+	 * @param value      the value to set
+	 * @return the value of the given member
+	 */
 	public boolean setMemberValue(String memberName, Object value) {
 		try {
 
@@ -89,14 +110,26 @@ public class PersistentObject {
 		}
 	}
 
+	/**
+	 * Sets the value of a member AND marks change to update in database
+	 * 
+	 * @param changedMember the name of the changed member
+	 * @param newValue      the new value of the member
+	 */
 	protected void setPropertyValue(String changedMember, Object newValue) {
 		objectSpace.addChangedObject(this, changedMember, newValue);
 		this.setMemberValue(changedMember, newValue);
 	}
-//
-//	public <T extends PersistentObject> ArrayList<T> getList(Class<T> cls, String memberName)
-//	{
-//		return null;
-//	}
 
+	protected void setRelation(String memberName, PersistentObject value) {
+		setMemberValue(memberName, value);
+
+		AssociationWrapper aw = WrappingHandler.getWrappingHandler().getClassWrapper(this.getClass())
+				.getFieldWrapper(memberName).getForeigenKey();
+
+		if(aw != null && aw.getAssociationPartner() != null && aw.getAssociationPartner() != null)
+		{
+			value.setMemberValue(aw.getAssociationPartner().getOriginalField().getName(),this);
+		}
+	}
 }
