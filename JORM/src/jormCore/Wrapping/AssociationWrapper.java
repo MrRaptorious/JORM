@@ -14,12 +14,7 @@ public class AssociationWrapper {
 		// case there is a AssociationAnnotation
 		if (associationName != null && !associationName.equals("")) {
 			this.associationName = associationName;
-			for (FieldWrapper fw : associationPartnerClass.getRelationWrapper()) {
-				if (associationName.equals(fw.getForeigenKey().getAssociationName())) {
-					associationPartner = fw;
-					break;
-				}
-			}
+			associationPartner = associationPartnerClass.getWrappedAssociation(associationName);
 		}
 	}
 

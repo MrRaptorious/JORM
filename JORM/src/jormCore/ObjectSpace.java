@@ -122,8 +122,7 @@ public class ObjectSpace {
 
 			try {
 				while (set.next()) {
-					objToReturn = (T) createObject(clsWrapper, set);
-					objectCache.get(clsWrapper.getClassToWrap()).add(objToReturn);
+					objToReturn = (T) loadObject(clsWrapper, set);
 				}
 			} catch (SQLException | SecurityException e) {
 				// TODO Auto-generated catch block
@@ -180,10 +179,7 @@ public class ObjectSpace {
 
 		try {
 			while (set.next()) {
-
-				PersistentObject ob = createObject(classWrapper, set);
-
-				objectCache.get(classWrapper.getClassToWrap()).add(ob);
+				loadObject(classWrapper, set);
 			}
 		} catch (SQLException | SecurityException e) {
 			// TODO Auto-generated catch block
@@ -193,7 +189,40 @@ public class ObjectSpace {
 		}
 	}
 
-	private PersistentObject createObject(ClassWrapper classWrapper, ResultSet set) throws SQLException {
+	private PersistentObject loadObject(ClassWrapper classWrapper, ResultSet set) throws SQLException {
+		PersistentObject pobject = null;
+
+		pobject = createValueObject(classWrapper, set);
+
+		// add to cache to not load endless from DB
+		objectCache.get(classWrapper.getClassToWrap()).add(pobject);
+
+		pobject = fillReferences(classWrapper, set, pobject);
+
+		return pobject;
+	}
+
+	private PersistentObject fillReferences(ClassWrapper classWrapper, ResultSet set, PersistentObject pobject)
+			throws SQLException {
+		for (FieldWrapper fw : classWrapper.getRelationWrapper()) {
+
+			String oid = set.getString(fw.getName());
+
+			if (oid != null && !oid.equals("")) {
+				AssociationWrapper as = fw.getForeigenKey();
+				ClassWrapper cw = as.getReferencingType();
+				Class cl = cw.getClassToWrap();
+
+				PersistentObject refObj = getObject(cl, UUID.fromString(oid), true);
+				pobject.setRelation(fw.getOriginalField().getName(), refObj);
+			}
+
+		}
+
+		return pobject;
+	}
+
+	private PersistentObject createValueObject(ClassWrapper classWrapper, ResultSet set) throws SQLException {
 		PersistentObject pobject = null;
 
 		// create Object
@@ -214,26 +243,7 @@ public class ObjectSpace {
 				| NoSuchMethodException e) {
 			e.printStackTrace();
 		}
-
-		for (FieldWrapper fw : classWrapper.getRelationWrapper()) {
-
-			String oid = set.getString(fw.getName());
-
-			if(oid != null && !oid.equals(""))
-			{
-				AssociationWrapper as = fw.getForeigenKey();
-				ClassWrapper cw = as.getReferencingType();
-				Class cl = cw.getClassToWrap();
-
-
-				PersistentObject refObj  = getObject(cl,UUID.fromString(oid),true);
-				pobject.setRelation(fw.getOriginalField().getName(), refObj);
-			}
-
-		}
-
-	return pobject;
-
+		return pobject;
 	}
 
 	/**

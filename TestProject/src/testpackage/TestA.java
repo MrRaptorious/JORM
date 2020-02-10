@@ -11,6 +11,7 @@ public class TestA extends PersistentObject {
     private String text;
 
     @Persistent
+    @Association(name = "AandB")
     private TestB testB;
 
     public TestA(ObjectSpace os) {

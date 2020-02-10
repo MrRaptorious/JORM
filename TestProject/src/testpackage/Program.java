@@ -20,11 +20,31 @@ public class Program {
 		
 		// createABC(os);
 
+		// TestA a = os.createObject(TestA.class);
+		// TestB b = os.createObject(TestB.class);
+		// a.setText("thisIsA");
+		// b.setText("thisIsB");
+
+		// a.setTestB(b);
+		// b.setTestA(a);
+
+		// os.commitChanges();
+
+
 		for (TestA a : os.getObjects(TestA.class)) {
 			System.out.println(a.getText());
 			System.out.println(a.getTestB().getText());
-			System.out.println(a.getTestB().getTestC().getText());
+			System.out.println(a.getTestB().getTestA().getText());
+			System.out.println();
+			System.out.println();
 		}
+
+
+		// for (TestA a : os.getObjects(TestA.class)) {
+		// 	System.out.println(a.getText());
+		// 	System.out.println(a.getTestB().getText());
+		// 	// System.out.println(a.getTestB().getTestC().getText());
+		// }
 	}
 
 	private static void createABC(ObjectSpace os) {
@@ -37,7 +57,7 @@ public class Program {
 		c.setText("thisIsC");
 
 		a.setTestB(b);
-		b.setTestC(c);
+		// b.setTestC(c);
 
 		os.commitChanges();
 	}

@@ -2,6 +2,7 @@ package testpackage;
 
 import jormCore.ObjectSpace;
 import jormCore.PersistentObject;
+import jormCore.Annotaions.Association;
 import jormCore.Annotaions.Persistent;
 
 public class TestB extends PersistentObject {
@@ -10,7 +11,9 @@ public class TestB extends PersistentObject {
 	private String text;
 
     @Persistent
-    private TestC testC;
+    @Association(name = "AandB")
+    private TestA testA;
+
 
 	public TestB(ObjectSpace os) {
 		super(os);
@@ -24,11 +27,11 @@ public class TestB extends PersistentObject {
 		return text;
 	}
 
-    public TestC getTestC() {
-        return testC;
+    public TestA getTestA() {
+        return testA;
     }
 
-    public void setTestC(TestC value) {
-        setPropertyValue("testC", value);
+    public void setTestA(TestA value) {
+        setPropertyValue("testA", value);
     }
 }
