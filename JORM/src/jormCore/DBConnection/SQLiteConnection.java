@@ -15,7 +15,10 @@ import jormCore.Wrapping.ClassWrapper;
 import jormCore.Wrapping.FieldWrapper;
 import jormCore.Wrapping.WrappingHandler;
 import jormCore.ChangedObject;
+import jormCore.JormApplication;
 import jormCore.PersistentObject;
+import jormCore.Criteria.ComparisonOperator;
+import jormCore.Criteria.WhereClause;
 
 public class SQLiteConnection extends DatabaseConnection {
 
@@ -27,9 +30,11 @@ public class SQLiteConnection extends DatabaseConnection {
 	}
 
 	@Override
-	public ResultSet getTable(String name) {
+	public ResultSet getTable(ClassWrapper type) {
 
-		String result = "SELECT * FROM " + name + " WHERE DELETED = 0";
+		// String result = "SELECT * FROM " + name + " WHERE DELETED = 0";
+		String result = JormApplication.getApplication().getStatementBuilder().createSelect(type,new WhereClause("DELETED", ComparisonOperator.Equal, 0));
+		
 		ResultSet set = null;
 
 		try {
@@ -43,9 +48,12 @@ public class SQLiteConnection extends DatabaseConnection {
 	}
 
 	@Override
-	public ResultSet getObject(String name, UUID id) {
-		String statement = "select * from " + name + " where id = "
-				+ normalizeValueForInsertStatement(id.getClass(), id);
+	public ResultSet getObject(ClassWrapper type, UUID id) {
+		// String statement = "select * from " + name + " where id = "
+		// 		+ normalizeValueForInsertStatement(id.getClass(), id);
+
+		String statement = JormApplication.getApplication().getStatementBuilder().createSelect(type, new WhereClause(
+				type.getPrimaryKeyMember().getName(), ComparisonOperator.Equal, normalizeValueForInsertStatement(id)));
 
 		ResultSet set = null;
 
@@ -246,8 +254,8 @@ public class SQLiteConnection extends DatabaseConnection {
 
 	public String generateForeignKeyDefinition(FieldWrapper wr) {
 		if (wr.isForeigenKey()) {
-			return " FOREIGN KEY(" + wr.getName() + ") REFERENCES " + wr.getForeigenKey().getReferencingType().getName() + "("
-					+ wr.getForeigenKey().getReferencingPrimaryKeyName() + ") ";
+			return " FOREIGN KEY(" + wr.getName() + ") REFERENCES " + wr.getForeigenKey().getReferencingType().getName()
+					+ "(" + wr.getForeigenKey().getReferencingPrimaryKeyName() + ") ";
 		}
 		return "";
 	}
@@ -257,8 +265,13 @@ public class SQLiteConnection extends DatabaseConnection {
 		return "ALTER TABLE " + fw.getClassWrapper().getName() + " ADD " + generateFieldDefinition(fw);
 	}
 
-	private String normalizeValueForInsertStatement(Class<?> type, Object value) {
+	@Override
+	public String normalizeValueForInsertStatement(Object value) {
+		return normalizeValueForInsertStatement(value.getClass(), value);
+	}
 
+	// legacy
+	private String normalizeValueForInsertStatement(Class<?> type, Object value) {
 		if (type == String.class)
 			return "'" + (String) value + "'";
 

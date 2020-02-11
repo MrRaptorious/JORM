@@ -3,6 +3,8 @@ package jormCore;
 import java.sql.SQLException;
 import java.util.List;
 
+import jormCore.Criteria.SQLiteStatementBuilder;
+import jormCore.Criteria.StatementBuilder;
 import jormCore.DBConnection.DatabaseConnection;
 import jormCore.DBConnection.FieldTypeParser;
 import jormCore.DBConnection.SQLiteConnection;
@@ -19,12 +21,13 @@ public class JormApplication {
 	private String connectionSting;
 	private DatabaseConnection connection;
 	private FieldTypeParser currentParser;
-	private WrappingHandler wrappingHandler;
+	private StatementBuilder statementBuilder;
 
 	private JormApplication() {
 		// TODO Load from settings File
 		logLevel = LogLevel.Error;
 		connectionSting = "jdbc:sqlite:D:\\Programming\\Projects\\Java\\JORM\\TestProject\\testdb.sqlite";
+		statementBuilder = new SQLiteStatementBuilder();
 
 		try {
 			connection = new SQLiteConnection(connectionSting);
@@ -33,6 +36,10 @@ public class JormApplication {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public StatementBuilder getStatementBuilder() {
+		return statementBuilder;
 	}
 
 	public FieldTypeParser getCurrentFieldTypeParser() {
@@ -47,28 +54,28 @@ public class JormApplication {
 	}
 
 	/**
-	 *  Initializes the database (create schema then update the schema)
+	 * Initializes the database (create schema then update the schema)
 	 */
 	private void initDatabase() {
 		connection.createSchema();
 		connection.updateSchema();
 	}
 
-	
 	/**
-	 *  Starts the application, all types have to be registerd, the db schema will be updated
+	 * Starts the application, all types have to be registerd, the db schema will be
+	 * updated
 	 */
-	public void start()
-	{
+	public void start() {
 		// TODO setup relations
 		WrappingHandler.getWrappingHandler().updateRelations();
-
 
 		initDatabase();
 	}
 
 	/**
-	 * Creates a new ObjectSpace object for handling data and communicating with the Database
+	 * Creates a new ObjectSpace object for handling data and communicating with the
+	 * Database
+	 * 
 	 * @return a newly created ObjectSpace with the programs database connection
 	 */
 	public ObjectSpace createObjectSpace() {
@@ -85,6 +92,7 @@ public class JormApplication {
 
 	/**
 	 * Registers a subclass from PersistentObject to be able to handle it
+	 * 
 	 * @param type a subclass from PersistentObject
 	 */
 	public void registerType(Class<? extends PersistentObject> type) {
@@ -92,7 +100,9 @@ public class JormApplication {
 	}
 
 	/**
-	 * Registers a list of subclasses from PersistentObject to be able to handle them
+	 * Registers a list of subclasses from PersistentObject to be able to handle
+	 * them
+	 * 
 	 * @param types a list of subclasses from PersistentObject
 	 */
 	public void registerTypes(List<Class<? extends PersistentObject>> types) {

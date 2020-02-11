@@ -44,9 +44,9 @@ public abstract class DatabaseConnection implements FieldTypeParser {
 		updateSchema();
 	}
 
-	public abstract ResultSet getTable(String name);
+	public abstract ResultSet getTable(ClassWrapper type);
 
-	public abstract ResultSet getObject(String name, UUID id);
+	public abstract ResultSet getObject(ClassWrapper type, UUID id);
 
 	public abstract void beginTransaction();
 	

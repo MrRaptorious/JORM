@@ -116,7 +116,7 @@ public class ObjectSpace {
 
 			ClassWrapper clsWrapper = WrappingHandler.getWrappingHandler().getClassWrapper(cls);
 
-			ResultSet set = connection.getObject(clsWrapper.getName(), id);
+			ResultSet set = connection.getObject(clsWrapper, id);
 
 			objectCache.put(clsWrapper.getClassToWrap(), new ArrayList<>());
 
@@ -173,7 +173,7 @@ public class ObjectSpace {
 	private void refreshType(ClassWrapper classWrapper) {
 		this.isLoadingObjects = true;
 
-		ResultSet set = connection.getTable(classWrapper.getName());
+		ResultSet set = connection.getTable(classWrapper);
 
 		objectCache.put(classWrapper.getClassToWrap(), new ArrayList<>());
 

@@ -5,4 +5,5 @@ module jorm {
 	exports jormCore.DBConnection;
 	exports jormCore.Tracing;
 	exports jormCore.Wrapping;
+	exports jormCore.Criteria;
 }

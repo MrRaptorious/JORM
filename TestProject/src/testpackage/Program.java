@@ -7,6 +7,11 @@ import java.util.Random;
 import java.util.UUID;
 
 import jormCore.*;
+import jormCore.Criteria.ComparisonOperator;
+import jormCore.Criteria.LogicOperator;
+import jormCore.Criteria.SQLiteStatementBuilder;
+import jormCore.Criteria.WhereClause;
+import jormCore.Wrapping.WrappingHandler;
 
 public class Program {
 
@@ -18,6 +23,18 @@ public class Program {
 
 		ObjectSpace os = app.createObjectSpace();
 		
+		WhereClause leftInner = new WhereClause("leftInner",ComparisonOperator.Equal, 1);
+		WhereClause RightInner = new WhereClause("rightInner",ComparisonOperator.Equal, 2);
+
+		WhereClause outerWhere = new WhereClause(leftInner, RightInner, LogicOperator.And);
+
+		WhereClause outerWhere2 = new WhereClause(outerWhere, outerWhere, LogicOperator.And);
+		WhereClause outerWhere3 = new WhereClause(outerWhere2, outerWhere2, LogicOperator.And);
+
+		String s = app.getApplication().getStatementBuilder().createSelect(WrappingHandler.getWrappingHandler().getClassWrapper(TestA.class),outerWhere3);
+
+		System.out.println(s);
+
 		// createABC(os);
 
 		// TestA a = os.createObject(TestA.class);
@@ -31,13 +48,13 @@ public class Program {
 		// os.commitChanges();
 
 
-		for (TestA a : os.getObjects(TestA.class)) {
-			System.out.println(a.getText());
-			System.out.println(a.getTestB().getText());
-			System.out.println(a.getTestB().getTestA().getText());
-			System.out.println();
-			System.out.println();
-		}
+		// for (TestA a : os.getObjects(TestA.class)) {
+		// 	System.out.println(a.getText());
+		// 	System.out.println(a.getTestB().getText());
+		// 	System.out.println(a.getTestB().getTestA().getText());
+		// 	System.out.println();
+		// 	System.out.println();
+		// }
 
 
 		// for (TestA a : os.getObjects(TestA.class)) {
