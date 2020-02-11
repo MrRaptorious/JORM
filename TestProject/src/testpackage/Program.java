@@ -23,13 +23,9 @@ public class Program {
 
 		ObjectSpace os = app.createObjectSpace();
 		
-		WhereClause leftInner = new WhereClause("leftInner",ComparisonOperator.Equal, 1);
-		WhereClause RightInner = new WhereClause("rightInner",ComparisonOperator.Equal, 2);
+		WhereClause outerWhere = new WhereClause("null", 12, ComparisonOperator.Equal);
+		WhereClause outerWhere3 = new WhereClause(outerWhere, outerWhere, LogicOperator.And);
 
-		WhereClause outerWhere = new WhereClause(leftInner, RightInner, LogicOperator.And);
-
-		WhereClause outerWhere2 = new WhereClause(outerWhere, outerWhere, LogicOperator.And);
-		WhereClause outerWhere3 = new WhereClause(outerWhere2, outerWhere2, LogicOperator.And);
 
 		String s = app.getApplication().getStatementBuilder().createSelect(WrappingHandler.getWrappingHandler().getClassWrapper(TestA.class),outerWhere3);
 

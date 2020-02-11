@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.function.Predicate;
 
+import jormCore.Criteria.ComparisonOperator;
+import jormCore.Criteria.WhereClause;
+import jormCore.Wrapping.ClassWrapper;
+import jormCore.Wrapping.FieldWrapper;
 import jormCore.Wrapping.WrappingHandler;
 
 public class JormList<T extends PersistentObject> extends ArrayList<T> {
@@ -12,11 +16,14 @@ public class JormList<T extends PersistentObject> extends ArrayList<T> {
 	ObjectSpace objectSpace;
 	PersistentObject owner;
 	String relationName;
+	FieldWrapper listMember;
 
 	public JormList(ObjectSpace os, PersistentObject owner, String relationName) {
 		this.objectSpace = os;
 		this.owner = owner;
 		this.relationName = relationName;
+		listMember = WrappingHandler.getWrappingHandler().getClassWrapper(owner.getClass())
+				.getWrappedAssociation(relationName);
 	}
 
 	@Override
@@ -105,5 +112,12 @@ public class JormList<T extends PersistentObject> extends ArrayList<T> {
 	}
 
 	public void load() {
+		Class<T> partnerClass = (Class<T>) listMember.getForeigenKey().getReferencingType().getClassToWrap();
+		WhereClause clause = new WhereClause(listMember.getForeigenKey().getAssociationPartner().getName(),
+				owner.getID(), ComparisonOperator.Equal);
+
+		for (T obj : objectSpace.getObjects(partnerClass, clause)) {
+			add(obj);
+		}
 	}
 }

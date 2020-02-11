@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.Map.Entry;
+
+import jormCore.Criteria.WhereClause;
 import jormCore.DBConnection.DatabaseConnection;
 import jormCore.Wrapping.AssociationWrapper;
 import jormCore.Wrapping.ClassWrapper;
@@ -104,7 +106,8 @@ public class ObjectSpace {
 
 			for (PersistentObject obj : objectCache.get(cls)) {
 				if (obj.getID().equals(id)) {
-					objToReturn = (T) obj;
+					// objToReturn = (T) obj;
+					objToReturn = castToT(obj);
 					break;
 				}
 			}
@@ -122,7 +125,8 @@ public class ObjectSpace {
 
 			try {
 				while (set.next()) {
-					objToReturn = (T) loadObject(clsWrapper, set);
+					// objToReturn = (T) loadObject(clsWrapper, set);
+					objToReturn = castToT(loadObject(clsWrapper, set));
 				}
 			} catch (SQLException | SecurityException e) {
 				// TODO Auto-generated catch block
@@ -145,7 +149,7 @@ public class ObjectSpace {
 	 *                   be returned
 	 * @return a list of objects from the requested type
 	 */
-	@SuppressWarnings("unchecked")
+
 	public <T extends PersistentObject> List<T> getObjects(Class<T> cls, boolean loadFromDB) {
 
 		if (loadFromDB) {
@@ -156,13 +160,45 @@ public class ObjectSpace {
 			List<T> castedList = new ArrayList<T>();
 
 			for (PersistentObject obj : objectCache.get(cls)) {
-				castedList.add((T) obj);
+				// castedList.add((T)obj);
+				castedList.add(castToT(obj));
 			}
 
 			return castedList;
 		}
 
 		return null;
+	}
+
+	/**
+	 * Loads always from db TODO create where for memory search
+	 * 
+	 * @param <T>
+	 * @param cls
+	 * @param clause
+	 * @return
+	 */
+	public <T extends PersistentObject> List<T> getObjects(Class<T> cls, WhereClause clause) {
+		this.isLoadingObjects = true;
+		ClassWrapper classWrapper = WrappingHandler.getWrappingHandler().getClassWrapper(cls);
+		List<T> objectsToReturn = new ArrayList<>();
+
+		ResultSet set = connection.getTable(classWrapper, clause);
+
+		objectCache.put(classWrapper.getClassToWrap(), new ArrayList<>());
+
+		try {
+			while (set.next()) {
+				objectsToReturn.add(castToT(loadObject(classWrapper, set)));
+			}
+		} catch (SQLException | SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			this.isLoadingObjects = false;
+		}
+
+		return objectsToReturn;
 	}
 
 	/**
@@ -332,5 +368,11 @@ public class ObjectSpace {
 	 */
 	public boolean isLoadingObjects() {
 		return isLoadingObjects;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private <T extends PersistentObject> T castToT(PersistentObject po)
+	{
+		return (T)po;
 	}
 }

@@ -1,9 +1,5 @@
 package jormCore.Criteria;
 
-import java.util.ArrayList;
-import java.util.Queue;
-import java.util.Stack;
-
 import jormCore.JormApplication;
 import jormCore.Wrapping.ClassWrapper;
 
@@ -16,12 +12,15 @@ public class SQLiteStatementBuilder extends StatementBuilder {
      */
     protected String calculateWhereClause(WhereClause clause) {
 
+        if (clause == null)
+            return "";
+
         if (clause.getLeftClause() == null && clause.getRightClause() == null) {
             return evaluateBasicWhereClause(clause);
         }
 
         if (clause.getLeftClause() == null && clause.getRightClause() != null) {
-            return " ( " + evaluateBasicWhereClause(clause.getLeftClause())
+            return " ( " + evaluateBasicWhereClause(clause)
                     + calculateLogicOperator(clause.getLogicOperator()) + calculateWhereClause(clause.getRightClause())
                     + " ) ";
         }
@@ -29,7 +28,7 @@ public class SQLiteStatementBuilder extends StatementBuilder {
         if (clause.getLeftClause() != null && clause.getRightClause() == null) {
             return " ( " + calculateWhereClause(clause.getLeftClause())
                     + calculateLogicOperator(clause.getLogicOperator())
-                    + evaluateBasicWhereClause(clause.getRightClause()) + " ) ";
+                    + evaluateBasicWhereClause(clause) + " ) ";
         }
 
         if (clause.getLeftClause() != null && clause.getRightClause() != null) {
@@ -51,7 +50,7 @@ public class SQLiteStatementBuilder extends StatementBuilder {
     @Override
     public String createSelect(ClassWrapper type, WhereClause whereClause) {
         // SELECT * FROM [TYPE] WHERE [WHERE]
-        
+
         String result = "SELECT * FROM " + type.getName();
 
         if (whereClause != null)

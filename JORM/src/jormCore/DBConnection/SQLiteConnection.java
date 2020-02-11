@@ -31,35 +31,39 @@ public class SQLiteConnection extends DatabaseConnection {
 
 	@Override
 	public ResultSet getTable(ClassWrapper type) {
-
-		// String result = "SELECT * FROM " + name + " WHERE DELETED = 0";
-		String result = JormApplication.getApplication().getStatementBuilder().createSelect(type,new WhereClause("DELETED", ComparisonOperator.Equal, 0));
-		
-		ResultSet set = null;
-
-		try {
-			set = _connection.createStatement().executeQuery(result);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return set;
+		return getTable(type, null);
 	}
 
 	@Override
 	public ResultSet getObject(ClassWrapper type, UUID id) {
 		// String statement = "select * from " + name + " where id = "
-		// 		+ normalizeValueForInsertStatement(id.getClass(), id);
+		// + normalizeValueForInsertStatement(id.getClass(), id);
 
 		String statement = JormApplication.getApplication().getStatementBuilder().createSelect(type, new WhereClause(
-				type.getPrimaryKeyMember().getName(), ComparisonOperator.Equal, normalizeValueForInsertStatement(id)));
+				type.getPrimaryKeyMember().getName(), normalizeValueForInsertStatement(id), ComparisonOperator.Equal));
 
 		ResultSet set = null;
 
 		try {
 			set = _connection.createStatement().executeQuery(statement);
 		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return set;
+	}
+
+	public ResultSet getTable(ClassWrapper type, WhereClause clause) {
+		// String result = "SELECT * FROM " + name + " WHERE DELETED = 0";
+		String result = JormApplication.getApplication().getStatementBuilder().createSelect(type,
+				new WhereClause("DELETED", 0, ComparisonOperator.Equal).And(clause));
+
+		ResultSet set = null;
+
+		try {
+			set = _connection.createStatement().executeQuery(result);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -267,6 +271,9 @@ public class SQLiteConnection extends DatabaseConnection {
 
 	@Override
 	public String normalizeValueForInsertStatement(Object value) {
+		if (value == null)
+			return "NULL";
+
 		return normalizeValueForInsertStatement(value.getClass(), value);
 	}
 

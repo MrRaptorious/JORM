@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 
 import jormCore.ChangedObject;
 import jormCore.PersistentObject;
+import jormCore.Criteria.WhereClause;
 import jormCore.Wrapping.ClassWrapper;
 import jormCore.Wrapping.WrappingHandler;
 import java.util.UUID;
@@ -45,6 +46,8 @@ public abstract class DatabaseConnection implements FieldTypeParser {
 	}
 
 	public abstract ResultSet getTable(ClassWrapper type);
+
+	public abstract ResultSet getTable(ClassWrapper type, WhereClause clause);
 
 	public abstract ResultSet getObject(ClassWrapper type, UUID id);
 

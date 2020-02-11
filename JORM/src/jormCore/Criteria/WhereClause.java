@@ -7,29 +7,47 @@ public class WhereClause {
     private ComparisonOperator comparisonOperator;
     private LogicOperator logicOperator;
     private WhereClause leftClause;
-    private WhereClause rightClause;  
+    private WhereClause rightClause;
 
     // ggf ueber FieldWrapper
-    public WhereClause(String propertyName, ComparisonOperator operator, Object value)
-    {
+    public WhereClause(String propertyName, Object value, ComparisonOperator operator) {
         this.propertyName = propertyName;
         this.value = value;
         this.comparisonOperator = operator;
     }
 
-    public WhereClause(WhereClause leftClause, WhereClause rightClause, LogicOperator operator)
-    {
-        this.leftClause = leftClause;
-        this.rightClause = rightClause;
-        this.logicOperator = operator;
+    public WhereClause(WhereClause leftClause, WhereClause rightClause, LogicOperator operator) {
+        if (leftClause != null && rightClause != null) {
+            this.leftClause = leftClause;
+            this.rightClause = rightClause;
+            this.logicOperator = operator;
+        } 
+        else 
+        {
+            // default implementation
+            loadDefault();
+        }
     }
 
-    // public WhereClause(String propertyName, List<Object> value)
-    // {
-    //     this.propertyName = propertyName;
-    //     this.value = value;
-    //     this.operator = ComparisonOperator.In;
-    // }
+    private void loadDefault() {
+        this.comparisonOperator = ComparisonOperator.Equal;
+        this.propertyName = "1";
+        this.value = 1;
+    }
+
+    public WhereClause And(WhereClause clause) {
+        if (clause == null)
+            return this;
+
+        return new WhereClause(this, clause, LogicOperator.And);
+    }
+
+    public WhereClause Or(WhereClause clause) {
+        if (clause == null)
+            return this;
+
+        return new WhereClause(this, clause, LogicOperator.Or);
+    }
 
     public String getPropertyName() {
         return propertyName;

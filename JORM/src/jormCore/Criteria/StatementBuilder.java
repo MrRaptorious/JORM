@@ -39,6 +39,10 @@ public abstract class StatementBuilder {
 
     protected abstract String calculateWhereClause(WhereClause clause);
 
+    public final WhereClause concatenateWhereClauses(WhereClause clause1, WhereClause clause2, LogicOperator operator) {
+        return new WhereClause(clause1, clause2, operator);
+    }
+
     // comparison
     protected abstract String EQUAL();
 
