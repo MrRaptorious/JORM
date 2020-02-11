@@ -82,6 +82,10 @@ public class JormApplication {
 		return new ObjectSpace(connection);
 	}
 
+	public ObjectSpace createObjectSpace(boolean loadOnInit) {
+		return new ObjectSpace(connection,loadOnInit);
+	}
+
 	public LogLevel getLogLevel() {
 		return logLevel;
 	}

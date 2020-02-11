@@ -20,15 +20,13 @@ public class SQLiteStatementBuilder extends StatementBuilder {
         }
 
         if (clause.getLeftClause() == null && clause.getRightClause() != null) {
-            return " ( " + evaluateBasicWhereClause(clause)
-                    + calculateLogicOperator(clause.getLogicOperator()) + calculateWhereClause(clause.getRightClause())
-                    + " ) ";
+            return " ( " + evaluateBasicWhereClause(clause) + calculateLogicOperator(clause.getLogicOperator())
+                    + calculateWhereClause(clause.getRightClause()) + " ) ";
         }
 
         if (clause.getLeftClause() != null && clause.getRightClause() == null) {
             return " ( " + calculateWhereClause(clause.getLeftClause())
-                    + calculateLogicOperator(clause.getLogicOperator())
-                    + evaluateBasicWhereClause(clause) + " ) ";
+                    + calculateLogicOperator(clause.getLogicOperator()) + evaluateBasicWhereClause(clause) + " ) ";
         }
 
         if (clause.getLeftClause() != null && clause.getRightClause() != null) {
@@ -47,16 +45,36 @@ public class SQLiteStatementBuilder extends StatementBuilder {
                 + " ) ";
     }
 
-    @Override
-    public String createSelect(ClassWrapper type, WhereClause whereClause) {
+    public String createSelect(ClassWrapper type, WhereClause whereClause, boolean loadDeleted) {
         // SELECT * FROM [TYPE] WHERE [WHERE]
-
         String result = "SELECT * FROM " + type.getName();
+        WhereClause resultingClause = new WhereClause("DELETED", 0, ComparisonOperator.Equal);
+        
+        // normal case
+        if(!loadDeleted)
+        {
+            resultingClause = resultingClause.And(whereClause);
+        }
+        else if (whereClause != null)
+        {
+            resultingClause = whereClause;
+        }
+        else
+        {
+            return result;
+        }
 
-        if (whereClause != null)
-            result += " WHERE " + calculateWhereClause(whereClause);
+        result += " WHERE " + calculateWhereClause(resultingClause);
+
+        System.out.println(result);
+        System.out.println();
 
         return result;
+    }
+
+    @Override
+    public String createSelect(ClassWrapper type, WhereClause whereClause) {
+        return createSelect(type, whereClause, false);
     }
 
     @Override

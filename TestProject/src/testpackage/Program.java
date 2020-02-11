@@ -3,6 +3,7 @@ package testpackage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
@@ -21,43 +22,14 @@ public class Program {
 		RegisterTypes(app);
 		app.start();
 
-		ObjectSpace os = app.createObjectSpace();
-		
-		WhereClause outerWhere = new WhereClause("null", 12, ComparisonOperator.Equal);
-		WhereClause outerWhere3 = new WhereClause(outerWhere, outerWhere, LogicOperator.And);
+		ObjectSpace os = app.createObjectSpace(false);
 
 
-		String s = app.getApplication().getStatementBuilder().createSelect(WrappingHandler.getWrappingHandler().getClassWrapper(TestA.class),outerWhere3);
 
-		System.out.println(s);
+		List<TestA> atests = os.getObjects(TestA.class,true);
 
-		// createABC(os);
-
-		// TestA a = os.createObject(TestA.class);
-		// TestB b = os.createObject(TestB.class);
-		// a.setText("thisIsA");
-		// b.setText("thisIsB");
-
-		// a.setTestB(b);
-		// b.setTestA(a);
-
-		// os.commitChanges();
-
-
-		// for (TestA a : os.getObjects(TestA.class)) {
-		// 	System.out.println(a.getText());
-		// 	System.out.println(a.getTestB().getText());
-		// 	System.out.println(a.getTestB().getTestA().getText());
-		// 	System.out.println();
-		// 	System.out.println();
-		// }
-
-
-		// for (TestA a : os.getObjects(TestA.class)) {
-		// 	System.out.println(a.getText());
-		// 	System.out.println(a.getTestB().getText());
-		// 	// System.out.println(a.getTestB().getTestC().getText());
-		// }
+		int igh = 4;
+		System.out.println(4);
 	}
 
 	private static void createABC(ObjectSpace os) {
@@ -70,9 +42,8 @@ public class Program {
 		c.setText("thisIsC");
 
 		a.setTestB(b);
-		// b.setTestC(c);
+		b.setTestC(c);
 
-		os.commitChanges();
 	}
 
 	private static void RegisterTypes(JormApplication app) {

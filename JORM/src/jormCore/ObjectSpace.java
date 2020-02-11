@@ -35,6 +35,14 @@ public class ObjectSpace {
 		refresh();
 	}
 
+	public ObjectSpace(DatabaseConnection connection, boolean refresh) {
+		this.connection = connection;
+		initObjectSpace();
+		
+		if (refresh)
+			refresh();
+	}
+
 	/**
 	 * Initializes the object and loads it with data
 	 */
@@ -43,7 +51,6 @@ public class ObjectSpace {
 		objectCache = new HashMap<Class<? extends PersistentObject>, List<PersistentObject>>();
 		changedObjects = new HashMap<Class<? extends PersistentObject>, Map<PersistentObject, ChangedObject>>();
 		createdObjects = new HashMap<Class<? extends PersistentObject>, List<PersistentObject>>();
-		refresh();
 	}
 
 	/**
@@ -369,10 +376,9 @@ public class ObjectSpace {
 	public boolean isLoadingObjects() {
 		return isLoadingObjects;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	private <T extends PersistentObject> T castToT(PersistentObject po)
-	{
-		return (T)po;
+	private <T extends PersistentObject> T castToT(PersistentObject po) {
+		return (T) po;
 	}
 }

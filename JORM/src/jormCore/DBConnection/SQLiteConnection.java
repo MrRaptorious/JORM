@@ -39,8 +39,8 @@ public class SQLiteConnection extends DatabaseConnection {
 		// String statement = "select * from " + name + " where id = "
 		// + normalizeValueForInsertStatement(id.getClass(), id);
 
-		String statement = JormApplication.getApplication().getStatementBuilder().createSelect(type, new WhereClause(
-				type.getPrimaryKeyMember().getName(), normalizeValueForInsertStatement(id), ComparisonOperator.Equal));
+		String statement = JormApplication.getApplication().getStatementBuilder().createSelect(type,
+				new WhereClause(type.getPrimaryKeyMember().getName(), id, ComparisonOperator.Equal));
 
 		ResultSet set = null;
 
@@ -55,8 +55,7 @@ public class SQLiteConnection extends DatabaseConnection {
 
 	public ResultSet getTable(ClassWrapper type, WhereClause clause) {
 		// String result = "SELECT * FROM " + name + " WHERE DELETED = 0";
-		String result = JormApplication.getApplication().getStatementBuilder().createSelect(type,
-				new WhereClause("DELETED", 0, ComparisonOperator.Equal).And(clause));
+		String result = JormApplication.getApplication().getStatementBuilder().createSelect(type, clause);
 
 		ResultSet set = null;
 
