@@ -38,7 +38,7 @@ public class ObjectSpace {
 	public ObjectSpace(DatabaseConnection connection, boolean refresh) {
 		this.connection = connection;
 		initObjectSpace();
-		
+
 		if (refresh)
 			refresh();
 	}
@@ -122,7 +122,6 @@ public class ObjectSpace {
 
 		if (objToReturn == null && loadFromDB) {
 
-			this.isLoadingObjects = true;
 
 			ClassWrapper clsWrapper = WrappingHandler.getWrappingHandler().getClassWrapper(cls);
 
@@ -139,7 +138,6 @@ public class ObjectSpace {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} finally {
-				this.isLoadingObjects = false;
 			}
 
 		}
@@ -186,7 +184,6 @@ public class ObjectSpace {
 	 * @return
 	 */
 	public <T extends PersistentObject> List<T> getObjects(Class<T> cls, WhereClause clause) {
-		this.isLoadingObjects = true;
 		ClassWrapper classWrapper = WrappingHandler.getWrappingHandler().getClassWrapper(cls);
 		List<T> objectsToReturn = new ArrayList<>();
 
@@ -202,7 +199,6 @@ public class ObjectSpace {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			this.isLoadingObjects = false;
 		}
 
 		return objectsToReturn;
@@ -214,7 +210,6 @@ public class ObjectSpace {
 	 * @param classWrapper the requested type
 	 */
 	private void refreshType(ClassWrapper classWrapper) {
-		this.isLoadingObjects = true;
 
 		ResultSet set = connection.getTable(classWrapper);
 
@@ -228,11 +223,13 @@ public class ObjectSpace {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			this.isLoadingObjects = false;
 		}
 	}
 
 	private PersistentObject loadObject(ClassWrapper classWrapper, ResultSet set) throws SQLException {
+
+		isLoadingObjects = true;
+		
 		PersistentObject pobject = null;
 
 		pobject = createValueObject(classWrapper, set);
@@ -241,6 +238,8 @@ public class ObjectSpace {
 		objectCache.get(classWrapper.getClassToWrap()).add(pobject);
 
 		pobject = fillReferences(classWrapper, set, pobject);
+
+		isLoadingObjects = false;
 
 		return pobject;
 	}
@@ -293,10 +292,14 @@ public class ObjectSpace {
 	 * Reloads all types from the database and updates the cache
 	 */
 	public void refresh() {
-		List<ClassWrapper> typeList = WrappingHandler.getWrappingHandler().getWrapperList();
+		try {
 
-		for (ClassWrapper clsWr : typeList)
-			refreshType(clsWr);
+			List<ClassWrapper> typeList = WrappingHandler.getWrappingHandler().getWrapperList();
+
+			for (ClassWrapper clsWr : typeList)
+				refreshType(clsWr);
+		} finally {
+		}
 	}
 
 	/**
@@ -322,6 +325,10 @@ public class ObjectSpace {
 	 * Updates database and commits all changes to all objects
 	 */
 	public void commitChanges() {
+
+		var mychangedObjects = changedObjects;
+		var myCreatedObjects = createdObjects;
+
 		try {
 			connection.beginTransaction();
 
@@ -366,6 +373,9 @@ public class ObjectSpace {
 			e.printStackTrace();
 			connection.rollbackTransaction();
 		}
+
+		createdObjects.clear();
+		changedObjects.clear();
 	}
 
 	/**

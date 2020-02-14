@@ -19,79 +19,43 @@ public class Program {
 	public static void main(String[] args) throws IOException {
 
 		JormApplication app = JormApplication.getApplication();
-		RegisterTypes(app);
+		RegisterTypes(app); 
 		app.start();
 
-		ObjectSpace os = app.createObjectSpace(false);
+		ObjectSpace os = app.createObjectSpace();
+
+		
+		TestB testb = os.createObject(TestB.class);
+		os.commitChanges();
+
+		TestA testa = null;
+
+		var alla = os.getObjects(TestA.class);
+
+		if (alla.size() < 1) {
+			testa = new TestA(os);
+			alla.add(testa);
+			os.commitChanges();
+		}
+		
+		testa = alla.get(0);
 
 
+		
 
-		List<TestA> atests = os.getObjects(TestA.class,true);
+		testa.getTestBList().add(testb);
 
-		int igh = 4;
-		System.out.println(4);
-	}
+		os.commitChanges();
 
-	private static void createABC(ObjectSpace os) {
-		TestA a = os.createObject(TestA.class);
-		TestB b = os.createObject(TestB.class);
-		TestC c = os.createObject(TestC.class);
-
-		a.setText("thisIsA");
-		b.setText("thisIsB");
-		c.setText("thisIsC");
-
-		a.setTestB(b);
-		b.setTestC(c);
-
+		System.out.println(testa.getTestBList().size());
 	}
 
 	private static void RegisterTypes(JormApplication app) {
-		app.registerType(TestRefClass.class);
-		app.registerType(MyTestClass.class);
+		// app.registerType(TestRefClass.class);
+		// app.registerType(MyTestClass.class);
 		app.registerType(TestA.class);
 		app.registerType(TestB.class);
-		app.registerType(TestC.class);
+		// app.registerType(TestC.class);
 	}
 
-	private static void printMTC(ObjectSpace os) {
-		for (MyTestClass mtc : os.getObjects(MyTestClass.class)) {
-			System.out.println(mtc.getText());
-			if(mtc.getrefClass() != null)
-			System.out.println(mtc.getrefClass().getText());
-			System.out.println();
-			System.out.println();
-		}
-	}
-
-	private static void createObjects(ObjectSpace os) {
-		MyTestClass tc = os.createObject(MyTestClass.class);
-		MyTestClass tc2 = os.createObject(MyTestClass.class);
-		MyTestClass tc3 = os.createObject(MyTestClass.class);
-
-		TestRefClass rc = os.createObject(TestRefClass.class);
-		TestRefClass rc2 = os.createObject(TestRefClass.class);
-		TestRefClass rc3 = os.createObject(TestRefClass.class);
-
-
-		tc.setText("TestClass1");
-		tc.setrefClass(rc);
-		rc.setText("RefClass1");
-
-		
-		tc2.setText("TestClass2");
-		tc2.setrefClass(rc2);
-		rc2.setText("RefClass2");
-		
-		tc3.setText("TestClass3");
-		tc3.setrefClass(rc3);
-		rc3.setText("RefClass3");
-
-		os.commitChanges();
-	}
-
-	public static <T extends PersistentObject> List<T> getObjects(ObjectSpace os, Class<T> cls)
-	{
-		return os.getObjects(cls);
-	}
 }

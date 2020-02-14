@@ -6,7 +6,6 @@ import java.util.function.Predicate;
 
 import jormCore.Criteria.ComparisonOperator;
 import jormCore.Criteria.WhereClause;
-import jormCore.Wrapping.ClassWrapper;
 import jormCore.Wrapping.FieldWrapper;
 import jormCore.Wrapping.WrappingHandler;
 
@@ -24,6 +23,8 @@ public class JormList<T extends PersistentObject> extends ArrayList<T> {
 		this.relationName = relationName;
 		listMember = WrappingHandler.getWrappingHandler().getClassWrapper(owner.getClass())
 				.getWrappedAssociation(relationName);
+
+		load();
 	}
 
 	@Override
@@ -112,6 +113,11 @@ public class JormList<T extends PersistentObject> extends ArrayList<T> {
 	}
 
 	public void load() {
+
+		var lm = listMember;
+		var fk = lm.getForeigenKey();
+		var rt = fk.getReferencingType();
+
 		Class<T> partnerClass = (Class<T>) listMember.getForeigenKey().getReferencingType().getClassToWrap();
 		WhereClause clause = new WhereClause(listMember.getForeigenKey().getAssociationPartner().getName(),
 				owner.getID(), ComparisonOperator.Equal);

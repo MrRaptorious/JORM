@@ -68,15 +68,20 @@ public class ClassWrapper {
 		while (persistentClass != null) {
 			for (Field field : persistentClass.getDeclaredFields()) {
 				if ((persistentClass.isAnnotationPresent(Persistent.class)
-						|| field.isAnnotationPresent(Persistent.class))
+						|| field.isAnnotationPresent(Persistent.class) || field.isAnnotationPresent(Association.class))
 						&& !field.isAnnotationPresent(NonPersistent.class)) {
+
+							if(field.isAnnotationPresent(Association.class))
+							{
+								int i  = 1;
+							}
 
 					FieldWrapper wrapper = new FieldWrapper(this, field);
 
 					field.setAccessible(true);
 					wrappedFields.put(field.getName(), wrapper);
 
-					if (PersistentObject.class.isAssignableFrom(field.getType())) {
+					if (PersistentObject.class.isAssignableFrom(field.getType()) || wrapper.isList()) {
 
 						// add to all wrappedRelations
 						wrappedRelations.put(field.getName(), wrapper);

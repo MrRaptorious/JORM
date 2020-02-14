@@ -117,8 +117,10 @@ public class PersistentObject {
 	 * @param newValue      the new value of the member
 	 */
 	protected void setPropertyValue(String changedMember, Object newValue) {
-		objectSpace.addChangedObject(this, changedMember, newValue);
-		this.setMemberValue(changedMember, newValue);
+		if (getMemberValue(changedMember) != newValue) {
+			objectSpace.addChangedObject(this, changedMember, newValue);
+			this.setMemberValue(changedMember, newValue);
+		}
 	}
 
 	protected void setRelation(String memberName, PersistentObject value) {
@@ -127,9 +129,22 @@ public class PersistentObject {
 		AssociationWrapper aw = WrappingHandler.getWrappingHandler().getClassWrapper(this.getClass())
 				.getFieldWrapper(memberName).getForeigenKey();
 
-		if(aw != null && aw.getAssociationPartner() != null && aw.getAssociationPartner() != null)
-		{
-			value.setMemberValue(aw.getAssociationPartner().getOriginalField().getName(),this);
+		if (aw != null && aw.getAssociationPartner() != null && !aw.getAssociationPartner().isList()) {
+			value.setMemberValue(aw.getAssociationPartner().getOriginalField().getName(), this);
 		}
+	}
+
+	protected <T extends PersistentObject> JormList<T> getList(String memberName) {
+		if (getMemberValue(memberName) == null) {
+			Association asso = WrappingHandler.getWrappingHandler().getClassWrapper(this.getClass())
+					.getFieldWrapper(memberName).getAnnotation(Association.class);
+			if (asso != null) {
+				JormList<T> list = new JormList<T>(objectSpace, this, asso.name());
+				setMemberValue(memberName, list);
+				return list;
+			}
+		}
+
+		return (JormList<T>) getMemberValue(memberName);
 	}
 }
