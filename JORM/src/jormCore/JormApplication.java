@@ -26,7 +26,8 @@ public class JormApplication {
 	private JormApplication() {
 		// TODO Load from settings File
 		logLevel = LogLevel.Error;
-		connectionSting = "jdbc:sqlite:D:\\Programming\\Projects\\Java\\JORM\\TestProject\\testdb.sqlite";
+		// connectionSting = "jdbc:sqlite:D:\\Programming\\Projects\\Java\\JORM\\TestProject\\testdb.sqlite";
+		connectionSting = "jdbc:sqlite:testdb.sqlite";
 		statementBuilder = new SQLiteStatementBuilder();
 
 		try {

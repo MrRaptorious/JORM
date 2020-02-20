@@ -1,18 +1,7 @@
 package testpackage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
-
 import jormCore.*;
-import jormCore.Criteria.ComparisonOperator;
-import jormCore.Criteria.LogicOperator;
-import jormCore.Criteria.SQLiteStatementBuilder;
-import jormCore.Criteria.WhereClause;
-import jormCore.Wrapping.WrappingHandler;
 
 public class Program {
 
@@ -52,11 +41,8 @@ public class Program {
 	}
 
 	private static void RegisterTypes(JormApplication app) {
-		// app.registerType(TestRefClass.class);
-		// app.registerType(MyTestClass.class);
 		app.registerType(TestA.class);
 		app.registerType(TestB.class);
-		// app.registerType(TestC.class);
 	}
 
 }
