@@ -25,7 +25,6 @@ public class FieldWrapper {
 	private boolean autoincrement;
 	private boolean isList;
 
-	@SuppressWarnings("unchecked")
 	public FieldWrapper(ClassWrapper cw, Field field) {
 		fieldToWrap = field;
 		name = calculateFieldName(field);
@@ -70,11 +69,12 @@ public class FieldWrapper {
 		return declaringClassWrapper;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void updateAssociation() {
 		if (PersistentObject.class.isAssignableFrom(fieldToWrap.getType()) || isList) {
 			String name = null;
 
-			if (fieldToWrap.getAnnotation(Association.class) != null)
+			if (fieldToWrap.isAnnotationPresent(Association.class))
 				name = fieldToWrap.getAnnotation(Association.class).name();
 
 			ClassWrapper foreigneClassWrapper = null;

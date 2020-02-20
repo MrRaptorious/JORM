@@ -40,10 +40,11 @@ public class Program {
 		
 		testa = alla.get(0);
 
-
-		
-
 		testa.getTestBList().add(testb);
+
+		for (TestB testbb : testa.getTestBList()) {
+			System.out.println(testbb);
+		}
 
 		os.commitChanges();
 

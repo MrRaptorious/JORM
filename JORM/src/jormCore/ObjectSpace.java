@@ -104,7 +104,6 @@ public class ObjectSpace {
 		return getObject(cls, id, false);
 	}
 
-	@SuppressWarnings("unchecked")
 	public <T extends PersistentObject> T getObject(Class<T> cls, UUID id, boolean loadFromDB) {
 		// check cache
 		T objToReturn = null;
@@ -122,7 +121,6 @@ public class ObjectSpace {
 
 		if (objToReturn == null && loadFromDB) {
 
-
 			ClassWrapper clsWrapper = WrappingHandler.getWrappingHandler().getClassWrapper(cls);
 
 			ResultSet set = connection.getObject(clsWrapper, id);
@@ -137,9 +135,7 @@ public class ObjectSpace {
 			} catch (SQLException | SecurityException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} finally {
 			}
-
 		}
 
 		return objToReturn;
@@ -222,14 +218,13 @@ public class ObjectSpace {
 		} catch (SQLException | SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
 		}
 	}
 
 	private PersistentObject loadObject(ClassWrapper classWrapper, ResultSet set) throws SQLException {
 
 		isLoadingObjects = true;
-		
+
 		PersistentObject pobject = null;
 
 		pobject = createValueObject(classWrapper, set);
@@ -247,6 +242,8 @@ public class ObjectSpace {
 	private PersistentObject fillReferences(ClassWrapper classWrapper, ResultSet set, PersistentObject pobject)
 			throws SQLException {
 		for (FieldWrapper fw : classWrapper.getRelationWrapper()) {
+			if(fw.isList())
+				continue;
 
 			String oid = set.getString(fw.getName());
 
@@ -258,7 +255,6 @@ public class ObjectSpace {
 				PersistentObject refObj = getObject(cl, UUID.fromString(oid), true);
 				pobject.setRelation(fw.getOriginalField().getName(), refObj);
 			}
-
 		}
 
 		return pobject;
@@ -325,10 +321,6 @@ public class ObjectSpace {
 	 * Updates database and commits all changes to all objects
 	 */
 	public void commitChanges() {
-
-		var mychangedObjects = changedObjects;
-		var myCreatedObjects = createdObjects;
-
 		try {
 			connection.beginTransaction();
 

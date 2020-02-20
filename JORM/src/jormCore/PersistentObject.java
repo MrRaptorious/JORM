@@ -101,8 +101,12 @@ public class PersistentObject {
 	public boolean setMemberValue(String memberName, Object value) {
 		try {
 
-			WrappingHandler.getWrappingHandler().getClassWrapper(this.getClass()).getFieldWrapper(memberName)
-					.getOriginalField().set(this, value);
+			Field f = WrappingHandler.getWrappingHandler().getClassWrapper(this.getClass()).getFieldWrapper(memberName,true)
+			.getOriginalField();
+
+			f.setAccessible(true);
+			f.set(this, value);
+
 			return true;
 		} catch (IllegalArgumentException | IllegalAccessException | SecurityException e) {
 			e.printStackTrace();
@@ -127,7 +131,7 @@ public class PersistentObject {
 		setMemberValue(memberName, value);
 
 		AssociationWrapper aw = WrappingHandler.getWrappingHandler().getClassWrapper(this.getClass())
-				.getFieldWrapper(memberName).getForeigenKey();
+				.getFieldWrapper(memberName, true).getForeigenKey();
 
 		if (aw != null && aw.getAssociationPartner() != null && !aw.getAssociationPartner().isList()) {
 			value.setMemberValue(aw.getAssociationPartner().getOriginalField().getName(), this);
@@ -137,7 +141,7 @@ public class PersistentObject {
 	protected <T extends PersistentObject> JormList<T> getList(String memberName) {
 		if (getMemberValue(memberName) == null) {
 			Association asso = WrappingHandler.getWrappingHandler().getClassWrapper(this.getClass())
-					.getFieldWrapper(memberName).getAnnotation(Association.class);
+					.getFieldWrapper(memberName, true).getAnnotation(Association.class);
 			if (asso != null) {
 				JormList<T> list = new JormList<T>(objectSpace, this, asso.name());
 				setMemberValue(memberName, list);
