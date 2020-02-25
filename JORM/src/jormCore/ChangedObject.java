@@ -8,8 +8,8 @@ import java.util.Map;
  */
 public class ChangedObject {
 	private PersistentObject runtimeObject;
-	private Map<String, Object> changedFields;
-	
+	private Map<String, Object[]> changedFields;
+
 	public ChangedObject(PersistentObject runtimeObject) {
 		this.runtimeObject = runtimeObject;
 		changedFields = new HashMap<>();
@@ -17,19 +17,26 @@ public class ChangedObject {
 
 	/**
 	 * Adds the the "fieldName" to the list of changed fields
+	 * 
 	 * @param fieldName The actual name of the changed field
-	 * @param value The new value in the changed field
+	 * @param value     The new value in the changed field
 	 */
-	public void addChangedField(String fieldName, Object value) {
-
-		changedFields.put(fieldName, value);
+	public void addChangedField(String fieldName, Object newValue, Object oldValue) {
+		changedFields.put(fieldName, new Object[] { newValue, oldValue });
 	}
 
 	/**
 	 * Returns all the changed fields of the handled PersistentObject
 	 */
 	public Map<String, Object> getChanedFields() {
-		return changedFields;
+
+		HashMap<String, Object> tmpMap = new HashMap<String, Object>();
+
+		for (var elem : changedFields.entrySet()) {
+			tmpMap.put(elem.getKey(), elem.getValue()[0]);
+		}
+
+		return tmpMap;
 	}
 
 	/**
@@ -37,5 +44,14 @@ public class ChangedObject {
 	 */
 	public PersistentObject getRuntimeObject() {
 		return runtimeObject;
+	}
+
+	/**
+	 * Rolls the changes on the handled PersistentObject back
+	 */
+	public void rollback() {
+		for (var elem : changedFields.entrySet()) {
+			runtimeObject.setMemberValue(elem.getKey(), elem.getValue()[1]);
+		}
 	}
 }

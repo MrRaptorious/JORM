@@ -314,7 +314,8 @@ public class ObjectSpace {
 			changedObjects.get(changedObject.getClass()).put(changedObject, new ChangedObject(changedObject));
 		}
 
-		changedObjects.get(changedObject.getClass()).get(changedObject).addChangedField(fieldName, newValue);
+		// perhaps put old value in parameter for performance
+		changedObjects.get(changedObject.getClass()).get(changedObject).addChangedField(fieldName, newValue, changedObject.getMemberValue(fieldName));
 	}
 
 	/**
@@ -367,6 +368,20 @@ public class ObjectSpace {
 		}
 
 		createdObjects.clear();
+		changedObjects.clear();
+	}
+
+	/**
+	 * Rolls the current chaneges in the objectspace back
+	 */
+	public void rollbackChanges()
+	{
+		for ( var type : changedObjects.entrySet()) {
+			for (var cObject : type.getValue().entrySet()) {
+				cObject.getValue().rollback();
+			}
+		}
+
 		changedObjects.clear();
 	}
 

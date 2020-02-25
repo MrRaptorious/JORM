@@ -8,12 +8,11 @@ public class Program {
 	public static void main(String[] args) throws IOException {
 
 		JormApplication app = JormApplication.getApplication();
-		RegisterTypes(app); 
+		RegisterTypes(app);
 		app.start();
 
 		ObjectSpace os = app.createObjectSpace();
 
-		
 		TestB testb = os.createObject(TestB.class);
 		os.commitChanges();
 
@@ -26,18 +25,38 @@ public class Program {
 			alla.add(testa);
 			os.commitChanges();
 		}
-		
+
 		testa = alla.get(0);
 
-		testa.getTestBList().add(testb);
+		if (testa.getName() == null)
+			testa.setName("Das ist ein test name");
 
-		for (TestB testbb : testa.getTestBList()) {
-			System.out.println(testbb);
-		}
+		System.out.println(testa.getName());
 
 		os.commitChanges();
 
-		System.out.println(testa.getTestBList().size());
+		testa.setName("hvorfor goer jeg det?");
+
+		System.out.println(testa.getName());
+
+		// os.rollbackChanges();
+
+
+		System.out.println(testa.getName());
+
+
+		// testa.getTestBList().add(testb);
+
+		// for (TestB testbb : testa.getTestBList()) {
+		// System.out.println(testbb);
+		// }
+
+		// os.commitChanges();
+
+		// System.out.println(testa.getTestBList().size());
+
+		
+		os.commitChanges();
 	}
 
 	private static void RegisterTypes(JormApplication app) {

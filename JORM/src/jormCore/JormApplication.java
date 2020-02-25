@@ -33,7 +33,7 @@ public class JormApplication {
 		try {
 			connection = new SQLiteConnection(connectionSting);
 			currentParser = connection;
-		} catch (SQLException e) {
+		} catch (SQLException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
