@@ -27,4 +27,7 @@ hs_err_pid*
 .settings
 
 # sqlite database
-.sqlite
+*.sqlite
+
+#plugin files
+/.VSCodeCounter

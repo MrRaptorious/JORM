@@ -127,6 +127,12 @@ public class PersistentObject {
 		}
 	}
 
+	/**
+	 * Sets the membername to the new value and also updates the referenced objects reference
+	 * 
+	 * @param memberName the name of the changed to change
+	 * @param value      the new value
+	 */
 	protected void setRelation(String memberName, PersistentObject value) {
 		setMemberValue(memberName, value);
 
@@ -138,6 +144,11 @@ public class PersistentObject {
 		}
 	}
 
+	/**
+	 * Gets the referenced of objects of type T as JormList<T>
+	 * 
+	 * @param memberName the name of the JormList<T> member
+	 */
 	protected <T extends PersistentObject> JormList<T> getList(String memberName) {
 		if (getMemberValue(memberName) == null) {
 			Association asso = WrappingHandler.getWrappingHandler().getClassWrapper(this.getClass())
