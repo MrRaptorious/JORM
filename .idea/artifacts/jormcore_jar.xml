@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="jormcore:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/jormcore_jar</output-path>
+    <root id="archive" name="jormcore.jar">
+      <element id="module-output" name="jormcore" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/jormcore/src/main/resources/sqlite-jdbc-3.27.2.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0cedc886-a64b-4c02-9e7e-b831bcd27d1c" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="JORM" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1cUwVs3ATUvzgx7nS6eLFqMcGCK" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/jormsqlite/src/main/resources/sqlite-jdbc-3.27.2.1.jar!/" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Programming\Projects\Java\JORM" />
+      <recent name="D:\Programming\Projects\Java\JORM\TestProject" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Programming\Projects\Java\JORM\jormcore\src\test\java" />
+      <recent name="D:\Programming\Projects\Java\JORM\jormcore\src\main\java" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.MainClass">
+    <configuration name="MainClass" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MainClass" />
+      <module name="TestProject2" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Unnamed" type="JarApplication" nameIsGenerated="true">
+      <option name="WORKING_DIRECTORY" value="D:\Programming\Projects\Java\JORM" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="JarApplication">
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.MainClass" />
+      <item itemvalue="JAR Application.Unnamed" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.MainClass" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0cedc886-a64b-4c02-9e7e-b831bcd27d1c" name="Default Changelist" comment="" />
+      <created>1590596507075</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1590596507075</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="649" y="161" width="1175" height="677" key="#Project_Structure" timestamp="1591276803431">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="-1368" y="181" key="#Project_Structure/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1590597332107" />
+    <state x="649" y="161" key="#Project_Structure/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590607409297" />
+    <state x="649" y="161" width="1175" height="677" key="#Project_Structure/0.0.3440.1400@0.0.3440.1400" timestamp="1591276803431" />
+    <state x="647" y="406" width="1092" height="580" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590606506750">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="647" y="406" width="1092" height="580" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590606506750" />
+    <state x="1066" y="216" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog" timestamp="1591276711145">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="1066" y="216" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog/0.0.3440.1400@0.0.3440.1400" timestamp="1591276711145" />
+    <state x="1382" y="629" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1590601778798">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="1382" y="629" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590601778798" />
+    <state x="1450" y="450" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1590602016570">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="1450" y="450" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590602016570" />
+    <state x="1500" y="458" key="FileChooserDialogImpl" timestamp="1591276778099">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="1500" y="458" key="FileChooserDialogImpl/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590607742015" />
+    <state x="1500" y="458" key="FileChooserDialogImpl/0.0.3440.1400@0.0.3440.1400" timestamp="1591276778099" />
+    <state width="1674" height="491" key="GridCell.Tab.-1.bottom" timestamp="1590606280395">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state width="1674" height="491" key="GridCell.Tab.-1.bottom/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590606280395" />
+    <state width="1674" height="491" key="GridCell.Tab.-1.center" timestamp="1590606280395">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state width="1674" height="491" key="GridCell.Tab.-1.center/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590606280395" />
+    <state width="1674" height="491" key="GridCell.Tab.-1.left" timestamp="1590606280395">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state width="1674" height="491" key="GridCell.Tab.-1.left/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590606280395" />
+    <state width="1674" height="485" key="GridCell.Tab.-1.right" timestamp="1590607764851">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state width="1674" height="485" key="GridCell.Tab.-1.right/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590607764851" />
+    <state width="1674" height="387" key="GridCell.Tab.0.bottom" timestamp="1591274947710">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state width="1674" height="400" key="GridCell.Tab.0.bottom/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590612909100" />
+    <state width="1674" height="387" key="GridCell.Tab.0.bottom/0.0.3440.1400@0.0.3440.1400" timestamp="1591274947710" />
+    <state width="1674" height="387" key="GridCell.Tab.0.center" timestamp="1591274947710">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state width="1674" height="400" key="GridCell.Tab.0.center/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590612909099" />
+    <state width="1674" height="387" key="GridCell.Tab.0.center/0.0.3440.1400@0.0.3440.1400" timestamp="1591274947710" />
+    <state width="1674" height="387" key="GridCell.Tab.0.left" timestamp="1591274947709">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state width="1674" height="400" key="GridCell.Tab.0.left/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590612909099" />
+    <state width="1674" height="387" key="GridCell.Tab.0.left/0.0.3440.1400@0.0.3440.1400" timestamp="1591274947709" />
+    <state width="1674" height="387" key="GridCell.Tab.0.right" timestamp="1591274947710">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state width="1674" height="400" key="GridCell.Tab.0.right/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590612909099" />
+    <state width="1674" height="387" key="GridCell.Tab.0.right/0.0.3440.1400@0.0.3440.1400" timestamp="1591274947710" />
+    <state width="1674" height="491" key="GridCell.Tab.1.bottom" timestamp="1590606276792">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state width="1674" height="491" key="GridCell.Tab.1.bottom/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590606276792" />
+    <state width="1674" height="491" key="GridCell.Tab.1.center" timestamp="1590606276792">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state width="1674" height="491" key="GridCell.Tab.1.center/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590606276792" />
+    <state width="1674" height="491" key="GridCell.Tab.1.left" timestamp="1590606276792">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state width="1674" height="491" key="GridCell.Tab.1.left/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590606276792" />
+    <state width="1674" height="491" key="GridCell.Tab.1.right" timestamp="1590606276792">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state width="1674" height="491" key="GridCell.Tab.1.right/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590606276792" />
+    <state x="1250" y="358" key="Maven.ArtifactSearchDialog" timestamp="1590602247805">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="1250" y="358" key="Maven.ArtifactSearchDialog/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590602247805" />
+    <state x="339" y="175" key="SettingsEditor" timestamp="1591275134657">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="-1457" y="165" key="SettingsEditor/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1590597615154" />
+    <state x="830" y="222" key="SettingsEditor/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590607746069" />
+    <state x="339" y="175" key="SettingsEditor/0.0.3440.1400@0.0.3440.1400" timestamp="1591275134657" />
+    <state x="2396" y="484" key="chooseDestDirectoryDialog" timestamp="1590605981798">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="2396" y="484" key="chooseDestDirectoryDialog/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590605981798" />
+    <state x="1428" y="527" key="com.intellij.ide.util.TipDialog" timestamp="1590688145113">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="1428" y="527" key="com.intellij.ide.util.TipDialog/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590688145113" />
+    <state x="1054" y="546" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1590606764770">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="1054" y="546" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590606764770" />
+    <state x="613" y="302" key="new project wizard" timestamp="1591273536128">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="-1578" y="224" key="new project wizard/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1590596897936" />
+    <state x="613" y="302" key="new project wizard/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590606652778" />
+    <state x="613" y="302" key="new project wizard/0.0.3440.1400@0.0.3440.1400" timestamp="1591273536128" />
+    <state x="2236" y="334" key="run.anything.popup" timestamp="1590612907081">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="2236" y="334" key="run.anything.popup/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590612907081" />
+    <state x="2243" y="320" width="672" height="678" key="search.everywhere.popup" timestamp="1590606972497">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="2243" y="320" width="672" height="678" key="search.everywhere.popup/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590606972497" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/TestProject/src/MainClass.java</url>
+          <line>4</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/TestProject2/src/MainClass.java</url>
+          <line>7</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
