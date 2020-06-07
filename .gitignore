@@ -29,3 +29,6 @@ hs_err_pid*
 
 # sqlite database
 *.sqlite
+
+#include db driver
+!*/src/main/resources/sqlite-jdbc-3.27.2.1.jar
