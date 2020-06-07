@@ -7,16 +7,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import jormCore.Annotaions.*;
-import jormCore.Wrapping.AssociationWrapper;
-import jormCore.Wrapping.FieldWrapper;
-import jormCore.Wrapping.WrappingHandler;
+import jormCore.annotaions.*;
+import jormCore.wrapping.AssociationWrapper;
+import jormCore.wrapping.FieldWrapper;
 
 /**
  * Represents the base class for all objects in the database
  */
 public class PersistentObject {
 
+	@NonPersistent
 	private ObjectSpace objectSpace;
 
 	@PrimaryKey
@@ -58,7 +58,7 @@ public class PersistentObject {
 	 * @return Map of all fields and values
 	 */
 	public Map<FieldWrapper, Object> getPersistentPropertiesWithValues() {
-		List<FieldWrapper> wrappedFields = WrappingHandler.getWrappingHandler().getClassWrapper(this.getClass())
+		List<FieldWrapper> wrappedFields = objectSpace.getWrappingHandler().getClassWrapper(this.getClass())
 				.getWrappedFields();
 		Map<FieldWrapper, Object> mapping = new HashMap<FieldWrapper, Object>();
 
@@ -101,7 +101,7 @@ public class PersistentObject {
 	public boolean setMemberValue(String memberName, Object value) {
 		try {
 
-			Field f = WrappingHandler.getWrappingHandler().getClassWrapper(this.getClass()).getFieldWrapper(memberName,true)
+			Field f = objectSpace.getWrappingHandler().getClassWrapper(this.getClass()).getFieldWrapper(memberName,true)
 			.getOriginalField();
 
 			f.setAccessible(true);
@@ -136,7 +136,7 @@ public class PersistentObject {
 	protected void setRelation(String memberName, PersistentObject value) {
 		setMemberValue(memberName, value);
 
-		AssociationWrapper aw = WrappingHandler.getWrappingHandler().getClassWrapper(this.getClass())
+		AssociationWrapper aw = objectSpace.getWrappingHandler().getClassWrapper(this.getClass())
 				.getFieldWrapper(memberName, true).getForeigenKey();
 
 		if (aw != null && aw.getAssociationPartner() != null && !aw.getAssociationPartner().isList()) {
@@ -152,7 +152,7 @@ public class PersistentObject {
 	@SuppressWarnings("unchecked")
 	protected <T extends PersistentObject> JormList<T> getList(String memberName) {
 		if (getMemberValue(memberName) == null) {
-			Association asso = WrappingHandler.getWrappingHandler().getClassWrapper(this.getClass())
+			Association asso = objectSpace.getWrappingHandler().getClassWrapper(this.getClass())
 					.getFieldWrapper(memberName, true).getAnnotation(Association.class);
 			if (asso != null) {
 				JormList<T> list = new JormList<T>(objectSpace, this, asso.name());

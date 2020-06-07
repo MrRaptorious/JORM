@@ -1,7 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0cedc886-a64b-4c02-9e7e-b831bcd27d1c" name="Default Changelist" comment="" />
+    <list default="true" id="0cedc886-a64b-4c02-9e7e-b831bcd27d1c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestProject/TestProject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/TestProject/TestProject.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestProject/src/MainClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/TestProject/src/MainClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestProject/src/TestClassA.java" beforeDir="false" afterPath="$PROJECT_DIR$/TestProject/src/TestClassA.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormcore/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jormcore/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/ApplicationSubManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/ApplicationSubManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/JormApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/JormApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/JormList.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/JormList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/ObjectSpace.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/ObjectSpace.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/PersistentObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/PersistentObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/annotaions/Association.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/annotaions/Association.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/annotaions/Autoincrement.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/annotaions/Autoincrement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/annotaions/CanNotBeNull.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/annotaions/CanNotBeNull.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/annotaions/ManyToManyAssociation.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/annotaions/ManyToManyAssociation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/annotaions/NonPersistent.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/annotaions/NonPersistent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/annotaions/Persistent.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/annotaions/Persistent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/annotaions/PrimaryKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/annotaions/PrimaryKey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/criteria/ComparisonOperator.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/criteria/ComparisonOperator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/criteria/LogicOperator.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/criteria/LogicOperator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/criteria/StatementBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/criteria/StatementBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/criteria/WhereClause.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/criteria/WhereClause.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/dbConnection/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/dbConnection/DatabaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/dbConnection/FieldTypeParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/dbConnection/FieldTypeParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/dbConnection/FieldWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/dbConnection/FieldWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/tracing/LogLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/tracing/LogLevel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/tracing/Tracer.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/tracing/Tracer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/wrapping/AssociationWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/wrapping/AssociationWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/wrapping/ClassWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/wrapping/ClassWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/wrapping/FieldWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/wrapping/FieldWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/wrapping/WrappingHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/wrapping/WrappingHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormsqlite/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jormsqlite/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormsqlite/src/main/java/jormSQLite/DBConnection/FieldTypeParserSQLite.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormsqlite/src/main/java/jormSQLite/DBConnection/FieldTypeParserSQLite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormsqlite/src/main/java/jormSQLite/DBConnection/SQLiteConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormsqlite/src/main/java/jormSQLite/DBConnection/SQLiteConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,6 +52,16 @@
       <list>
         <option value="Class" />
       </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="D:\Programming\Projects\Java\JORM\.idea" />
+      </set>
     </option>
   </component>
   <component name="MavenImportPreferences">
@@ -36,11 +83,12 @@
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/jormsqlite/src/main/resources/sqlite-jdbc-3.27.2.1.jar!/" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.editor" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -52,32 +100,65 @@
       <recent name="D:\Programming\Projects\Java\JORM\jormcore\src\main\java" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.MainClass">
-    <configuration name="MainClass" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+  <component name="RunManager">
+    <configuration name="TestProject" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="MainClass" />
-      <module name="TestProject2" />
+      <module name="TestProject" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
-    </configuration>
-    <configuration name="Unnamed" type="JarApplication" nameIsGenerated="true">
-      <option name="WORKING_DIRECTORY" value="D:\Programming\Projects\Java\JORM" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method v="2" />
     </configuration>
     <configuration default="true" type="JarApplication">
       <option name="ALTERNATIVE_JRE_PATH" />
       <method v="2" />
     </configuration>
-    <list>
-      <item itemvalue="Application.MainClass" />
-      <item itemvalue="JAR Application.Unnamed" />
-    </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.MainClass" />
-      </list>
-    </recent_temporary>
+    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
+      <module name="TestProject" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
+      <module name="TestProject" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -92,33 +173,61 @@
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="WindowStateProjectService">
-    <state x="649" y="161" width="1175" height="677" key="#Project_Structure" timestamp="1591276803431">
+    <state x="649" y="161" width="1175" height="677" key="#Project_Structure" timestamp="1591277748332">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
     <state x="-1368" y="181" key="#Project_Structure/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1590597332107" />
     <state x="649" y="161" key="#Project_Structure/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590607409297" />
-    <state x="649" y="161" width="1175" height="677" key="#Project_Structure/0.0.3440.1400@0.0.3440.1400" timestamp="1591276803431" />
-    <state x="647" y="406" width="1092" height="580" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590606506750">
+    <state x="649" y="161" width="1175" height="677" key="#Project_Structure/0.0.3440.1400@0.0.3440.1400" timestamp="1591277748332" />
+    <state x="647" y="406" width="1092" height="604" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1591553978330">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state x="647" y="406" width="1092" height="580" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590606506750" />
-    <state x="1066" y="216" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog" timestamp="1591276711145">
+    <state x="647" y="406" width="1092" height="604" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591553978330" />
+    <state x="1525" y="409" key="#com.intellij.ide.util.MemberChooser" timestamp="1591558673276">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
+    <state x="1525" y="409" key="#com.intellij.ide.util.MemberChooser/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591558673276" />
+    <state x="922" y="486" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1591553928542">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="922" y="486" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591553928542" />
+    <state x="1066" y="216" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog" timestamp="1591563207668">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="1066" y="216" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591563207668" />
     <state x="1066" y="216" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog/0.0.3440.1400@0.0.3440.1400" timestamp="1591276711145" />
-    <state x="1382" y="629" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1590601778798">
+    <state x="1382" y="629" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1591554153874">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state x="1382" y="629" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590601778798" />
+    <state x="1382" y="629" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591554153874" />
     <state x="1450" y="450" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1590602016570">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
     <state x="1450" y="450" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590602016570" />
-    <state x="1500" y="458" key="FileChooserDialogImpl" timestamp="1591276778099">
+    <state x="1387" y="298" key="CommitChangelistDialog2" timestamp="1591540383549">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state x="1500" y="458" key="FileChooserDialogImpl/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590607742015" />
+    <state x="1387" y="298" key="CommitChangelistDialog2/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591540383549" />
+    <state x="92" y="92" width="3256" height="1216" key="DiffContextDialog" timestamp="1591546096142">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="92" y="92" width="3256" height="1216" key="DiffContextDialog/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591546096142" />
+    <state x="1500" y="458" key="FileChooserDialogImpl" timestamp="1591563205003">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="1500" y="458" key="FileChooserDialogImpl/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591563205003" />
     <state x="1500" y="458" key="FileChooserDialogImpl/0.0.3440.1400@0.0.3440.1400" timestamp="1591276778099" />
     <state width="1674" height="491" key="GridCell.Tab.-1.bottom" timestamp="1590606280395">
       <screen x="0" y="0" width="3440" height="1400" />
@@ -136,25 +245,25 @@
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
     <state width="1674" height="485" key="GridCell.Tab.-1.right/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590607764851" />
-    <state width="1674" height="387" key="GridCell.Tab.0.bottom" timestamp="1591274947710">
+    <state width="3397" height="387" key="GridCell.Tab.0.bottom" timestamp="1591563246615">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state width="1674" height="400" key="GridCell.Tab.0.bottom/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590612909100" />
+    <state width="3397" height="387" key="GridCell.Tab.0.bottom/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591563246615" />
     <state width="1674" height="387" key="GridCell.Tab.0.bottom/0.0.3440.1400@0.0.3440.1400" timestamp="1591274947710" />
-    <state width="1674" height="387" key="GridCell.Tab.0.center" timestamp="1591274947710">
+    <state width="3397" height="387" key="GridCell.Tab.0.center" timestamp="1591563246615">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state width="1674" height="400" key="GridCell.Tab.0.center/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590612909099" />
+    <state width="3397" height="387" key="GridCell.Tab.0.center/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591563246615" />
     <state width="1674" height="387" key="GridCell.Tab.0.center/0.0.3440.1400@0.0.3440.1400" timestamp="1591274947710" />
-    <state width="1674" height="387" key="GridCell.Tab.0.left" timestamp="1591274947709">
+    <state width="3397" height="387" key="GridCell.Tab.0.left" timestamp="1591563246615">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state width="1674" height="400" key="GridCell.Tab.0.left/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590612909099" />
+    <state width="3397" height="387" key="GridCell.Tab.0.left/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591563246615" />
     <state width="1674" height="387" key="GridCell.Tab.0.left/0.0.3440.1400@0.0.3440.1400" timestamp="1591274947709" />
-    <state width="1674" height="387" key="GridCell.Tab.0.right" timestamp="1591274947710">
+    <state width="3397" height="387" key="GridCell.Tab.0.right" timestamp="1591563246615">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state width="1674" height="400" key="GridCell.Tab.0.right/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590612909099" />
+    <state width="3397" height="387" key="GridCell.Tab.0.right/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591563246615" />
     <state width="1674" height="387" key="GridCell.Tab.0.right/0.0.3440.1400@0.0.3440.1400" timestamp="1591274947710" />
     <state width="1674" height="491" key="GridCell.Tab.1.bottom" timestamp="1590606276792">
       <screen x="0" y="0" width="3440" height="1400" />
@@ -176,11 +285,11 @@
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
     <state x="1250" y="358" key="Maven.ArtifactSearchDialog/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590602247805" />
-    <state x="339" y="175" key="SettingsEditor" timestamp="1591275134657">
+    <state x="830" y="222" key="SettingsEditor" timestamp="1591563212317">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state x="-1457" y="165" key="SettingsEditor/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1590597615154" />
-    <state x="830" y="222" key="SettingsEditor/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590607746069" />
+    <state x="-1457" y="165" key="SettingsEditor/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1591548644463" />
+    <state x="830" y="222" key="SettingsEditor/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591563212317" />
     <state x="339" y="175" key="SettingsEditor/0.0.3440.1400@0.0.3440.1400" timestamp="1591275134657" />
     <state x="2396" y="484" key="chooseDestDirectoryDialog" timestamp="1590605981798">
       <screen x="0" y="0" width="3440" height="1400" />
@@ -194,33 +303,51 @@
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
     <state x="1054" y="546" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590606764770" />
+    <state x="1531" y="619" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1591553354932">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="1531" y="619" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591553354932" />
+    <state x="1427" y="334" width="586" height="732" key="find.popup" timestamp="1591556032122">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="1427" y="334" width="586" height="732" key="find.popup/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591556032122" />
     <state x="613" y="302" key="new project wizard" timestamp="1591273536128">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
     <state x="-1578" y="224" key="new project wizard/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1590596897936" />
     <state x="613" y="302" key="new project wizard/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590606652778" />
     <state x="613" y="302" key="new project wizard/0.0.3440.1400@0.0.3440.1400" timestamp="1591273536128" />
-    <state x="2236" y="334" key="run.anything.popup" timestamp="1590612907081">
+    <state x="2236" y="334" width="672" height="677" key="run.anything.popup" timestamp="1591562652069">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state x="2236" y="334" key="run.anything.popup/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590612907081" />
-    <state x="2243" y="320" width="672" height="678" key="search.everywhere.popup" timestamp="1590606972497">
+    <state x="2236" y="334" width="672" height="677" key="run.anything.popup/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591562652069" />
+    <state x="2243" y="320" width="672" height="678" key="search.everywhere.popup" timestamp="1591553316235">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state x="2243" y="320" width="672" height="678" key="search.everywhere.popup/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590606972497" />
+    <state x="2243" y="320" width="672" height="678" key="search.everywhere.popup/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591553316235" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/TestProject/src/MainClass.java</url>
-          <line>4</line>
-          <option name="timeStamp" value="1" />
+          <url>file://$PROJECT_DIR$/jormcore/src/main/java/jormCore/wrapping/WrappingHandler.java</url>
+          <line>28</line>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/TestProject2/src/MainClass.java</url>
-          <line>7</line>
-          <option name="timeStamp" value="3" />
+          <url>file://$PROJECT_DIR$/jormsqlite/src/main/java/jormSQLite/DBConnection/FieldTypeParserSQLite.java</url>
+          <line>11</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/jormsqlite/src/main/java/jormSQLite/DBConnection/FieldTypeParserSQLite.java</url>
+          <line>28</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/TestProject/src/MainClass.java</url>
+          <line>15</line>
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

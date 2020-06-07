@@ -1,14 +1,14 @@
 package jormCore;
 
-import jormCore.Criteria.StatementBuilder;
-import jormCore.DBConnection.DatabaseConnection;
-import jormCore.DBConnection.FieldTypeParser;
-import jormCore.Tracing.LogLevel;
-import jormCore.Wrapping.WrappingHandler;
+import jormCore.criteria.StatementBuilder;
+import jormCore.dbConnection.DatabaseConnection;
+import jormCore.dbConnection.FieldTypeParser;
+import jormCore.tracing.LogLevel;
+import jormCore.wrapping.WrappingHandler;
 
 import java.util.List;
 
-public class ApplicationSubManager {
+public class ApplicationSubManager  {
 
     private LogLevel logLevel;
     private DatabaseConnection connection;
@@ -16,14 +16,12 @@ public class ApplicationSubManager {
     private StatementBuilder statementBuilder;
     private  WrappingHandler wrappingHandler;
 
-    private ApplicationSubManager(DatabaseConnection con, StatementBuilder builder) {
-        // TODO Load from settings File
+    public ApplicationSubManager(DatabaseConnection con, StatementBuilder builder, FieldTypeParser parser) {
         logLevel = LogLevel.Error;
-        //connectionSting = "jdbc:sqlite:testdb.sqlite";
         statementBuilder = builder;
         connection = con;
-        currentParser = con;
-        wrappingHandler = new WrappingHandler(con);
+        currentParser = parser;
+        wrappingHandler = new WrappingHandler(parser);
     }
 
     public StatementBuilder getStatementBuilder() {
@@ -60,20 +58,16 @@ public class ApplicationSubManager {
      * @return a newly created ObjectSpace with the programs database connection
      */
     public ObjectSpace createObjectSpace() {
-        return new ObjectSpace(connection, wrappingHandler);
+        return new ObjectSpace(connection, wrappingHandler,currentParser);
     }
 
     public ObjectSpace createObjectSpace(boolean loadOnInit) {
-        return new ObjectSpace(connection, wrappingHandler, loadOnInit);
+        return new ObjectSpace(connection, wrappingHandler,currentParser, loadOnInit);
     }
 
     public LogLevel getLogLevel() {
         return logLevel;
     }
-
-//    public String getConnectionString() {
-//        return connectionSting;
-//    }
 
     /**
      * Registers a subclass from PersistentObject to be able to handle it

@@ -1,8 +1,26 @@
-package jormCore.Criteria;
+package jormCore.criteria;
 
-import jormCore.Wrapping.ClassWrapper;
+import jormCore.ChangedObject;
+import jormCore.PersistentObject;
+import jormCore.dbConnection.FieldTypeParser;
+import jormCore.wrapping.ClassWrapper;
+import jormCore.wrapping.FieldWrapper;
+import jormCore.wrapping.WrappingHandler;
+import org.xml.sax.HandlerBase;
+
+import java.sql.SQLException;
+import java.util.List;
 
 public abstract class StatementBuilder {
+
+    protected FieldTypeParser fieldTypeParser;
+    protected WrappingHandler wrappingHandler;
+
+    public StatementBuilder(FieldTypeParser parser, WrappingHandler handler) {
+        fieldTypeParser = parser;
+        wrappingHandler = handler;
+    }
+
     protected final String calculateLogicOperator(LogicOperator operator) {
         switch (operator) {
         case Not:
@@ -37,7 +55,21 @@ public abstract class StatementBuilder {
 
     public abstract String createSelect(ClassWrapper type, WhereClause whereClause);
 
+    public  abstract  String createInsert(PersistentObject obj);
+
+    public  abstract  String createUpdate(ChangedObject obj);
+
+    public  abstract String createEntity(ClassWrapper clsWrapper);
+
+    public  abstract  List<String> createAllEntity();
+
+    public abstract  String createAddPropertyToEntity(FieldWrapper fieldWrapper);
+
     protected abstract String calculateWhereClause(WhereClause clause);
+
+    public final List<ClassWrapper> getAllEntities() {
+        return  wrappingHandler.getWrapperList();
+    }
 
     public final WhereClause concatenateWhereClauses(WhereClause clause1, WhereClause clause2, LogicOperator operator) {
         return new WhereClause(clause1, clause2, operator);

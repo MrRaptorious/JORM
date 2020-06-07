@@ -1,22 +1,20 @@
-package jormCore.Wrapping;
+package jormCore.wrapping;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 
-import jormCore.JormApplication;
 import jormCore.JormList;
 import jormCore.PersistentObject;
-import jormCore.Annotaions.Association;
-import jormCore.Annotaions.Autoincrement;
-import jormCore.Annotaions.CanNotBeNull;
-import jormCore.Annotaions.Persistent;
-import jormCore.Annotaions.PrimaryKey;
+import jormCore.annotaions.Association;
+import jormCore.annotaions.Autoincrement;
+import jormCore.annotaions.CanNotBeNull;
+import jormCore.annotaions.Persistent;
+import jormCore.annotaions.PrimaryKey;
 
 public class FieldWrapper {
 	private ClassWrapper declaringClassWrapper;
 	private Field fieldToWrap;
-
 	private AssociationWrapper association;
 	private String name;
 	private String type;
@@ -24,11 +22,13 @@ public class FieldWrapper {
 	private boolean canNotBeNull;
 	private boolean autoincrement;
 	private boolean isList;
+	private WrappingHandler wrappingHandler;
 
-	public FieldWrapper(ClassWrapper cw, Field field) {
+	public FieldWrapper(ClassWrapper cw, Field field, WrappingHandler handler) {
+		wrappingHandler = handler;
 		fieldToWrap = field;
 		name = calculateFieldName(field);
-		type = JormApplication.getApplication().getCurrentFieldTypeParser().parseFieldType(field.getClass());
+		type = handler.getFieldTypeParser().parseFieldType(field.getClass());
 		isPrimaryKey = field.isAnnotationPresent(PrimaryKey.class);
 		canNotBeNull = field.isAnnotationPresent(CanNotBeNull.class);
 		autoincrement = field.isAnnotationPresent(Autoincrement.class);
@@ -80,7 +80,7 @@ public class FieldWrapper {
 			ClassWrapper foreigneClassWrapper = null;
 
 			if (!isList) {
-				foreigneClassWrapper = WrappingHandler.getWrappingHandler()
+				foreigneClassWrapper = wrappingHandler
 						.getClassWrapper((Class<? extends PersistentObject>) fieldToWrap.getType());
 			} else {
 
@@ -88,7 +88,7 @@ public class FieldWrapper {
 				var foreigneClass =  (Class<? extends PersistentObject>)((ParameterizedType)fieldToWrap.getGenericType()).getActualTypeArguments()[0];
 
 				// find classwrapper
-				foreigneClassWrapper = WrappingHandler.getWrappingHandler().getClassWrapper(foreigneClass);
+				foreigneClassWrapper = wrappingHandler.getClassWrapper(foreigneClass);
 			}
 
 			this.association = new AssociationWrapper(foreigneClassWrapper, name);

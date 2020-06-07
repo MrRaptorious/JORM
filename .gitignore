@@ -1,5 +1,6 @@
 # Compiled class file
 *.class
+/out/
 
 # Log file
 *.log
@@ -28,6 +29,3 @@ hs_err_pid*
 
 # sqlite database
 *.sqlite
-
-#plugin files
-/.VSCodeCounter

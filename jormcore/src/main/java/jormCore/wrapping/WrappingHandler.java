@@ -1,34 +1,40 @@
-package jormCore.Wrapping;
+package jormCore.wrapping;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import jormCore.dbConnection.FieldTypeParser;
 import jormCore.PersistentObject;
 
 public class WrappingHandler {
 
-	public static WrappingHandler handler;
+	private FieldTypeParser fieldTypeParser;
 	public Map<Class<? extends PersistentObject>, ClassWrapper> classWrapper;
 
-	public static WrappingHandler getWrappingHandler() {
-		if (handler == null)
-			handler = new WrappingHandler();
-
-		return handler;
+	public  FieldWrapper createFieldWrapper(ClassWrapper cw, Field field)
+	{
+		return new FieldWrapper(cw,field,this);
 	}
 
-	private WrappingHandler() {
+	public  ClassWrapper createClassWrapper(Class<? extends PersistentObject> cls)
+	{
+		return new ClassWrapper(cls,this);
+	}
+
+	public WrappingHandler(FieldTypeParser parser) {
 		classWrapper = new HashMap<>();
+		fieldTypeParser = parser;
 	}
 
 	public boolean registerType(Class<? extends PersistentObject> cls) {
 
 		if(!classWrapper.containsKey(cls))
 		{
-			classWrapper.put(cls, new ClassWrapper(cls));
+			classWrapper.put(cls, new ClassWrapper(cls,this));
 			return true;
 		}
 
@@ -58,5 +64,9 @@ public class WrappingHandler {
 		for (Entry<Class<? extends PersistentObject>, ClassWrapper> entry : classWrapper.entrySet()) {
 			entry.getValue().updateRelations();
 		}
+	}
+
+	public FieldTypeParser getFieldTypeParser() {
+		return fieldTypeParser;
 	}
 }

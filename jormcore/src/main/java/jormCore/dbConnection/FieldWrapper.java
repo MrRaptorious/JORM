@@ -1,4 +1,4 @@
-package jormCore.DBConnection;
+package jormCore.dbConnection;
 
 public class FieldWrapper {
 	

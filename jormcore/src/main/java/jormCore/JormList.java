@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.function.Predicate;
 
-import jormCore.Criteria.ComparisonOperator;
-import jormCore.Criteria.WhereClause;
-import jormCore.Wrapping.FieldWrapper;
-import jormCore.Wrapping.WrappingHandler;
+import jormCore.criteria.ComparisonOperator;
+import jormCore.criteria.WhereClause;
+import jormCore.wrapping.FieldWrapper;
 
 public class JormList<T extends PersistentObject> extends ArrayList<T> {
 
@@ -21,7 +20,7 @@ public class JormList<T extends PersistentObject> extends ArrayList<T> {
 		this.objectSpace = os;
 		this.owner = owner;
 		this.relationName = relationName;
-		listMember = WrappingHandler.getWrappingHandler().getClassWrapper(owner.getClass())
+		listMember = objectSpace.getWrappingHandler().getClassWrapper(owner.getClass())
 				.getWrappedAssociation(relationName);
 
 		load();
@@ -29,7 +28,7 @@ public class JormList<T extends PersistentObject> extends ArrayList<T> {
 
 	@Override
 	public boolean add(T o) {
-		String fieldName = WrappingHandler.getWrappingHandler().getClassWrapper(o.getClass())
+		String fieldName = objectSpace.getWrappingHandler().getClassWrapper(o.getClass())
 				.getWrappedAssociation(relationName).getOriginalField().getName();
 		o.setPropertyValue(fieldName, owner);
 		return super.add(o);
@@ -47,7 +46,7 @@ public class JormList<T extends PersistentObject> extends ArrayList<T> {
 
 			try {
 				// set reference to null
-				String fieldName = WrappingHandler.getWrappingHandler().getClassWrapper(castedObject.getClass())
+				String fieldName = objectSpace.getWrappingHandler().getClassWrapper(castedObject.getClass())
 						.getWrappedAssociation(relationName).getOriginalField().getName();
 				castedObject.setPropertyValue(fieldName, null);
 
@@ -73,7 +72,7 @@ public class JormList<T extends PersistentObject> extends ArrayList<T> {
 
 		if (removedObject != null) {
 			try {
-				WrappingHandler.getWrappingHandler().getClassWrapper(removedObject.getClass())
+				objectSpace.getWrappingHandler().getClassWrapper(removedObject.getClass())
 						.getRelationWrapper(relationName).getOriginalField().set(removedObject, null);
 				return removedObject;
 			} catch (IllegalArgumentException | IllegalAccessException e) {

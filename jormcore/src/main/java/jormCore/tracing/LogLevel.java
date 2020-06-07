@@ -1,4 +1,4 @@
-package jormCore.Tracing;
+package jormCore.tracing;
 
 public enum LogLevel {
 Error,	// 0

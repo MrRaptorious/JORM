@@ -1,12 +1,13 @@
-package jormCore.DBConnection;
+package jormCore.dbConnection;
 
 import java.sql.ResultSet;
 
 import jormCore.ChangedObject;
+import jormCore.criteria.StatementBuilder;
 import jormCore.PersistentObject;
-import jormCore.Criteria.WhereClause;
-import jormCore.Wrapping.ClassWrapper;
-import jormCore.Wrapping.WrappingHandler;
+import jormCore.criteria.WhereClause;
+import jormCore.wrapping.ClassWrapper;
+import jormCore.wrapping.WrappingHandler;
 import java.util.UUID;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -14,12 +15,14 @@ import java.util.LinkedList;
 /**
  * Abstract base class to represent a generic relational database connection
  */
-public abstract class DatabaseConnection implements FieldTypeParser {
+public abstract class DatabaseConnection {
 
 	protected String connectionString;
+	protected StatementBuilder statementBuilder;
 
-	public DatabaseConnection(String connectionSting) {
+	public DatabaseConnection(String connectionSting, StatementBuilder builder) {
 		connectionString = connectionSting;
+		statementBuilder = builder;
 	}
 
 	/**
@@ -31,8 +34,8 @@ public abstract class DatabaseConnection implements FieldTypeParser {
 
 		LinkedList<String> createStatements = new LinkedList<>();
 
-		for (ClassWrapper clsWrapper : WrappingHandler.getWrappingHandler().getWrapperList()) {
-			String createStatement = generateCreateTypeStatement(clsWrapper);
+		for (ClassWrapper clsWrapper :  statementBuilder.getAllEntities()) {
+			String createStatement = statementBuilder.createEntity(clsWrapper);
 
 			if (createStatement != null)
 				createStatements.add(createStatement);
@@ -68,6 +71,4 @@ public abstract class DatabaseConnection implements FieldTypeParser {
 	public abstract void createSchema();
 
 	public abstract void updateSchema();
-
-	public abstract String generateCreateTypeStatement(ClassWrapper cw);
 }

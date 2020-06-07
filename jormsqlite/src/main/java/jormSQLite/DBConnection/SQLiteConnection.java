@@ -1,33 +1,26 @@
-package DBConnection;
+package jormSQLite.DBConnection;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.UUID;
 
-import jormCore.Criteria.StatementBuilder;
-import jormCore.DBConnection.DatabaseConnection;
-import jormCore.Wrapping.ClassWrapper;
-import jormCore.Wrapping.FieldWrapper;
-import jormCore.Wrapping.WrappingHandler;
+import jormCore.criteria.StatementBuilder;
+import jormCore.dbConnection.DatabaseConnection;
+import jormCore.wrapping.ClassWrapper;
+import jormCore.wrapping.FieldWrapper;
+import jormCore.wrapping.WrappingHandler;
 import jormCore.ChangedObject;
-import jormCore.JormApplication;
 import jormCore.PersistentObject;
-import jormCore.Criteria.ComparisonOperator;
-import jormCore.Criteria.WhereClause;
+import jormCore.criteria.ComparisonOperator;
+import jormCore.criteria.WhereClause;
 
 public class SQLiteConnection extends DatabaseConnection {
 
 	private Connection _connection;
 
-	public SQLiteConnection(String connectionSting, StatementBuilder builder, WrappingHandler handler) throws SQLException {
-		super(connectionSting,builder,handler);
+	public SQLiteConnection(String connectionSting, StatementBuilder builder) throws SQLException {
+		super(connectionSting,builder);
 		_connection = DriverManager.getConnection(connectionSting);
 	}
 
@@ -38,9 +31,6 @@ public class SQLiteConnection extends DatabaseConnection {
 
 	@Override
 	public ResultSet getObject(ClassWrapper type, UUID id) {
-		// String statement = "select * from " + name + " where id = "
-		// + normalizeValueForInsertStatement(id.getClass(), id);
-
 		String statement = statementBuilder.createSelect(type,
 				new WhereClause(type.getPrimaryKeyMember().getName(), id, ComparisonOperator.Equal));
 
@@ -56,7 +46,6 @@ public class SQLiteConnection extends DatabaseConnection {
 	}
 
 	public ResultSet getTable(ClassWrapper type, WhereClause clause) {
-		// String result = "SELECT * FROM " + name + " WHERE DELETED = 0";
 		String result = statementBuilder.createSelect(type, clause);
 
 		ResultSet set = null;
@@ -74,34 +63,10 @@ public class SQLiteConnection extends DatabaseConnection {
 	@Override
 	public void update(ChangedObject obj) {
 
-		ClassWrapper currentClassWrapper = wrappingHandler.getClassWrapper(obj.getRuntimeObject().getClass());
-
-		String result = "UPDATE ";
-		result += currentClassWrapper.getName();
-
-		result += " SET ";
-
-		String delimiter = "";
-
-		for (Entry<String, Object> elm : obj.getChanedFields().entrySet()) {
-
-			FieldWrapper currentFieldWrapper = currentClassWrapper.getFieldWrapper(elm.getKey());
-
-			result += delimiter + currentFieldWrapper.getName();
-			result += " = ";
-			result += normalizeValueForInsertStatement(currentFieldWrapper.getOriginalField().getType(),
-					elm.getValue());
-
-			if (delimiter == "")
-				delimiter = " , ";
-		}
-
-		result += " WHERE ";
-		result += currentClassWrapper.getPrimaryKeyMember().getName() + " = ";
-		result += "'" + obj.getRuntimeObject().getID() + "'";
+		String result = statementBuilder.createUpdate(obj);
 
 		try {
-			execute(result);
+			_connection.prepareStatement(result).executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -116,33 +81,7 @@ public class SQLiteConnection extends DatabaseConnection {
 
 	@Override
 	public void create(PersistentObject obj) throws SQLException {
-
-		String result = "INSERT INTO ";
-		String columnPart = "(";
-		String valuePart = " VALUES(";
-
-		Map<FieldWrapper, Object> objectValues = obj.getPersistentPropertiesWithValues();
-
-		// add tableName
-		result += wrappingHandler.getClassWrapper(obj.getClass()).getName();
-
-		String delimiter = "";
-
-		for (Entry<FieldWrapper, Object> elem : objectValues.entrySet()) {
-
-			if (elem.getValue() == null)
-				continue;
-
-			columnPart += delimiter + elem.getKey().getName();
-			valuePart += delimiter
-					+ normalizeValueForInsertStatement(elem.getKey().getOriginalField().getType(), elem.getValue());
-
-			if (delimiter == "")
-				delimiter = " , ";
-		}
-
-		result += columnPart + ") " + valuePart + ")";
-
+		String result = statementBuilder.createInsert(obj);
 		execute(result);
 	}
 
@@ -156,9 +95,15 @@ public class SQLiteConnection extends DatabaseConnection {
 		try {
 			execute("PRAGMA foreign_keys=off");
 
-			for (ClassWrapper cl : wrappingHandler.getWrapperList()) {
-				execute(generateCreateTypeStatement(cl));
+			List<String> allStatements = statementBuilder.createAllEntity();
+
+			Statement statement = _connection.createStatement();
+
+			for (String statementString : allStatements) {
+				statement.addBatch(statementString);
 			}
+
+			statement.executeBatch();
 
 			execute("PRAGMA foreign_keys=on");
 
@@ -172,7 +117,7 @@ public class SQLiteConnection extends DatabaseConnection {
 	public void updateSchema() {
 		ArrayList<String> updateStatements = new ArrayList<String>();
 
-		for (ClassWrapper cl : wrappingHandler.getWrapperList()) {
+		for (ClassWrapper cl : statementBuilder.getAllEntities()) {
 
 			String getTypeSchemaStatement = "PRAGMA table_info(" + cl.getName() + ")";
 			List<String> persistentColumns = new ArrayList<String>();
@@ -190,7 +135,7 @@ public class SQLiteConnection extends DatabaseConnection {
 
 			for (FieldWrapper fieldWrapper : cl.getWrappedFields()) {
 				if (!persistentColumns.contains(fieldWrapper.getName()))
-					updateStatements.add(generateAddColumnToTableStatement(fieldWrapper));
+					updateStatements.add(statementBuilder.createAddPropertyToEntity(fieldWrapper));
 			}
 		}
 
@@ -202,133 +147,6 @@ public class SQLiteConnection extends DatabaseConnection {
 				e.printStackTrace();
 			}
 		}
-	}
-
-	@Override
-	public String generateCreateTypeStatement(ClassWrapper cw) {
-		List<String> fKStatements = new ArrayList<>();
-
-		String result = "CREATE TABLE IF NOT EXISTS " + cw.getName() + " (";
-
-		for (int i = 0; i < cw.getWrappedFields().size(); i++) {
-
-			FieldWrapper wr = cw.getWrappedFields().get(i);
-
-			result += generateFieldDefinition(wr);
-
-			if (wr.isForeigenKey()) {
-				fKStatements.add(generateForeignKeyDefinition(wr));
-			}
-
-			if (i < cw.getWrappedFields().size() - 1 || fKStatements.size() > 0)
-				result += " ,";
-		}
-
-		// add FK definitions
-		for (int i = 0; i < fKStatements.size(); i++) {
-
-			result += fKStatements.get(i);
-
-			if (i < fKStatements.size() - 1)
-				result += " , ";
-
-		}
-
-		result += " )";
-
-		return result;
-	}
-
-	public String generateFieldDefinition(FieldWrapper wr) {
-		String result = "";
-
-		result += wr.getName();
-		result += " ";
-		result += wr.getDBType();
-
-		if (wr.isPrimaryKey())
-			result += " PRIMARY KEY ";
-		if (wr.isAutoincrement())
-			result += " AUTOINCREMENT ";
-		if (wr.isCanNotBeNull())
-			result += " NOT NULL ";
-
-		return result;
-	}
-
-	public String generateForeignKeyDefinition(FieldWrapper wr) {
-		if (wr.isForeigenKey()) {
-			return " FOREIGN KEY(" + wr.getName() + ") REFERENCES " + wr.getForeigenKey().getReferencingType().getName()
-					+ "(" + wr.getForeigenKey().getReferencingPrimaryKeyName() + ") ";
-		}
-		return "";
-	}
-
-	public String generateAddColumnToTableStatement(FieldWrapper fw) {
-
-		return "ALTER TABLE " + fw.getClassWrapper().getName() + " ADD " + generateFieldDefinition(fw);
-	}
-
-	@Override
-	public String normalizeValueForInsertStatement(Object value) {
-		if (value == null)
-			return "NULL";
-
-		return normalizeValueForInsertStatement(value.getClass(), value);
-	}
-
-	// legacy
-	private String normalizeValueForInsertStatement(Class<?> type, Object value) {
-		if (type == String.class)
-			return "'" + (String) value + "'";
-
-		if (PersistentObject.class.isAssignableFrom(type))
-			return "'" + ((PersistentObject) value).getID() + "'";
-
-		if (type == Date.class)
-			return "" + ((Date) value).getTime();
-
-		if (type == UUID.class)
-			return "'" + ((UUID) value).toString() + "'";
-
-		return value.toString();
-	}
-
-	@Override
-	public String parseFieldType(Class<?> type) {
-		if (type == String.class || type == char.class || type == UUID.class
-				|| PersistentObject.class.isAssignableFrom(type))
-			return "TEXT";
-
-		if (type == int.class || type == Date.class || type == boolean.class)
-			return "INTEGER";
-
-		return "TEXT";
-	}
-
-	@Override
-	public Object castValue(Class<?> type, Object value) {
-
-		if (value == null)
-			return null;
-
-		if (type == String.class)
-			return value.toString();
-
-		if (type == int.class)
-			return Integer.parseInt(value.toString());
-
-		if (type == Date.class)
-			return new Date(Long.parseLong(value.toString()));
-
-		if (type == boolean.class)
-			return !value.toString().equals("0");
-
-		if (type == UUID.class)
-			return UUID.fromString(value.toString());
-
-		return null;
-
 	}
 
 	@Override

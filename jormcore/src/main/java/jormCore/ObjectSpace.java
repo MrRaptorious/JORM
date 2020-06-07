@@ -11,12 +11,13 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.Map.Entry;
 
-import jormCore.Criteria.WhereClause;
-import jormCore.DBConnection.DatabaseConnection;
-import jormCore.Wrapping.AssociationWrapper;
-import jormCore.Wrapping.ClassWrapper;
-import jormCore.Wrapping.FieldWrapper;
-import jormCore.Wrapping.WrappingHandler;
+import jormCore.criteria.WhereClause;
+import jormCore.dbConnection.DatabaseConnection;
+import jormCore.dbConnection.FieldTypeParser;
+import jormCore.wrapping.AssociationWrapper;
+import jormCore.wrapping.ClassWrapper;
+import jormCore.wrapping.FieldWrapper;
+import jormCore.wrapping.WrappingHandler;
 
 /**
  * Main object to handle datamanipulation from user
@@ -28,15 +29,21 @@ public class ObjectSpace {
 	private Map<Class<? extends PersistentObject>, List<PersistentObject>> objectCache;
 	private boolean isLoadingObjects;
 	private DatabaseConnection connection;
+	WrappingHandler wrappingHandler;
+	FieldTypeParser fieldTypeParser;
 
-	public ObjectSpace(DatabaseConnection connection) {
+	public ObjectSpace(DatabaseConnection connection,WrappingHandler handler, FieldTypeParser parser) {
 		this.connection = connection;
+		wrappingHandler = handler;
+		fieldTypeParser = parser;
 		initObjectSpace();
 		refresh();
 	}
 
-	public ObjectSpace(DatabaseConnection connection, boolean refresh) {
+	public ObjectSpace(DatabaseConnection connection, WrappingHandler handler, FieldTypeParser parser, boolean refresh) {
 		this.connection = connection;
+		wrappingHandler = handler;
+		fieldTypeParser = parser;
 		initObjectSpace();
 
 		if (refresh)
@@ -121,7 +128,7 @@ public class ObjectSpace {
 
 		if (objToReturn == null && loadFromDB) {
 
-			ClassWrapper clsWrapper = WrappingHandler.getWrappingHandler().getClassWrapper(cls);
+			ClassWrapper clsWrapper = wrappingHandler.getClassWrapper(cls);
 
 			ResultSet set = connection.getObject(clsWrapper, id);
 
@@ -154,7 +161,7 @@ public class ObjectSpace {
 	public <T extends PersistentObject> List<T> getObjects(Class<T> cls, boolean loadFromDB) {
 
 		if (loadFromDB) {
-			refreshType(WrappingHandler.getWrappingHandler().getClassWrapper(cls));
+			refreshType(wrappingHandler.getClassWrapper(cls));
 		}
 
 		if (objectCache != null && objectCache.containsKey(cls)) {
@@ -180,7 +187,7 @@ public class ObjectSpace {
 	 * @return
 	 */
 	public <T extends PersistentObject> List<T> getObjects(Class<T> cls, WhereClause clause) {
-		ClassWrapper classWrapper = WrappingHandler.getWrappingHandler().getClassWrapper(cls);
+		ClassWrapper classWrapper = wrappingHandler.getClassWrapper(cls);
 		List<T> objectsToReturn = new ArrayList<>();
 
 		ResultSet set = connection.getTable(classWrapper, clause);
@@ -275,7 +282,7 @@ public class ObjectSpace {
 				Object value = set.getString(fw.getName());
 
 				pobject.setMemberValue(fw.getOriginalField().getName(),
-						connection.castValue(fw.getOriginalField().getType(), value));
+						fieldTypeParser.castValue(fw.getOriginalField().getType(), value));
 			}
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException e) {
@@ -290,7 +297,7 @@ public class ObjectSpace {
 	public void refresh() {
 		try {
 
-			List<ClassWrapper> typeList = WrappingHandler.getWrappingHandler().getWrapperList();
+			List<ClassWrapper> typeList = wrappingHandler.getWrapperList();
 
 			for (ClassWrapper clsWr : typeList)
 				refreshType(clsWr);
@@ -332,7 +339,7 @@ public class ObjectSpace {
 					// extract all relations in objects to create and add them to the changed
 					// objects
 
-					List<FieldWrapper> relationFields = WrappingHandler.getWrappingHandler()
+					List<FieldWrapper> relationFields = wrappingHandler
 							.getClassWrapper(createdObject.getClass()).getRelationWrapper();
 
 					for (FieldWrapper relation : relationFields) {
@@ -397,5 +404,9 @@ public class ObjectSpace {
 	@SuppressWarnings("unchecked")
 	private <T extends PersistentObject> T castToT(PersistentObject po) {
 		return (T) po;
+	}
+
+	public WrappingHandler getWrappingHandler() {
+		return wrappingHandler;
 	}
 }

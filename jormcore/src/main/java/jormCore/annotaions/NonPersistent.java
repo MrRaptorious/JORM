@@ -1,4 +1,4 @@
-package jormCore.Annotaions;
+package jormCore.annotaions;
 import java.lang.annotation.*;
 import static java.lang.annotation.ElementType.*;
 

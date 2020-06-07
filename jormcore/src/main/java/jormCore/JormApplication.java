@@ -1,119 +1,53 @@
 package jormCore;
 
-import java.sql.SQLException;
-import java.util.List;
-
-import jormCore.Criteria.SQLiteStatementBuilder;
-import jormCore.Criteria.StatementBuilder;
-import jormCore.DBConnection.DatabaseConnection;
-import jormCore.DBConnection.FieldTypeParser;
-import jormCore.Tracing.LogLevel;
-import jormCore.Wrapping.WrappingHandler;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * The main object representing the entire program
  */
 public class JormApplication {
+    // has List<ApplicationSupManager>
+    private HashMap<String, ApplicationSubManager> subManagers;
+    private ApplicationSubManager defaultSubManager;
 
-	private static JormApplication application;
-	private LogLevel logLevel;
-	private String connectionSting;
-	private DatabaseConnection connection;
-	private FieldTypeParser currentParser;
-	private StatementBuilder statementBuilder;
+    private static JormApplication application;
 
-	private JormApplication(DatabaseConnection con) {
-		// TODO Load from settings File
-		logLevel = LogLevel.Error;
-		// connectionSting = "jdbc:sqlite:D:\\Programming\\Projects\\Java\\JORM\\TestProject\\testdb.sqlite";
-		connectionSting = "jdbc:sqlite:testdb.sqlite";
-		statementBuilder = new SQLiteStatementBuilder();
+    private JormApplication() {
+        subManagers = new HashMap<String, ApplicationSubManager>();
+    }
 
-		try {
-			connection = new SQLiteConnection(connectionSting);
-			currentParser = connection;
-		} catch (SQLException e) { 
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+    public static JormApplication getApplication() {
+        if (application == null)
+            application = new JormApplication();
 
-	public StatementBuilder getStatementBuilder() {
-		return statementBuilder;
-	}
+        return application;
+    }
 
-	public FieldTypeParser getCurrentFieldTypeParser() {
-		return currentParser;
-	}
+    public void registerApplicationSubManager(String name, ApplicationSubManager subManager) {
+        subManagers.put(name, subManager);
+    }
 
-	public static JormApplication getApplication() {
-		if (application == null)
-			application = new JormApplication();
+    public void registerApplicationSubManager(String name, ApplicationSubManager subManager, boolean isDefault) {
+        subManagers.put(name, subManager);
 
-		return application;
-	}
+        if (isDefault)
+            defaultSubManager = subManager;
+    }
 
-	/**
-	 * Initializes the database (create schema then update the schema)
-	 */
-	private void initDatabase() {
-		connection.createSchema();
-		connection.updateSchema();
-	}
+    public ApplicationSubManager getDefaultSubManager() {
+        return defaultSubManager;
+    }
 
-	/**
-	 * Starts the application, all types have to be registerd, the db schema will be
-	 * updated
-	 */
-	public void start() {
-		// TODO setup relations
-		WrappingHandler.getWrappingHandler().updateRelations();
+    public ApplicationSubManager getApplicationSubManagerByName(String name) {
+        return subManagers.get(name);
+    }
 
-		initDatabase();
-	}
-
-	/**
-	 * Creates a new ObjectSpace object for handling data and communicating with the
-	 * Database
-	 * 
-	 * @return a newly created ObjectSpace with the programs database connection
-	 */
-	public ObjectSpace createObjectSpace() {
-		return new ObjectSpace(connection);
-	}
-
-	public ObjectSpace createObjectSpace(boolean loadOnInit) {
-		return new ObjectSpace(connection,loadOnInit);
-	}
-
-	public LogLevel getLogLevel() {
-		return logLevel;
-	}
-
-	public String getConnectionString() {
-		return connectionSting;
-	}
-
-	/**
-	 * Registers a subclass from PersistentObject to be able to handle it
-	 * 
-	 * @param type a subclass from PersistentObject
-	 */
-	public void registerType(Class<? extends PersistentObject> type) {
-		WrappingHandler.getWrappingHandler().registerType(type);
-	}
-
-	/**
-	 * Registers a list of subclasses from PersistentObject to be able to handle
-	 * them
-	 * 
-	 * @param types a list of subclasses from PersistentObject
-	 */
-	public void registerTypes(List<Class<? extends PersistentObject>> types) {
-		if (types != null) {
-			for (Class<? extends PersistentObject> type : types) {
-				registerType(type);
-			}
-		}
-	}
+    public void start()
+    {
+        for(var managerSet : subManagers.entrySet())
+        {
+            managerSet.getValue().start();
+        }
+    }
 }

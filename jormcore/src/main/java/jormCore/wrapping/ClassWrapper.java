@@ -1,4 +1,4 @@
-package jormCore.Wrapping;
+package jormCore.wrapping;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -6,8 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import jormCore.PersistentObject;
-import jormCore.Annotaions.*;
+import jormCore.annotaions.*;
 
 /**
  * Wraps a type at runtime
@@ -17,6 +18,7 @@ public class ClassWrapper {
 	private String name;
 	private Class<? extends PersistentObject> classToWrap;
 	private FieldWrapper primaryKey;
+	private  WrappingHandler wrappingHandler;
 	private Map<String, FieldWrapper> wrappedFields;
 	private Map<String, FieldWrapper> wrappedPersistentFields;
 	private Map<String, FieldWrapper> nonPersistentFields;
@@ -25,8 +27,9 @@ public class ClassWrapper {
 	private Map<String, FieldWrapper> wrappedAnonymousRelations;
 	private Map<String, FieldWrapper> wrappedIdentifiedAssociations;
 
-	public ClassWrapper(Class<? extends PersistentObject> cls) {
+	public ClassWrapper(Class<? extends PersistentObject> cls, WrappingHandler handler) {
 		classToWrap = cls;
+		wrappingHandler = handler;
 		initialize();
 	}
 
@@ -78,7 +81,7 @@ public class ClassWrapper {
 			for (Field field : persistentClass.getDeclaredFields()) {
 
 				// wrap all member
-				FieldWrapper wrapper = new FieldWrapper(this, field);
+				FieldWrapper wrapper =  wrappingHandler.createFieldWrapper(this, field);
 				wrappedFields.put(field.getName(), wrapper);
 
 				// wrap persistent member
@@ -94,8 +97,8 @@ public class ClassWrapper {
 						// add to all wrappedRelations
 						wrappedRelations.put(field.getName(), wrapper);
 
-						jormCore.Annotaions.Association associationAnnotation = field
-								.getAnnotation(jormCore.Annotaions.Association.class);
+						jormCore.annotaions.Association associationAnnotation = field
+								.getAnnotation(jormCore.annotaions.Association.class);
 
 						// add also to anonymous or identified relations
 						if (associationAnnotation == null) {
@@ -111,8 +114,8 @@ public class ClassWrapper {
 					nonPersistentFields.put(field.getName(), wrapper);
 
 					if (wrapper.isList()) {
-						jormCore.Annotaions.Association associationAnnotation = field
-								.getAnnotation(jormCore.Annotaions.Association.class);
+						jormCore.annotaions.Association associationAnnotation = field
+								.getAnnotation(jormCore.annotaions.Association.class);
 
 						if (associationAnnotation != null) {
 							wrappedRelations.put(field.getName(), wrapper);

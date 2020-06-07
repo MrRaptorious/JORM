@@ -1,4 +1,4 @@
-import jormCore.Annotaions.*;
+import jormCore.annotaions.*;
 import jormCore.ObjectSpace;
 import jormCore.PersistentObject;
 

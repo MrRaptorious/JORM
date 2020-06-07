@@ -1,4 +1,4 @@
-package jormCore.Wrapping;
+package jormCore.wrapping;
 
 public class AssociationWrapper {
 
