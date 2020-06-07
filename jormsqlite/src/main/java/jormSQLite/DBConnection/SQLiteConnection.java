@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 
+import jormCore.Criteria.StatementBuilder;
 import jormCore.DBConnection.DatabaseConnection;
 import jormCore.Wrapping.ClassWrapper;
 import jormCore.Wrapping.FieldWrapper;
@@ -25,8 +26,8 @@ public class SQLiteConnection extends DatabaseConnection {
 
 	private Connection _connection;
 
-	public SQLiteConnection(String connectionSting) throws SQLException {
-		super(connectionSting);
+	public SQLiteConnection(String connectionSting, StatementBuilder builder, WrappingHandler handler) throws SQLException {
+		super(connectionSting,builder,handler);
 		_connection = DriverManager.getConnection(connectionSting);
 	}
 
@@ -40,7 +41,7 @@ public class SQLiteConnection extends DatabaseConnection {
 		// String statement = "select * from " + name + " where id = "
 		// + normalizeValueForInsertStatement(id.getClass(), id);
 
-		String statement = JormApplication.getApplication().getStatementBuilder().createSelect(type,
+		String statement = statementBuilder.createSelect(type,
 				new WhereClause(type.getPrimaryKeyMember().getName(), id, ComparisonOperator.Equal));
 
 		ResultSet set = null;
@@ -56,7 +57,7 @@ public class SQLiteConnection extends DatabaseConnection {
 
 	public ResultSet getTable(ClassWrapper type, WhereClause clause) {
 		// String result = "SELECT * FROM " + name + " WHERE DELETED = 0";
-		String result = JormApplication.getApplication().getStatementBuilder().createSelect(type, clause);
+		String result = statementBuilder.createSelect(type, clause);
 
 		ResultSet set = null;
 
@@ -73,8 +74,7 @@ public class SQLiteConnection extends DatabaseConnection {
 	@Override
 	public void update(ChangedObject obj) {
 
-		ClassWrapper currentClassWrapper = WrappingHandler.getWrappingHandler()
-				.getClassWrapper(obj.getRuntimeObject().getClass());
+		ClassWrapper currentClassWrapper = wrappingHandler.getClassWrapper(obj.getRuntimeObject().getClass());
 
 		String result = "UPDATE ";
 		result += currentClassWrapper.getName();
@@ -124,7 +124,7 @@ public class SQLiteConnection extends DatabaseConnection {
 		Map<FieldWrapper, Object> objectValues = obj.getPersistentPropertiesWithValues();
 
 		// add tableName
-		result += WrappingHandler.getWrappingHandler().getClassWrapper(obj.getClass()).getName();
+		result += wrappingHandler.getClassWrapper(obj.getClass()).getName();
 
 		String delimiter = "";
 
@@ -156,7 +156,7 @@ public class SQLiteConnection extends DatabaseConnection {
 		try {
 			execute("PRAGMA foreign_keys=off");
 
-			for (ClassWrapper cl : WrappingHandler.getWrappingHandler().getWrapperList()) {
+			for (ClassWrapper cl : wrappingHandler.getWrapperList()) {
 				execute(generateCreateTypeStatement(cl));
 			}
 
@@ -170,12 +170,12 @@ public class SQLiteConnection extends DatabaseConnection {
 
 	@Override
 	public void updateSchema() {
-		ArrayList<String> updateStatements = new ArrayList<>();
+		ArrayList<String> updateStatements = new ArrayList<String>();
 
-		for (ClassWrapper cl : WrappingHandler.getWrappingHandler().getWrapperList()) {
+		for (ClassWrapper cl : wrappingHandler.getWrapperList()) {
 
 			String getTypeSchemaStatement = "PRAGMA table_info(" + cl.getName() + ")";
-			List<String> persistentColumns = new ArrayList<>();
+			List<String> persistentColumns = new ArrayList<String>();
 
 			// collect persistentColumns
 			try {
