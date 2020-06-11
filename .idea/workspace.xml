@@ -2,15 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0cedc886-a64b-4c02-9e7e-b831bcd27d1c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/DependencyConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jormsqlite/src/main/java/jormSQLite/DependencyConfigurationSQLite.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestProject/src/MainClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/TestProject/src/MainClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/ApplicationSubManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/ApplicationSubManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/dbConnection/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormcore/src/main/java/jormCore/dbConnection/DatabaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormsqlite/src/main/java/jormSQLite/DBConnection/SQLiteConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormsqlite/src/main/java/jormSQLite/DBConnection/SQLiteConnection.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FavoritesManager">
-    <favorites_list name="JORM" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -22,24 +26,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="IgnoredFileRootStore">
-    <option name="generatedRoots">
-      <set>
-        <option value="D:\Programming\Projects\Java\JORM\.idea" />
-      </set>
-    </option>
-  </component>
-  <component name="MavenImportPreferences">
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="importAutomatically" value="true" />
-      </MavenImportingSettings>
-    </option>
-  </component>
   <component name="ProjectId" id="1cUwVs3ATUvzgx7nS6eLFqMcGCK" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -49,11 +38,12 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../JORM" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/jormsqlite/src/main/resources/sqlite-jdbc-3.27.2.1.jar!/" />
+    <property name="project.structure.last.edited" value="Problems" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -96,13 +86,12 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="649" y="161" width="1175" height="677" key="#Project_Structure" timestamp="1591277748332">
@@ -115,10 +104,11 @@
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
     <state x="647" y="406" width="1092" height="604" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591553978330" />
-    <state x="1525" y="409" key="#com.intellij.ide.util.MemberChooser" timestamp="1591558673276">
+    <state x="1525" y="409" key="#com.intellij.ide.util.MemberChooser" timestamp="1591797463292">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
     <state x="1525" y="409" key="#com.intellij.ide.util.MemberChooser/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591558673276" />
+    <state x="1525" y="409" key="#com.intellij.ide.util.MemberChooser/0.0.3440.1400@0.0.3440.1400" timestamp="1591797463292" />
     <state x="922" y="486" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1591553928542">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
@@ -136,6 +126,10 @@
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
     <state x="1450" y="450" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590602016570" />
+    <state x="773" y="388" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog" timestamp="1591893252370">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="773" y="388" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591893252370" />
     <state x="1387" y="298" key="CommitChangelistDialog2" timestamp="1591540383549">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
@@ -144,10 +138,11 @@
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
     <state x="92" y="92" width="3256" height="1216" key="DiffContextDialog/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591546096142" />
-    <state x="1500" y="458" key="FileChooserDialogImpl" timestamp="1591564215655">
+    <state x="1500" y="458" key="FileChooserDialogImpl" timestamp="1591893268746">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state x="1500" y="458" key="FileChooserDialogImpl/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591564215655" />
+    <state x="-1083" y="340" key="FileChooserDialogImpl/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1591565118278" />
+    <state x="1500" y="458" key="FileChooserDialogImpl/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591893268746" />
     <state x="1500" y="458" key="FileChooserDialogImpl/0.0.3440.1400@0.0.3440.1400" timestamp="1591276778099" />
     <state width="1674" height="491" key="GridCell.Tab.-1.bottom" timestamp="1590606280395">
       <screen x="0" y="0" width="3440" height="1400" />
@@ -165,25 +160,25 @@
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
     <state width="1674" height="485" key="GridCell.Tab.-1.right/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590607764851" />
-    <state width="3397" height="387" key="GridCell.Tab.0.bottom" timestamp="1591564189512">
+    <state width="837" height="563" key="GridCell.Tab.0.bottom" timestamp="1591892921651">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state width="3397" height="387" key="GridCell.Tab.0.bottom/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591564189512" />
+    <state width="837" height="563" key="GridCell.Tab.0.bottom/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591892921651" />
     <state width="1674" height="387" key="GridCell.Tab.0.bottom/0.0.3440.1400@0.0.3440.1400" timestamp="1591274947710" />
-    <state width="3397" height="387" key="GridCell.Tab.0.center" timestamp="1591564189512">
+    <state width="837" height="563" key="GridCell.Tab.0.center" timestamp="1591892921651">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state width="3397" height="387" key="GridCell.Tab.0.center/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591564189512" />
+    <state width="837" height="563" key="GridCell.Tab.0.center/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591892921651" />
     <state width="1674" height="387" key="GridCell.Tab.0.center/0.0.3440.1400@0.0.3440.1400" timestamp="1591274947710" />
-    <state width="3397" height="387" key="GridCell.Tab.0.left" timestamp="1591564189512">
+    <state width="837" height="563" key="GridCell.Tab.0.left" timestamp="1591892921651">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state width="3397" height="387" key="GridCell.Tab.0.left/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591564189512" />
+    <state width="837" height="563" key="GridCell.Tab.0.left/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591892921651" />
     <state width="1674" height="387" key="GridCell.Tab.0.left/0.0.3440.1400@0.0.3440.1400" timestamp="1591274947709" />
-    <state width="3397" height="387" key="GridCell.Tab.0.right" timestamp="1591564189512">
+    <state width="837" height="563" key="GridCell.Tab.0.right" timestamp="1591892921651">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state width="3397" height="387" key="GridCell.Tab.0.right/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591564189512" />
+    <state width="837" height="563" key="GridCell.Tab.0.right/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591892921651" />
     <state width="1674" height="387" key="GridCell.Tab.0.right/0.0.3440.1400@0.0.3440.1400" timestamp="1591274947710" />
     <state width="1674" height="491" key="GridCell.Tab.1.bottom" timestamp="1590606276792">
       <screen x="0" y="0" width="3440" height="1400" />
@@ -205,11 +200,11 @@
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
     <state x="1250" y="358" key="Maven.ArtifactSearchDialog/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590602247805" />
-    <state x="830" y="222" key="SettingsEditor" timestamp="1591563212317">
+    <state x="523" y="208" key="SettingsEditor" timestamp="1591893286614">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
     <state x="-1457" y="165" key="SettingsEditor/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1591548644463" />
-    <state x="830" y="222" key="SettingsEditor/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591563212317" />
+    <state x="523" y="208" key="SettingsEditor/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591893286614" />
     <state x="339" y="175" key="SettingsEditor/0.0.3440.1400@0.0.3440.1400" timestamp="1591275134657" />
     <state x="2396" y="484" key="chooseDestDirectoryDialog" timestamp="1590605981798">
       <screen x="0" y="0" width="3440" height="1400" />
@@ -227,47 +222,53 @@
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
     <state x="1531" y="619" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591553354932" />
-    <state x="1427" y="334" width="586" height="732" key="find.popup" timestamp="1591556032122">
+    <state x="1427" y="334" width="586" height="732" key="find.popup" timestamp="1591890429139">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state x="1427" y="334" width="586" height="732" key="find.popup/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591556032122" />
+    <state x="1427" y="334" width="586" height="732" key="find.popup/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591890429139" />
     <state x="613" y="302" key="new project wizard" timestamp="1591273536128">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
     <state x="-1578" y="224" key="new project wizard/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1590596897936" />
     <state x="613" y="302" key="new project wizard/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590606652778" />
     <state x="613" y="302" key="new project wizard/0.0.3440.1400@0.0.3440.1400" timestamp="1591273536128" />
-    <state x="2236" y="334" width="672" height="677" key="run.anything.popup" timestamp="1591562652069">
+    <state x="2236" y="334" width="672" height="677" key="run.anything.popup" timestamp="1591890294341">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state x="2236" y="334" width="672" height="677" key="run.anything.popup/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591562652069" />
-    <state x="2243" y="320" width="672" height="678" key="search.everywhere.popup" timestamp="1591553316235">
+    <state x="2236" y="334" width="672" height="677" key="run.anything.popup/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591890294341" />
+    <state x="2243" y="320" width="672" height="678" key="search.everywhere.popup" timestamp="1591890410373">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state x="2243" y="320" width="672" height="678" key="search.everywhere.popup/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591553316235" />
+    <state x="2243" y="320" width="672" height="678" key="search.everywhere.popup/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591890410373" />
+    <state x="2243" y="320" width="672" height="678" key="search.everywhere.popup/0.0.3440.1400@0.0.3440.1400" timestamp="1591796801352" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/jormcore/src/main/java/jormCore/wrapping/WrappingHandler.java</url>
-          <line>28</line>
-          <option name="timeStamp" value="4" />
+          <url>file://$PROJECT_DIR$/jormsqlite/src/main/java/jormSQLite/DBConnection/SQLiteConnection.java</url>
+          <line>52</line>
+          <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/jormsqlite/src/main/java/jormSQLite/DBConnection/FieldTypeParserSQLite.java</url>
-          <line>11</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/jormsqlite/src/main/java/jormSQLite/DBConnection/FieldTypeParserSQLite.java</url>
-          <line>28</line>
-          <option name="timeStamp" value="6" />
+          <url>file://$PROJECT_DIR$/jormsqlite/src/main/java/jormSQLite/DBConnection/SQLiteConnection.java</url>
+          <line>101</line>
+          <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/TestProject/src/MainClass.java</url>
-          <line>15</line>
-          <option name="timeStamp" value="15" />
+          <line>31</line>
+          <option name="timeStamp" value="32" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/jormcore/src/main/java/jormCore/ApplicationSubManager.java</url>
+          <line>26</line>
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/jormsqlite/src/main/java/jormSQLite/DependencyConfigurationSQLite.java</url>
+          <line>17</line>
+          <option name="timeStamp" value="36" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

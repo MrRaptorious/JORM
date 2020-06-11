@@ -6,6 +6,7 @@ import jormCore.dbConnection.FieldTypeParser;
 import jormCore.tracing.LogLevel;
 import jormCore.wrapping.WrappingHandler;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class ApplicationSubManager  {
@@ -15,13 +16,23 @@ public class ApplicationSubManager  {
     private FieldTypeParser currentParser;
     private StatementBuilder statementBuilder;
     private  WrappingHandler wrappingHandler;
+    private  String connectionString;
 
-    public ApplicationSubManager(DatabaseConnection con, StatementBuilder builder, FieldTypeParser parser) {
-        logLevel = LogLevel.Error;
-        statementBuilder = builder;
-        connection = con;
-        currentParser = parser;
-        wrappingHandler = new WrappingHandler(parser);
+    public ApplicationSubManager(String connectionString, DependencyConfiguration dependencyConfiguration, LogLevel lvl)
+    {
+        this.connectionString = connectionString;
+        logLevel = lvl;
+
+        try {
+            statementBuilder = dependencyConfiguration.<StatementBuilder>resolve(StatementBuilder.class);
+            connection = dependencyConfiguration.<DatabaseConnection>resolve(DatabaseConnection.class);
+            currentParser = dependencyConfiguration.<FieldTypeParser>resolve(FieldTypeParser.class);
+            wrappingHandler = dependencyConfiguration.<WrappingHandler>resolve(WrappingHandler.class);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public StatementBuilder getStatementBuilder() {
@@ -45,6 +56,15 @@ public class ApplicationSubManager  {
      * updated
      */
     public void start() {
+
+        try {
+            connection.connect(connectionString);
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
         // TODO setup relations
         wrappingHandler.updateRelations();
 

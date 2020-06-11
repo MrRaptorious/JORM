@@ -20,9 +20,16 @@ public abstract class DatabaseConnection {
 	protected String connectionString;
 	protected StatementBuilder statementBuilder;
 
-	public DatabaseConnection(String connectionSting, StatementBuilder builder) {
-		connectionString = connectionSting;
+	public DatabaseConnection(StatementBuilder builder) {
 		statementBuilder = builder;
+	}
+
+	/**
+	 * Opens the connection to the database
+	 * @param connectionString the configured connectionString for the database
+	 */
+	public void connect(String connectionString) throws SQLException {
+		this.connectionString = connectionString;
 	}
 
 	/**

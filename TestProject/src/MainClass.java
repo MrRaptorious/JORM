@@ -3,9 +3,11 @@ import jormCore.ApplicationSubManager;
 
 import jormCore.ObjectSpace;
 import jormCore.dbConnection.FieldTypeParser;
+import jormCore.tracing.LogLevel;
 import jormCore.wrapping.WrappingHandler;
 import jormSQLite.DBConnection.FieldTypeParserSQLite;
 import jormSQLite.DBConnection.SQLiteConnection;
+import jormSQLite.DependencyConfigurationSQLite;
 import jormSQLite.criteria.SQLiteStatementBuilder;
 
 import java.sql.SQLException;
@@ -17,15 +19,7 @@ public class MainClass {
 
         JormApplication app = JormApplication.getApplication();
 
-        FieldTypeParser parser = new FieldTypeParserSQLite();
-
-        WrappingHandler handler = new WrappingHandler(parser);
-
-        SQLiteStatementBuilder builder = new SQLiteStatementBuilder(parser, handler);
-
-        SQLiteConnection connection = new SQLiteConnection(connectionSting, builder);
-
-        ApplicationSubManager localManager = new ApplicationSubManager(connection, builder, parser);
+        ApplicationSubManager localManager = new ApplicationSubManager(connectionSting, new DependencyConfigurationSQLite(), LogLevel.Error);
 
         localManager.registerType(TestClassA.class);
 
@@ -40,6 +34,5 @@ public class MainClass {
         for (var obj : obejcts) {
             System.out.println(obj.getMeinTestString());
         }
-
     }
 }

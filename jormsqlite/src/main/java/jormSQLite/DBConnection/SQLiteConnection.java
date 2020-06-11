@@ -9,7 +9,6 @@ import jormCore.criteria.StatementBuilder;
 import jormCore.dbConnection.DatabaseConnection;
 import jormCore.wrapping.ClassWrapper;
 import jormCore.wrapping.FieldWrapper;
-import jormCore.wrapping.WrappingHandler;
 import jormCore.ChangedObject;
 import jormCore.PersistentObject;
 import jormCore.criteria.ComparisonOperator;
@@ -19,8 +18,13 @@ public class SQLiteConnection extends DatabaseConnection {
 
 	private Connection _connection;
 
-	public SQLiteConnection(String connectionSting, StatementBuilder builder) throws SQLException {
-		super(connectionSting,builder);
+	public SQLiteConnection(StatementBuilder builder) {
+		super(builder);
+	}
+
+	@Override
+	public void connect(String connectionSting) throws SQLException
+	{
 		_connection = DriverManager.getConnection(connectionSting);
 	}
 
