@@ -6,8 +6,15 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="jormcore" />
-        <module name="jormsqlite" />
+        <module name="jormSQLite" />
+        <module name="jormMySQL" />
+        <module name="jormCore" />
+      </profile>
+      <profile name="Annotation profile for JORM" enabled="true">
+        <sourceOutputDir name="../jormMySQL/target/generated-sources/annotations" />
+        <sourceTestOutputDir name="../jormMySQL/target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="jormSQLite" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

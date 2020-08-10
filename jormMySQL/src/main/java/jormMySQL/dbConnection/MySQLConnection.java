@@ -1,4 +1,4 @@
-package jormSQLite.DBConnection;
+package jormMySQL.dbConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,18 +14,19 @@ import jormCore.PersistentObject;
 import jormCore.criteria.ComparisonOperator;
 import jormCore.criteria.WhereClause;
 
-public class SQLiteConnection extends DatabaseConnection {
+public class MySQLConnection extends DatabaseConnection {
 
-	private Connection _connection;
+	private Connection connection;
 
-	public SQLiteConnection(StatementBuilder builder) {
+	public MySQLConnection(StatementBuilder builder) {
 		super(builder);
 	}
 
 	@Override
 	public void connect(String connectionSting) throws SQLException
 	{
-		_connection = DriverManager.getConnection(connectionSting);
+		super.connect(connectionString);
+		connection = DriverManager.getConnection(connectionSting);
 	}
 
 	@Override
@@ -41,7 +42,7 @@ public class SQLiteConnection extends DatabaseConnection {
 		ResultSet set = null;
 
 		try {
-			set = _connection.createStatement().executeQuery(statement);
+			set = connection.createStatement().executeQuery(statement);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -55,7 +56,7 @@ public class SQLiteConnection extends DatabaseConnection {
 		ResultSet set = null;
 
 		try {
-			set = _connection.createStatement().executeQuery(result);
+			set = connection.createStatement().executeQuery(result);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -65,16 +66,10 @@ public class SQLiteConnection extends DatabaseConnection {
 	}
 
 	@Override
-	public void update(ChangedObject obj) {
+	public void update(ChangedObject obj) throws SQLException {
 
 		String result = statementBuilder.createUpdate(obj);
-
-		try {
-			_connection.prepareStatement(result).executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		connection.prepareStatement(result).executeUpdate();
 	}
 
 	@Override
@@ -91,17 +86,17 @@ public class SQLiteConnection extends DatabaseConnection {
 
 	@Override
 	public void execute(String statement) throws SQLException {
-		_connection.createStatement().execute(statement);
+		connection.createStatement().execute(statement);
 	}
 
 	@Override
 	public void createSchema() {
 		try {
-			execute("PRAGMA foreign_keys=off");
+			execute("SET FOREIGN_KEY_CHECKS=0");
 
 			List<String> allStatements = statementBuilder.createAllEntity();
 
-			Statement statement = _connection.createStatement();
+			Statement statement = connection.createStatement();
 
 			for (String statementString : allStatements) {
 				statement.addBatch(statementString);
@@ -109,7 +104,7 @@ public class SQLiteConnection extends DatabaseConnection {
 
 			statement.executeBatch();
 
-			execute("PRAGMA foreign_keys=on");
+			execute("SET FOREIGN_KEY_CHECKS=1");
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -123,14 +118,22 @@ public class SQLiteConnection extends DatabaseConnection {
 
 		for (ClassWrapper cl : statementBuilder.getAllEntities()) {
 
-			String getTypeSchemaStatement = "PRAGMA table_info(" + cl.getName() + ")";
+			String getTypeSchemaStatement = "";
+
+
+			try {
+				getTypeSchemaStatement = String.format("SELECT COLUMN_NAME FROM `INFORMATION_SCHEMA`.`COLUMNS`  WHERE `TABLE_SCHEMA`='%s' AND `TABLE_NAME`='%s';", connection.getCatalog(), cl.getName());
+			} catch (SQLException throwables) {
+				throwables.printStackTrace(); // TODO
+			}
+
 			List<String> persistentColumns = new ArrayList<String>();
 
 			// collect persistentColumns
 			try {
-				ResultSet resultSet = _connection.createStatement().executeQuery(getTypeSchemaStatement);
+				ResultSet resultSet = connection.createStatement().executeQuery(getTypeSchemaStatement);
 				while (resultSet.next()) {
-					persistentColumns.add(resultSet.getString("name"));
+					persistentColumns.add(resultSet.getString("COLUMN_NAME"));
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -156,7 +159,8 @@ public class SQLiteConnection extends DatabaseConnection {
 	@Override
 	public void beginTransaction() {
 		try {
-			execute("BEGIN TRANSACTION;");
+			execute("START TRANSACTION;");
+			execute("SET autocommit = 0;");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -167,6 +171,7 @@ public class SQLiteConnection extends DatabaseConnection {
 	public void commitTransaction() {
 		try {
 			execute("COMMIT;");
+			execute("SET autocommit = 1;");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -177,6 +182,7 @@ public class SQLiteConnection extends DatabaseConnection {
 	public void rollbackTransaction() {
 		try {
 			execute("ROLLBACK;");
+			execute("SET autocommit = 1;");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

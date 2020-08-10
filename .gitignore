@@ -1,6 +1,7 @@
 # Compiled class file
 *.class
 /out/
+*/target/
 
 # Log file
 *.log
@@ -32,3 +33,4 @@ hs_err_pid*
 
 #include db driver
 !*/src/main/resources/sqlite-jdbc-3.27.2.1.jar
+

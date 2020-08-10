@@ -22,7 +22,7 @@ public abstract class DependencyConfiguration {
     public  <T> T resolve(Class<T> cls) throws IllegalAccessException, InvocationTargetException, InstantiationException {
 
         if(!typeMapping.containsKey(cls))
-            throw new IllegalArgumentException("The type \"" + cls.getName() + "\" is not registerd");
+            throw new IllegalArgumentException("The type \"" + cls.getName() + "\" is not registered");
 
             if(objectMapping.containsKey(cls))
         {

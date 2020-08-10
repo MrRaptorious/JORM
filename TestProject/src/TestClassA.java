@@ -7,6 +7,9 @@ public class TestClassA extends PersistentObject{
     @Persistent(name="Name")
     private String meinTestString;
 
+    @Persistent(name="isCool")
+    private boolean meinTestBoolean;
+
     public TestClassA(ObjectSpace os) {
         super(os);
     }
@@ -18,4 +21,14 @@ public class TestClassA extends PersistentObject{
     public String getMeinTestString() {
         return meinTestString;
     }
+
+    public void setmeinTestBoolean(boolean meinTestBoolean) {
+        this.meinTestBoolean = meinTestBoolean;
+    }
+
+    public boolean getmeinTestBoolean() {
+        return meinTestBoolean;
+    }
+
+
 }

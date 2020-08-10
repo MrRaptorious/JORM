@@ -26,6 +26,11 @@ public class JormList<T extends PersistentObject> extends ArrayList<T> {
 		load();
 	}
 
+	/**
+	 * Adds the PersistentObject o to the list
+	 * @param o
+	 * @return
+	 */
 	@Override
 	public boolean add(T o) {
 		String fieldName = objectSpace.getWrappingHandler().getClassWrapper(o.getClass())

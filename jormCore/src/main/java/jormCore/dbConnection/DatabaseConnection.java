@@ -67,7 +67,7 @@ public abstract class DatabaseConnection {
 	
 	public abstract void rollbackTransaction();
 	
-	public abstract void update(ChangedObject obj);
+	public abstract void update(ChangedObject obj) throws SQLException;
 
 	public abstract void delete(PersistentObject obj);
 

@@ -295,14 +295,12 @@ public class ObjectSpace {
 	 * Reloads all types from the database and updates the cache
 	 */
 	public void refresh() {
-		try {
 
 			List<ClassWrapper> typeList = wrappingHandler.getWrapperList();
 
 			for (ClassWrapper clsWr : typeList)
 				refreshType(clsWr);
-		} finally {
-		}
+
 	}
 
 	/**
@@ -322,7 +320,8 @@ public class ObjectSpace {
 		}
 
 		// perhaps put old value in parameter for performance
-		changedObjects.get(changedObject.getClass()).get(changedObject).addChangedField(fieldName, newValue, changedObject.getMemberValue(fieldName));
+		changedObjects.get(changedObject.getClass()).get(changedObject)
+				.addChangedField(fieldName, newValue, changedObject.getMemberValue(fieldName));
 	}
 
 	/**
@@ -332,39 +331,8 @@ public class ObjectSpace {
 		try {
 			connection.beginTransaction();
 
-			// create objects
-			for (Entry<Class<? extends PersistentObject>, List<PersistentObject>> type : createdObjects.entrySet()) {
-				for (PersistentObject createdObject : type.getValue()) {
-
-					// extract all relations in objects to create and add them to the changed
-					// objects
-
-					List<FieldWrapper> relationFields = wrappingHandler
-							.getClassWrapper(createdObject.getClass()).getRelationWrapper();
-
-					for (FieldWrapper relation : relationFields) {
-
-						String relationMemberName = relation.getOriginalField().getName();
-
-						Object o = createdObject.getMemberValue(relationMemberName);
-
-						if (o != null) {
-							addChangedObject(createdObject, relationMemberName, o);
-							createdObject.setMemberValue(relationMemberName, null);
-						}
-					}
-
-					connection.create(createdObject);
-				}
-			}
-
-			// update objects
-			for (Entry<Class<? extends PersistentObject>, Map<PersistentObject, ChangedObject>> type : changedObjects
-					.entrySet()) {
-				for (Entry<PersistentObject, ChangedObject> typeObject : type.getValue().entrySet()) {
-					connection.update(typeObject.getValue());
-				}
-			}
+			createObjects();
+			updateObjects();
 
 			connection.commitTransaction();
 
@@ -379,10 +347,51 @@ public class ObjectSpace {
 	}
 
 	/**
+	 * Updates database and updates all objects
+	 */
+	private void updateObjects() throws SQLException{
+		for (Entry<Class<? extends PersistentObject>, Map<PersistentObject, ChangedObject>> type : changedObjects
+				.entrySet()) {
+			for (Entry<PersistentObject, ChangedObject> typeObject : type.getValue().entrySet()) {
+				connection.update(typeObject.getValue());
+			}
+		}
+	}
+
+	/**
+	 * Updates database and creates all created objects
+	 */
+	private void createObjects() throws SQLException {
+		for (Entry<Class<? extends PersistentObject>, List<PersistentObject>> type : createdObjects.entrySet()) {
+			for (PersistentObject createdObject : type.getValue()) {
+
+				// extract all relations in objects to create and add them to the changed
+				// objects
+
+				List<FieldWrapper> relationFields = wrappingHandler
+						.getClassWrapper(createdObject.getClass()).getRelationWrapper();
+
+				for (FieldWrapper relation : relationFields) {
+
+					String relationMemberName = relation.getOriginalField().getName();
+
+					Object o = createdObject.getMemberValue(relationMemberName);
+
+					if (o != null) {
+						addChangedObject(createdObject, relationMemberName, o);
+						createdObject.setMemberValue(relationMemberName, null);
+					}
+				}
+
+				connection.create(createdObject);
+			}
+		}
+	}
+
+	/**
 	 * Rolls the current chaneges in the objectspace back
 	 */
-	public void rollbackChanges()
-	{
+	public void rollbackChanges() {
 		for ( var type : changedObjects.entrySet()) {
 			for (var cObject : type.getValue().entrySet()) {
 				cObject.getValue().rollback();
