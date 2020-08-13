@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import jormCore.annotaions.Persistent;
 import jormCore.dbConnection.FieldTypeParser;
 import jormCore.PersistentObject;
 
@@ -46,8 +47,10 @@ public class WrappingHandler {
 	}
 
 	public List<ClassWrapper> getWrapperList() {
-		return new ArrayList<ClassWrapper>(classWrapper.values());
+		return new ArrayList<>(classWrapper.values());
 	}
+
+	public ArrayList<Class<? extends PersistentObject>> getRegisterdTypes() {return new ArrayList<>(classWrapper.keySet()); }
 
 	public ClassWrapper getClassWrapper(Class<? extends PersistentObject> cls) {
 		if (classWrapper.containsKey(cls))
@@ -69,4 +72,5 @@ public class WrappingHandler {
 	public FieldTypeParser getFieldTypeParser() {
 		return fieldTypeParser;
 	}
+
 }

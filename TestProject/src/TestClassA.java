@@ -10,6 +10,9 @@ public class TestClassA extends PersistentObject{
     @Persistent(name="isCool")
     private boolean meinTestBoolean;
 
+    @Persistent
+    private TestClassB meinB;
+
     public TestClassA(ObjectSpace os) {
         super(os);
     }
@@ -29,6 +32,8 @@ public class TestClassA extends PersistentObject{
     public boolean getmeinTestBoolean() {
         return meinTestBoolean;
     }
+
+    public void setMeinB(TestClassB B) {meinB = B; }
 
 
 }

@@ -10,12 +10,6 @@
         <module name="jormMySQL" />
         <module name="jormCore" />
       </profile>
-      <profile name="Annotation profile for JORM" enabled="true">
-        <sourceOutputDir name="../jormMySQL/target/generated-sources/annotations" />
-        <sourceTestOutputDir name="../jormMySQL/target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <module name="jormSQLite" />
-      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="core" target="1.5" />

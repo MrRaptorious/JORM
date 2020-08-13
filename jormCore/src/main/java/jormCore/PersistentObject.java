@@ -16,11 +16,13 @@ import jormCore.wrapping.FieldWrapper;
  */
 public class PersistentObject {
 
+	public static final String KeyPropertyName = "ID";
+
 	@NonPersistent
 	private ObjectSpace objectSpace;
 
 	@PrimaryKey
-	@Persistent(name = "ID")
+	@Persistent(name = KeyPropertyName)
 	private UUID id;
 	@Persistent(name = "CREATIONDATE")
 	private Date creationDate;
@@ -60,7 +62,7 @@ public class PersistentObject {
 	public Map<FieldWrapper, Object> getPersistentPropertiesWithValues() {
 		List<FieldWrapper> wrappedFields = objectSpace.getWrappingHandler().getClassWrapper(this.getClass())
 				.getWrappedFields();
-		Map<FieldWrapper, Object> mapping = new HashMap<FieldWrapper, Object>();
+		Map<FieldWrapper, Object> mapping = new HashMap<>();
 
 		for (FieldWrapper fw : wrappedFields) {
 			try {
@@ -155,12 +157,17 @@ public class PersistentObject {
 			Association asso = objectSpace.getWrappingHandler().getClassWrapper(this.getClass())
 					.getFieldWrapper(memberName, true).getAnnotation(Association.class);
 			if (asso != null) {
-				JormList<T> list = new JormList<T>(objectSpace, this, asso.name());
+				JormList<T> list = new JormList<>(objectSpace, this, asso.name());
 				setMemberValue(memberName, list);
 				return list;
 			}
 		}
 
 		return (JormList<T>) getMemberValue(memberName);
+	}
+
+	@Override
+	public String toString() {
+		return this.getClass().getName() + "@" +  id.toString();
 	}
 }

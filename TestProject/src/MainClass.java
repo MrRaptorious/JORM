@@ -8,11 +8,14 @@ import jormSQLite.DependencyConfigurationSQLite;
 import jormMySQL.DependencyConfigurationMySQL;
 
 import java.sql.SQLException;
+import java.util.UUID;
 
 public class MainClass {
-    public static void main(String[] args) throws SQLException {
-        mysqlConnection();
+    public static void main(String[] args) {
+//        mysqlConnection();
+        sqliteConnection();
     }
+
     private static void mysqlConnection() {
         String connectionSting = "jdbc:mysql://localhost:3306/MapperTest?user=root&password=";
         //String connectionSting = "jdbc:sqlite::memory:";
@@ -87,22 +90,27 @@ public class MainClass {
 
         ObjectSpace os = localManager.createObjectSpace();
 
-        // insert data
-        TestClassA objA = os.createObject(TestClassA.class);
-        objA.setMeinTestString("With B Object");
-        TestClassB objB = os.createObject(TestClassB.class);
-        objB.setTestClassA(objA);
-        os.commitChanges();
-
-
-        // test table content
-        Tester.checkDBInsert();
-
-//        var obejcts = os.getObjects(TestClassA.class);
+        // <editor-fold desc="Circle Test">
+        // b-circle
+//        TestClassB b1 = new TestClassB(os);
+//        TestClassB b2 = new TestClassB(os);
+//        b1.setTestClassB(b2);
+//        b2.setTestClassB(b1);
 //
-//        for (var obj : obejcts) {
-//            System.out.println(obj.getMeinTestString());
-//        }
-    }
+//        // b-self
+//        TestClassB b3 = new TestClassB(os);
+//        b3.setTestClassB(b3);
 
+        // </editor-fold>
+
+        var bs = os.getObjects(TestClassB.class);
+
+        for(var b : bs) {
+            System.out.println(b);
+            System.out.println(b.getTestClassB());
+            System.out.println();
+        }
+
+        os.commitChanges();
+    }
 }

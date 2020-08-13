@@ -24,10 +24,10 @@ public class ApplicationSubManager  {
         logLevel = lvl;
 
         try {
-            statementBuilder = dependencyConfiguration.<StatementBuilder>resolve(StatementBuilder.class);
-            connection = dependencyConfiguration.<DatabaseConnection>resolve(DatabaseConnection.class);
-            currentParser = dependencyConfiguration.<FieldTypeParser>resolve(FieldTypeParser.class);
-            wrappingHandler = dependencyConfiguration.<WrappingHandler>resolve(WrappingHandler.class);
+            statementBuilder = dependencyConfiguration.resolve(StatementBuilder.class);
+            connection = dependencyConfiguration.resolve(DatabaseConnection.class);
+            currentParser = dependencyConfiguration.resolve(FieldTypeParser.class);
+            wrappingHandler = dependencyConfiguration.resolve(WrappingHandler.class);
         }
         catch (Exception e)
         {
@@ -65,7 +65,6 @@ public class ApplicationSubManager  {
             e.printStackTrace();
         }
 
-        // TODO setup relations
         wrappingHandler.updateRelations();
 
         initDatabase();
