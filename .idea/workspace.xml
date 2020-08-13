@@ -22,18 +22,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0cedc886-a64b-4c02-9e7e-b831bcd27d1c" name="Default Changelist" comment="objectspace cleanup">
-      <change afterPath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/ObjectCache.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+    <list default="true" id="0cedc886-a64b-4c02-9e7e-b831bcd27d1c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/jormMySQL/src/main/resources/mysql-connector-java-5.1.48.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestProject/src/MainClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/TestProject/src/MainClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestProject/src/TestClassA.java" beforeDir="false" afterPath="$PROJECT_DIR$/TestProject/src/TestClassA.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestProject/src/TestClassB.java" beforeDir="false" afterPath="$PROJECT_DIR$/TestProject/src/TestClassB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jormCore/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jormCore/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/ApplicationSubManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/ApplicationSubManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/ObjectSpace.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/ObjectSpace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/PersistentObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/PersistentObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/wrapping/WrappingHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/wrapping/WrappingHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,9 +74,9 @@
     <property name="ignore.virus.scanning.warn.message" value="true" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/jormcore/src/test/java" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/jormMySQL/src/main/resources/mysql-connector-java-5.1.48.jar" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Problems" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.34367815" />
+    <property name="project.structure.side.proportion" value="0.16950597" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
@@ -116,7 +107,7 @@
       <recent name="D:\Programming\Projects\Java\JORM\TestProject" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.TestProject">
+  <component name="RunManager" selected="JUnit.Whole project">
     <configuration name="TestProject" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="MainClass" />
       <module name="TestProject" />
@@ -124,57 +115,30 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="All in jormcore (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="jormCore" />
+    <configuration name="Whole project" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <useClassPathOnly />
       <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="package" />
+      <option name="PARAMETERS" value="" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="wholeProject" />
+      </option>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="All in jormcore (2)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="jormCore" />
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <useClassPathOnly />
       <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="All in jormcore" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="jormCore" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="JormApplicationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="jormCore" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="jormCore.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="jormCore" />
-      <option name="MAIN_CLASS_NAME" value="jormCore.JormApplicationTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="JormApplicationTest.registerApplicationSubManager" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="jormCore" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="jormCore.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="jormCore" />
-      <option name="MAIN_CLASS_NAME" value="jormCore.JormApplicationTest" />
-      <option name="METHOD_NAME" value="registerApplicationSubManager" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PARAMETERS" value="" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="wholeProject" />
+      </option>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -185,21 +149,8 @@
     </configuration>
     <list>
       <item itemvalue="Application.TestProject" />
-      <item itemvalue="JUnit.All in jormcore (1)" />
-      <item itemvalue="JUnit.All in jormcore (2)" />
-      <item itemvalue="JUnit.All in jormcore" />
-      <item itemvalue="JUnit.JormApplicationTest" />
-      <item itemvalue="JUnit.JormApplicationTest.registerApplicationSubManager" />
+      <item itemvalue="JUnit.Whole project" />
     </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="JUnit.JormApplicationTest" />
-        <item itemvalue="JUnit.JormApplicationTest.registerApplicationSubManager" />
-        <item itemvalue="JUnit.All in jormcore (2)" />
-        <item itemvalue="JUnit.All in jormcore (1)" />
-        <item itemvalue="JUnit.All in jormcore" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -213,6 +164,14 @@
       <option name="presentableId" value="Default" />
       <updated>1590596507075</updated>
     </task>
+    <task id="LOCAL-00001" summary="objectspace cleanup">
+      <created>1597331691331</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1597331691331</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -228,6 +187,7 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="objectspace cleanup" />
     <option name="LAST_COMMIT_MESSAGE" value="objectspace cleanup" />
   </component>
@@ -255,10 +215,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="812" y="384" width="778" height="342" key="#com.intellij.codeInsight.template.impl.EditVariableDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1597328972978" />
-    <state x="361" y="302" width="789" height="527" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1597328384094">
+    <state x="361" y="302" width="992" height="599" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1597332264385">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="361" y="302" width="789" height="527" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1597328384094" />
+    <state x="361" y="302" width="992" height="599" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1597332264385" />
     <state x="-1559" y="302" width="976" height="527" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1592048794775" />
     <state x="647" y="406" width="1092" height="604" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591553978330" />
     <state x="647" y="407" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.3440.1400@0.0.3440.1400" timestamp="1596637659502" />
@@ -307,10 +267,10 @@
     <state x="431" y="288" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1596809254095" />
     <state x="-1489" y="288" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1591976847791" />
     <state x="773" y="388" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591893252370" />
-    <state x="774" y="56" width="745" height="984" key="CommitChangelistDialog2" timestamp="1597331545706">
+    <state x="774" y="56" width="745" height="984" key="CommitChangelistDialog2" timestamp="1597331690667">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="774" y="56" width="745" height="984" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1597331545706" />
+    <state x="774" y="56" width="745" height="984" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1597331690667" />
     <state x="1387" y="298" key="CommitChangelistDialog2/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591540383549" />
     <state width="476" height="466" key="DebuggerActiveHint" timestamp="1597329664566">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -344,35 +304,35 @@
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
     <state width="1674" height="485" key="GridCell.Tab.-1.right/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590607764851" />
-    <state width="935" height="349" key="GridCell.Tab.0.bottom" timestamp="1597331244902">
+    <state width="935" height="349" key="GridCell.Tab.0.bottom" timestamp="1597332140398">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1693" height="494" key="GridCell.Tab.0.bottom/-1920.0.1920.1040/0.0.3440.1400@0.0.3440.1400" timestamp="1597093178460" />
-    <state width="935" height="349" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1597331244902" />
+    <state width="935" height="349" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1597332140398" />
     <state width="938" height="399" key="GridCell.Tab.0.bottom/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1592057060439" />
     <state width="1695" height="495" key="GridCell.Tab.0.bottom/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1596887644601" />
     <state width="1696" height="405" key="GridCell.Tab.0.bottom/0.0.3440.1400@0.0.3440.1400" timestamp="1596804296204" />
-    <state width="935" height="349" key="GridCell.Tab.0.center" timestamp="1597331244902">
+    <state width="935" height="349" key="GridCell.Tab.0.center" timestamp="1597332140398">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1693" height="494" key="GridCell.Tab.0.center/-1920.0.1920.1040/0.0.3440.1400@0.0.3440.1400" timestamp="1597093178459" />
-    <state width="935" height="349" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1597331244902" />
+    <state width="935" height="349" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1597332140398" />
     <state width="938" height="399" key="GridCell.Tab.0.center/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1592057060439" />
     <state width="1695" height="495" key="GridCell.Tab.0.center/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1596887644601" />
     <state width="1696" height="405" key="GridCell.Tab.0.center/0.0.3440.1400@0.0.3440.1400" timestamp="1596804296204" />
-    <state width="935" height="349" key="GridCell.Tab.0.left" timestamp="1597331244902">
+    <state width="935" height="349" key="GridCell.Tab.0.left" timestamp="1597332140398">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1693" height="494" key="GridCell.Tab.0.left/-1920.0.1920.1040/0.0.3440.1400@0.0.3440.1400" timestamp="1597093178459" />
-    <state width="935" height="349" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1597331244902" />
+    <state width="935" height="349" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1597332140398" />
     <state width="938" height="399" key="GridCell.Tab.0.left/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1592057060439" />
     <state width="1695" height="495" key="GridCell.Tab.0.left/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1596887644600" />
     <state width="1696" height="405" key="GridCell.Tab.0.left/0.0.3440.1400@0.0.3440.1400" timestamp="1596804296204" />
-    <state width="935" height="349" key="GridCell.Tab.0.right" timestamp="1597331244902">
+    <state width="935" height="349" key="GridCell.Tab.0.right" timestamp="1597332140398">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1693" height="494" key="GridCell.Tab.0.right/-1920.0.1920.1040/0.0.3440.1400@0.0.3440.1400" timestamp="1597093178459" />
-    <state width="935" height="349" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1597331244902" />
+    <state width="935" height="349" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1597332140398" />
     <state width="938" height="399" key="GridCell.Tab.0.right/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1592057060439" />
     <state width="1695" height="495" key="GridCell.Tab.0.right/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1596887644601" />
     <state width="1696" height="405" key="GridCell.Tab.0.right/0.0.3440.1400@0.0.3440.1400" timestamp="1596804296204" />
@@ -397,13 +357,17 @@
     </state>
     <state x="522" y="248" key="Maven.ArtifactSearchDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1591968223498" />
     <state x="1250" y="358" key="Maven.ArtifactSearchDialog/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590602247805" />
-    <state x="236" y="40" width="1398" height="852" key="SettingsEditor" timestamp="1597331342240">
+    <state x="236" y="40" width="1398" height="852" key="SettingsEditor" timestamp="1597332175008">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="236" y="40" width="1398" height="852" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1597331342240" />
+    <state x="236" y="40" width="1398" height="852" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1597332175008" />
     <state x="-1457" y="165" key="SettingsEditor/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1591981083015" />
     <state x="523" y="208" key="SettingsEditor/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1596883127688" />
     <state x="339" y="175" key="SettingsEditor/0.0.3440.1400@0.0.3440.1400" timestamp="1596807444200" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1597331705415">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1597331705415" />
     <state x="1337" y="360" key="chooseDestDirectoryDialog" timestamp="1591963006797">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
