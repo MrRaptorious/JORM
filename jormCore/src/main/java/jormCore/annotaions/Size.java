@@ -9,6 +9,6 @@ import static java.lang.annotation.ElementType.FIELD;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = {FIELD})
 public @interface Size {
-	public  static int DefaultSize = 255;
-	public int Size() default DefaultSize;
+	int DefaultSize = 255;
+	int Size() default DefaultSize;
 }

@@ -1,6 +1,5 @@
 package jormCore;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -8,13 +7,13 @@ import java.util.HashMap;
  */
 public class JormApplication {
     // has List<ApplicationSupManager>
-    private HashMap<String, ApplicationSubManager> subManagers;
+    private final HashMap<String, ApplicationSubManager> subManagers;
     private ApplicationSubManager defaultSubManager;
 
     private static JormApplication application;
 
     private JormApplication() {
-        subManagers = new HashMap<String, ApplicationSubManager>();
+        subManagers = new HashMap<>();
     }
 
     public static JormApplication getApplication() {

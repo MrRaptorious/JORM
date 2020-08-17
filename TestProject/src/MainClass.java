@@ -7,15 +7,13 @@ import jormSQLite.DependencyConfigurationSQLite;
 
 import jormMySQL.DependencyConfigurationMySQL;
 
-import java.sql.SQLException;
-import java.util.UUID;
-
 public class MainClass {
     public static void main(String[] args) {
 //        mysqlConnection();
         sqliteConnection();
     }
 
+    @SuppressWarnings("unused")
     private static void mysqlConnection() {
         String connectionSting = "jdbc:mysql://localhost:3306/MapperTest?user=root&password=";
         //String connectionSting = "jdbc:sqlite::memory:";
@@ -24,15 +22,15 @@ public class MainClass {
         // create application
         JormApplication app = JormApplication.getApplication();
 
-        // create submanager
+        // create subManager
         ApplicationSubManager localManager = new ApplicationSubManager(connectionSting, new DependencyConfigurationMySQL(), LogLevel.Error);
 
-        // register types to store in db via submanager
+        // register types to store in db via subManager
         localManager.registerType(TestClassA.class);
         localManager.registerType(TestClassB.class);
 
 
-        // register submanager in application
+        // register subManager in application
         app.registerApplicationSubManager("localManager", localManager, true);
 
         // start the application
@@ -56,9 +54,9 @@ public class MainClass {
 //        // test table content
 //        Tester.checkDBInsert();
 
-        var obejcts = os.getObjects(TestClassA.class);
+        var objects = os.getObjects(TestClassA.class);
 
-        for (var obj : obejcts) {
+        for (var obj : objects) {
             System.out.println(obj.getMeinTestString());
         }
     }
@@ -71,14 +69,14 @@ public class MainClass {
         // create application
         JormApplication app = JormApplication.getApplication();
 
-        // create submanager
+        // create subManager
         ApplicationSubManager localManager = new ApplicationSubManager(connectionSting, new DependencyConfigurationSQLite(), LogLevel.Error);
 
-        // register types to store in db via submanager
+        // register types to store in db via subManager
         localManager.registerType(TestClassA.class);
         localManager.registerType(TestClassB.class);
 
-        // register submanager in application
+        // register subManager in application
         app.registerApplicationSubManager("localManager", localManager, true);
 
         // start the application

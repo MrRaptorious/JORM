@@ -58,7 +58,7 @@ public class ObjectSpace {
         isLoadingObjects = false;
         changedObjects = new HashMap<>();
         createdObjects = new HashMap<>();
-        objectCache = new ObjectCache(wrappingHandler.getRegisterdTypes());
+        objectCache = new ObjectCache(wrappingHandler.getRegisteredTypes());
     }
 
     /**
@@ -292,7 +292,7 @@ public class ObjectSpace {
     }
 
     /**
-     * Returns the current wrapping handler of the objectspace
+     * Returns the current wrapping handler of the objectSpace
      */
     public WrappingHandler getWrappingHandler() {
         return wrappingHandler;
@@ -375,7 +375,7 @@ public class ObjectSpace {
         PersistentObject pObject;
         pObject = createValueObject(classWrapper, set);
 
-        objectCache.addTemp(classWrapper.getClassToWrap(), pObject);
+        objectCache.addTemp(/*classWrapper.getClassToWrap(),*/ pObject);
 
         fillReferences(classWrapper, set, pObject);
 
@@ -398,7 +398,7 @@ public class ObjectSpace {
             if (oid != null && !oid.equals("")) {
                 UUID uuidToCompare = UUID.fromString(oid);
 
-                AssociationWrapper as = fw.getForeigenKey();
+                AssociationWrapper as = fw.getForeignKey();
                 ClassWrapper cw = as.getReferencingType();
                 Class<? extends PersistentObject> cl = cw.getClassToWrap();
 
@@ -424,7 +424,7 @@ public class ObjectSpace {
             pObject = constructor.newInstance(this);
 
             // set Object fields
-            for (FieldWrapper fw : classWrapper.getWrappedValueMemeberWrapper()) {
+            for (FieldWrapper fw : classWrapper.getWrappedValueMemberWrapper()) {
                 Object value = set.getString(fw.getName());
 
                 pObject.setMemberValue(fw.getOriginalField().getName(),

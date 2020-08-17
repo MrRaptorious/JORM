@@ -23,8 +23,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0cedc886-a64b-4c02-9e7e-b831bcd27d1c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/jormMySQL/src/main/resources/mysql-connector-java-5.1.48.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestProject/src/MainClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/TestProject/src/MainClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestProject/src/TestClassA.java" beforeDir="false" afterPath="$PROJECT_DIR$/TestProject/src/TestClassA.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestProject/src/Tester.java" beforeDir="false" afterPath="$PROJECT_DIR$/TestProject/src/Tester.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/ApplicationSubManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/ApplicationSubManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/ChangedObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/ChangedObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/DependencyConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/DependencyConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/JormApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/JormApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/JormList.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/JormList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/ObjectCache.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/ObjectCache.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/ObjectSpace.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/ObjectSpace.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/PersistentObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/PersistentObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/annotaions/Association.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/annotaions/Association.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/annotaions/ManyToManyAssociation.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/annotaions/ManyToManyAssociation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/annotaions/Persistent.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/annotaions/Persistent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/annotaions/Size.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/annotaions/Size.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/criteria/StatementBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/criteria/StatementBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/criteria/WhereClause.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/criteria/WhereClause.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/dbConnection/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/dbConnection/DatabaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/dbConnection/FieldWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/dbConnection/FieldWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/wrapping/AssociationWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/wrapping/AssociationWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/wrapping/ClassWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/wrapping/ClassWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/wrapping/FieldWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/wrapping/FieldWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/wrapping/WrappingHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/wrapping/WrappingHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormMySQL/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jormMySQL/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormMySQL/src/main/java/jormMySQL/criteria/SQLiteStatementBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormMySQL/src/main/java/jormMySQL/criteria/SQLiteStatementBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormMySQL/src/main/java/jormMySQL/dbConnection/FieldTypeParserMySQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormMySQL/src/main/java/jormMySQL/dbConnection/FieldTypeParserMySQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormMySQL/src/main/java/jormMySQL/dbConnection/MySQLConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormMySQL/src/main/java/jormMySQL/dbConnection/MySQLConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormSQLite/src/main/java/jormSQLite/criteria/SQLiteStatementBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormSQLite/src/main/java/jormSQLite/criteria/SQLiteStatementBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormSQLite/src/main/java/jormSQLite/dbConnection/FieldTypeParserSQLite.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormSQLite/src/main/java/jormSQLite/dbConnection/FieldTypeParserSQLite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormSQLite/src/main/java/jormSQLite/dbConnection/SQLiteConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormSQLite/src/main/java/jormSQLite/dbConnection/SQLiteConnection.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,6 +109,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.16950597" />
     <property name="restartRequiresConfirmation" value="false" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
@@ -107,7 +139,7 @@
       <recent name="D:\Programming\Projects\Java\JORM\TestProject" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.Whole project">
+  <component name="RunManager" selected="Application.TestProject">
     <configuration name="TestProject" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="MainClass" />
       <module name="TestProject" />
@@ -171,7 +203,14 @@
       <option name="project" value="LOCAL" />
       <updated>1597331691331</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="added mysql connector">
+      <created>1597332338286</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1597332338286</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -189,7 +228,8 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="objectspace cleanup" />
-    <option name="LAST_COMMIT_MESSAGE" value="objectspace cleanup" />
+    <MESSAGE value="added mysql connector" />
+    <option name="LAST_COMMIT_MESSAGE" value="added mysql connector" />
   </component>
   <component name="WindowStateProjectService">
     <state x="-1075" y="382" width="540" height="519" key="#Notifications" timestamp="1591981164286">
@@ -267,16 +307,20 @@
     <state x="431" y="288" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1596809254095" />
     <state x="-1489" y="288" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1591976847791" />
     <state x="773" y="388" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591893252370" />
-    <state x="774" y="56" width="745" height="984" key="CommitChangelistDialog2" timestamp="1597331690667">
+    <state x="706" y="374" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1597414076720">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="774" y="56" width="745" height="984" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1597331690667" />
+    <state x="706" y="374" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040@0.0.1920.1040" timestamp="1597414076720" />
+    <state x="774" y="56" width="745" height="984" key="CommitChangelistDialog2" timestamp="1597332337798">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="774" y="56" width="745" height="984" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1597332337798" />
     <state x="1387" y="298" key="CommitChangelistDialog2/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591540383549" />
-    <state width="476" height="466" key="DebuggerActiveHint" timestamp="1597329664566">
+    <state width="476" height="466" key="DebuggerActiveHint" timestamp="1597413889524">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="853" height="628" key="DebuggerActiveHint/-1920.0.1920.1040/0.0.3440.1400@0.0.3440.1400" timestamp="1597092489624" />
-    <state width="476" height="466" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1597329664566" />
+    <state width="476" height="466" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1597413889524" />
     <state x="92" y="92" width="3256" height="1216" key="DiffContextDialog" timestamp="1591546096142">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
@@ -304,35 +348,35 @@
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
     <state width="1674" height="485" key="GridCell.Tab.-1.right/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590607764851" />
-    <state width="935" height="349" key="GridCell.Tab.0.bottom" timestamp="1597332140398">
+    <state width="935" height="349" key="GridCell.Tab.0.bottom" timestamp="1597415329980">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1693" height="494" key="GridCell.Tab.0.bottom/-1920.0.1920.1040/0.0.3440.1400@0.0.3440.1400" timestamp="1597093178460" />
-    <state width="935" height="349" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1597332140398" />
+    <state width="935" height="349" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1597415329980" />
     <state width="938" height="399" key="GridCell.Tab.0.bottom/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1592057060439" />
     <state width="1695" height="495" key="GridCell.Tab.0.bottom/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1596887644601" />
     <state width="1696" height="405" key="GridCell.Tab.0.bottom/0.0.3440.1400@0.0.3440.1400" timestamp="1596804296204" />
-    <state width="935" height="349" key="GridCell.Tab.0.center" timestamp="1597332140398">
+    <state width="935" height="349" key="GridCell.Tab.0.center" timestamp="1597415329979">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1693" height="494" key="GridCell.Tab.0.center/-1920.0.1920.1040/0.0.3440.1400@0.0.3440.1400" timestamp="1597093178459" />
-    <state width="935" height="349" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1597332140398" />
+    <state width="935" height="349" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1597415329979" />
     <state width="938" height="399" key="GridCell.Tab.0.center/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1592057060439" />
     <state width="1695" height="495" key="GridCell.Tab.0.center/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1596887644601" />
     <state width="1696" height="405" key="GridCell.Tab.0.center/0.0.3440.1400@0.0.3440.1400" timestamp="1596804296204" />
-    <state width="935" height="349" key="GridCell.Tab.0.left" timestamp="1597332140398">
+    <state width="935" height="349" key="GridCell.Tab.0.left" timestamp="1597415329978">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1693" height="494" key="GridCell.Tab.0.left/-1920.0.1920.1040/0.0.3440.1400@0.0.3440.1400" timestamp="1597093178459" />
-    <state width="935" height="349" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1597332140398" />
+    <state width="935" height="349" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1597415329978" />
     <state width="938" height="399" key="GridCell.Tab.0.left/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1592057060439" />
     <state width="1695" height="495" key="GridCell.Tab.0.left/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1596887644600" />
     <state width="1696" height="405" key="GridCell.Tab.0.left/0.0.3440.1400@0.0.3440.1400" timestamp="1596804296204" />
-    <state width="935" height="349" key="GridCell.Tab.0.right" timestamp="1597332140398">
+    <state width="935" height="349" key="GridCell.Tab.0.right" timestamp="1597415329980">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1693" height="494" key="GridCell.Tab.0.right/-1920.0.1920.1040/0.0.3440.1400@0.0.3440.1400" timestamp="1597093178459" />
-    <state width="935" height="349" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1597332140398" />
+    <state width="935" height="349" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1597415329980" />
     <state width="938" height="399" key="GridCell.Tab.0.right/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1592057060439" />
     <state width="1695" height="495" key="GridCell.Tab.0.right/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1596887644601" />
     <state width="1696" height="405" key="GridCell.Tab.0.right/0.0.3440.1400@0.0.3440.1400" timestamp="1596804296204" />
@@ -364,6 +408,10 @@
     <state x="-1457" y="165" key="SettingsEditor/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1591981083015" />
     <state x="523" y="208" key="SettingsEditor/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1596883127688" />
     <state x="339" y="175" key="SettingsEditor/0.0.3440.1400@0.0.3440.1400" timestamp="1596807444200" />
+    <state width="498" height="446" key="SwitcherDM" timestamp="1597411336664">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="498" height="446" key="SwitcherDM/0.0.1920.1040@0.0.1920.1040" timestamp="1597411336664" />
     <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1597331705415">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -430,10 +478,10 @@
     <state x="-672" y="248" width="376" height="503" key="run.anything.popup/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1591980970932" />
     <state x="2236" y="334" width="672" height="677" key="run.anything.popup/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591890294341" />
     <state x="2236" y="334" width="674" height="678" key="run.anything.popup/0.0.3440.1400@0.0.3440.1400" timestamp="1596804150398" />
-    <state x="1252" y="238" width="672" height="504" key="search.everywhere.popup" timestamp="1597324629105">
+    <state x="1252" y="238" width="672" height="504" key="search.everywhere.popup" timestamp="1597412455396">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1252" y="238" width="672" height="504" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1597324629105" />
+    <state x="1252" y="238" width="672" height="504" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1597412455396" />
     <state x="-668" y="238" width="672" height="504" key="search.everywhere.popup/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1591981802542" />
     <state x="2243" y="320" width="672" height="678" key="search.everywhere.popup/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591890410373" />
     <state x="2243" y="320" width="672" height="678" key="search.everywhere.popup/0.0.3440.1400@0.0.3440.1400" timestamp="1591796801352" />
@@ -448,18 +496,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/jormCore/src/main/java/jormCore/PersistentObject.java</url>
-          <line>103</line>
+          <line>104</line>
           <option name="timeStamp" value="51" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/TestProject/src/MainClass.java</url>
-          <line>90</line>
-          <option name="timeStamp" value="63" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/TestProject/src/MainClass.java</url>
-          <line>105</line>
-          <option name="timeStamp" value="65" />
+          <url>file://$PROJECT_DIR$/jormCore/src/main/java/jormCore/JormList.java</url>
+          <line>115</line>
+          <option name="timeStamp" value="68" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

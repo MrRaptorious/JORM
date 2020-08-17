@@ -1,19 +1,23 @@
 package jormCore;
 
-import jormCore.annotaions.Persistent;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Can cache objects extending PersistedObject
+ */
+@SuppressWarnings("unused")
 public class ObjectCache {
-    private Map<Class<? extends PersistentObject>, List<PersistentObject>> permanentCache;
-    private Map<Class<? extends PersistentObject>, List<PersistentObject>> tempCache;
-    
+    private final Map<Class<? extends PersistentObject>, List<PersistentObject>> permanentCache;
+    private final Map<Class<? extends PersistentObject>, List<PersistentObject>> tempCache;
+    private final List<Class<? extends PersistentObject>> types;
+
     public ObjectCache(List<Class<? extends PersistentObject>> types) {
         permanentCache = new HashMap<>();
         tempCache = new HashMap<>();
+        this.types = types;
 
         // "deep" init caches
         for (var type : types) {
@@ -33,20 +37,62 @@ public class ObjectCache {
         tempCache.replaceAll((k, v) -> new ArrayList<>());
     }
 
+    /**
+     * Empties the tempCache WITHOUT transmitting data to the permanentCache
+     */
+    public void emptyTempCache() {
+        for (var type : types) {
+            tempCache.put(type, new ArrayList<>());
+        }
+    }
 
+    /**
+     * Gets objects from a specific type from the cache
+     *
+     * @param cls look for objects from this type/class
+     * @return list of cached objects from given type
+     */
     public List<PersistentObject> get(Class<? extends PersistentObject> cls) {
         return permanentCache.get(cls);
     }
 
+    /**
+     * Gets objects from a specific type from the temp cache
+     *
+     * @param cls look for objects from this type/class
+     * @return list of cached objects from given type
+     */
     public List<PersistentObject> getTemp(Class<? extends PersistentObject> cls) {
         return tempCache.get(cls);
     }
 
-    public void add(Class<? extends PersistentObject> type, PersistentObject obj){
-        permanentCache.get(type).add(obj);
+    /**
+     * Adds an object to the cache
+     *
+     * @param obj the object to add
+     */
+    public boolean add(PersistentObject obj) {
+        Class<? extends PersistentObject> key = obj.getClass();
+        if (permanentCache.containsKey(key)) {
+            permanentCache.get(key).add(obj);
+            return true;
+        }
+
+        return false;
     }
 
-    public void addTemp(Class<? extends PersistentObject> type, PersistentObject obj){
-        tempCache.get(type).add(obj);
+    /**
+     * Adds an object to the temp cache
+     *
+     * @param obj the object to add
+     */
+    public boolean addTemp(PersistentObject obj) {
+        Class<? extends PersistentObject> key = obj.getClass();
+        if (tempCache.containsKey(key)) {
+            tempCache.get(key).add(obj);
+            return true;
+        }
+
+        return false;
     }
 }

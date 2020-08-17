@@ -6,9 +6,6 @@ import jormCore.dbConnection.FieldTypeParser;
 import jormCore.wrapping.ClassWrapper;
 import jormCore.wrapping.FieldWrapper;
 import jormCore.wrapping.WrappingHandler;
-import org.xml.sax.HandlerBase;
-
-import java.sql.SQLException;
 import java.util.List;
 
 public abstract class StatementBuilder {

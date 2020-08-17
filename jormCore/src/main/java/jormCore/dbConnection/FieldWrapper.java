@@ -2,11 +2,11 @@ package jormCore.dbConnection;
 
 public class FieldWrapper {
 	
-	private String _name;
-	private String _type;
-	private boolean _isPrimaryKey;
-	private boolean _canNotBeNull;
-	private boolean _autoincrement;
+	private final String _name;
+	private final String _type;
+	private final boolean _isPrimaryKey;
+	private final boolean _canNotBeNull;
+	private final boolean _autoincrement;
 
 	public FieldWrapper(String name, String type, boolean isPrimaryKey, boolean canBeNull, boolean autoincrement)
 	{

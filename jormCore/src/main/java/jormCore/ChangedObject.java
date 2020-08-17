@@ -7,8 +7,8 @@ import java.util.Map;
  * Represents a changed PersistentObject
  */
 public class ChangedObject {
-	private PersistentObject runtimeObject;
-	private Map<String, Object[]> changedFields;
+	private final PersistentObject runtimeObject;
+	private final Map<String, Object[]> changedFields;
 
 	public ChangedObject(PersistentObject runtimeObject) {
 		this.runtimeObject = runtimeObject;
@@ -29,9 +29,9 @@ public class ChangedObject {
 	/**
 	 * Returns all the changed fields of the handled PersistentObject
 	 */
-	public Map<String, Object> getChanedFields() {
+	public Map<String, Object> getChangedFields() {
 
-		HashMap<String, Object> tmpMap = new HashMap<String, Object>();
+		HashMap<String, Object> tmpMap = new HashMap<>();
 
 		for (var elem : changedFields.entrySet()) {
 			tmpMap.put(elem.getKey(), elem.getValue()[0]);

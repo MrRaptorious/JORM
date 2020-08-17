@@ -13,7 +13,7 @@ public class FieldTypeParserMySQL extends FieldTypeParser {
 
     private String normalizeValueForInsertStatement(Class<?> type, Object value) {
         if (type == String.class)
-            return "'" + (String) value + "'";
+            return "'" + value + "'";
 
         if (PersistentObject.class.isAssignableFrom(type))
             return "'" + ((PersistentObject) value).getID() + "'";
@@ -23,7 +23,7 @@ public class FieldTypeParserMySQL extends FieldTypeParser {
 
 
         if (type == UUID.class)
-            return "'" + ((UUID) value).toString() + "'";
+            return "'" + value.toString() + "'";
 
         return value.toString();
     }

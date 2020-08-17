@@ -5,21 +5,23 @@ import jormCore.dbConnection.DatabaseConnection;
 import jormCore.dbConnection.FieldTypeParser;
 import jormCore.tracing.LogLevel;
 import jormCore.wrapping.WrappingHandler;
-
 import java.sql.SQLException;
 import java.util.List;
 
-public class ApplicationSubManager  {
+/**
+ * A class to manage registered types and the syncing with one database
+ */
+@SuppressWarnings("unused")
+public class ApplicationSubManager {
 
-    private LogLevel logLevel;
+    private final LogLevel logLevel;
     private DatabaseConnection connection;
     private FieldTypeParser currentParser;
     private StatementBuilder statementBuilder;
-    private  WrappingHandler wrappingHandler;
-    private  String connectionString;
+    private WrappingHandler wrappingHandler;
+    private final String connectionString;
 
-    public ApplicationSubManager(String connectionString, DependencyConfiguration dependencyConfiguration, LogLevel lvl)
-    {
+    public ApplicationSubManager(String connectionString, DependencyConfiguration dependencyConfiguration, LogLevel lvl) {
         this.connectionString = connectionString;
         logLevel = lvl;
 
@@ -28,19 +30,10 @@ public class ApplicationSubManager  {
             connection = dependencyConfiguration.resolve(DatabaseConnection.class);
             currentParser = dependencyConfiguration.resolve(FieldTypeParser.class);
             wrappingHandler = dependencyConfiguration.resolve(WrappingHandler.class);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
+            // TODO
             e.printStackTrace();
         }
-    }
-
-    public StatementBuilder getStatementBuilder() {
-        return statementBuilder;
-    }
-
-    public FieldTypeParser getCurrentFieldTypeParser() {
-        return currentParser;
     }
 
     /**
@@ -52,16 +45,14 @@ public class ApplicationSubManager  {
     }
 
     /**
-     * Starts the application, all types have to be registerd, the db schema will be
+     * Starts the application, all types have to be registered, the db schema will be
      * updated
      */
     public void start() {
 
         try {
             connection.connect(connectionString);
-        }
-        catch (SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -71,21 +62,22 @@ public class ApplicationSubManager  {
     }
 
     /**
-     * Creates a new ObjectSpace object for handling data and communicating with the
-     * Database
+     * Creates a new ObjectSpace object for handling data and communicating with the Database
      *
      * @return a newly created ObjectSpace with the programs database connection
      */
     public ObjectSpace createObjectSpace() {
-        return new ObjectSpace(connection, wrappingHandler,currentParser);
+        return new ObjectSpace(connection, wrappingHandler, currentParser);
     }
 
+    /**
+     * Creates a new ObjectSpace object for handling data and communicating with the Database
+     *
+     * @param loadOnInit determines if the ObjectSpace should be loaded when created or not
+     * @return a newly created ObjectSpace with the programs database connection
+     */
     public ObjectSpace createObjectSpace(boolean loadOnInit) {
-        return new ObjectSpace(connection, wrappingHandler,currentParser, loadOnInit);
-    }
-
-    public LogLevel getLogLevel() {
-        return logLevel;
+        return new ObjectSpace(connection, wrappingHandler, currentParser, loadOnInit);
     }
 
     /**
@@ -113,5 +105,17 @@ public class ApplicationSubManager  {
 
     public WrappingHandler getWrappingHandler() {
         return wrappingHandler;
+    }
+
+    public LogLevel getLogLevel() {
+        return logLevel;
+    }
+
+    public StatementBuilder getStatementBuilder() {
+        return statementBuilder;
+    }
+
+    public FieldTypeParser getCurrentFieldTypeParser() {
+        return currentParser;
     }
 }

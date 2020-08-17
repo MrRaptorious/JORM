@@ -9,7 +9,7 @@ public class WhereClause {
     private WhereClause leftClause;
     private WhereClause rightClause;
 
-    // ggf ueber FieldWrapper
+    // ggf via FieldWrapper
     public WhereClause(String propertyName, Object value, ComparisonOperator operator) {
         this.propertyName = propertyName;
         this.value = value;

@@ -16,9 +16,9 @@ import jormCore.annotaions.*;
 public class ClassWrapper {
 
 	private String name;
-	private Class<? extends PersistentObject> classToWrap;
+	private final Class<? extends PersistentObject> classToWrap;
 	private FieldWrapper primaryKey;
-	private  WrappingHandler wrappingHandler;
+	private final WrappingHandler wrappingHandler;
 	private Map<String, FieldWrapper> wrappedFields;
 	private Map<String, FieldWrapper> wrappedPersistentFields;
 	private Map<String, FieldWrapper> nonPersistentFields;
@@ -65,9 +65,9 @@ public class ClassWrapper {
 
 	public List<FieldWrapper> getWrappedFields(boolean alsoNonPersistent) {
 		if (alsoNonPersistent)
-			return new ArrayList<FieldWrapper>(wrappedFields.values());
+			return new ArrayList<>(wrappedFields.values());
 		else
-			return new ArrayList<FieldWrapper>(wrappedPersistentFields.values());
+			return new ArrayList<>(wrappedPersistentFields.values());
 	}
 
 	public String getName() {
@@ -106,10 +106,10 @@ public class ClassWrapper {
 						} else {
 							wrappedIdentifiedAssociations.put(associationAnnotation.name(), wrapper);
 						}
-					} else { // wrapp value Member
+					} else { // wrap value Member
 						wrappedValueMember.put(field.getName(), wrapper);
 					}
-				} else // wrap nonpersistent member
+				} else // wrap non persistent member
 				{
 					nonPersistentFields.put(field.getName(), wrapper);
 
@@ -165,15 +165,15 @@ public class ClassWrapper {
 	}
 
 	public List<FieldWrapper> getRelationWrapper() {
-		return new ArrayList<FieldWrapper>(wrappedRelations.values());
+		return new ArrayList<>(wrappedRelations.values());
 	}
 
 	public Class<? extends PersistentObject> getClassToWrap() {
 		return classToWrap;
 	}
 
-	public List<FieldWrapper> getWrappedValueMemeberWrapper() {
-		return new ArrayList<FieldWrapper>(wrappedValueMember.values());
+	public List<FieldWrapper> getWrappedValueMemberWrapper() {
+		return new ArrayList<>(wrappedValueMember.values());
 	}
 
 	public FieldWrapper getWrappedAssociation(String associationName) {

@@ -113,12 +113,12 @@ public class SQLiteConnection extends DatabaseConnection {
 
 	@Override
 	public void updateSchema() {
-		ArrayList<String> updateStatements = new ArrayList<String>();
+		ArrayList<String> updateStatements = new ArrayList<>();
 
 		for (ClassWrapper cl : statementBuilder.getAllEntities()) {
 
 			String getTypeSchemaStatement = "PRAGMA table_info(" + cl.getName() + ")";
-			List<String> persistentColumns = new ArrayList<String>();
+			List<String> persistentColumns = new ArrayList<>();
 
 			// collect persistentColumns
 			try {

@@ -35,5 +35,8 @@ public class TestClassA extends PersistentObject{
 
     public void setMeinB(TestClassB B) {meinB = B; }
 
+    public TestClassB getMeinB() {
+        return meinB;
+    }
 
 }

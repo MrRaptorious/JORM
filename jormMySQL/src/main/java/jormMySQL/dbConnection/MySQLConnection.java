@@ -114,7 +114,7 @@ public class MySQLConnection extends DatabaseConnection {
 
 	@Override
 	public void updateSchema() {
-		ArrayList<String> updateStatements = new ArrayList<String>();
+		ArrayList<String> updateStatements = new ArrayList<>();
 
 		for (ClassWrapper cl : statementBuilder.getAllEntities()) {
 
@@ -123,11 +123,11 @@ public class MySQLConnection extends DatabaseConnection {
 
 			try {
 				getTypeSchemaStatement = String.format("SELECT COLUMN_NAME FROM `INFORMATION_SCHEMA`.`COLUMNS`  WHERE `TABLE_SCHEMA`='%s' AND `TABLE_NAME`='%s';", connection.getCatalog(), cl.getName());
-			} catch (SQLException throwables) {
-				throwables.printStackTrace(); // TODO
+			} catch (SQLException throwable) {
+				throwable.printStackTrace(); // TODO
 			}
 
-			List<String> persistentColumns = new ArrayList<String>();
+			List<String> persistentColumns = new ArrayList<>();
 
 			// collect persistentColumns
 			try {

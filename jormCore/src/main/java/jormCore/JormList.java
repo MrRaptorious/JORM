@@ -28,8 +28,8 @@ public class JormList<T extends PersistentObject> extends ArrayList<T> {
 
 	/**
 	 * Adds the PersistentObject o to the list
-	 * @param o
-	 * @return
+	 * @param o object of type T to add
+	 * @return if object is added
 	 */
 	@Override
 	public boolean add(T o) {
@@ -119,11 +119,11 @@ public class JormList<T extends PersistentObject> extends ArrayList<T> {
 	public void load() {
 
 		var lm = listMember;
-		var fk = lm.getForeigenKey();
+		var fk = lm.getForeignKey();
 		var rt = fk.getReferencingType();
 
-		Class<T> partnerClass = (Class<T>) listMember.getForeigenKey().getReferencingType().getClassToWrap();
-		WhereClause clause = new WhereClause(listMember.getForeigenKey().getAssociationPartner().getName(),
+		Class<T> partnerClass = (Class<T>) listMember.getForeignKey().getReferencingType().getClassToWrap();
+		WhereClause clause = new WhereClause(listMember.getForeignKey().getAssociationPartner().getName(),
 				owner.getID(), ComparisonOperator.Equal);
 
 		for (T obj : objectSpace.getObjects(partnerClass, clause)) {

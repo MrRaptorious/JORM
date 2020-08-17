@@ -6,14 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import jormCore.annotaions.Persistent;
 import jormCore.dbConnection.FieldTypeParser;
 import jormCore.PersistentObject;
 
 public class WrappingHandler {
 
-	private FieldTypeParser fieldTypeParser;
+	private final FieldTypeParser fieldTypeParser;
 	public Map<Class<? extends PersistentObject>, ClassWrapper> classWrapper;
 
 	public  FieldWrapper createFieldWrapper(ClassWrapper cw, Field field)
@@ -50,7 +48,7 @@ public class WrappingHandler {
 		return new ArrayList<>(classWrapper.values());
 	}
 
-	public ArrayList<Class<? extends PersistentObject>> getRegisterdTypes() {return new ArrayList<>(classWrapper.keySet()); }
+	public ArrayList<Class<? extends PersistentObject>> getRegisteredTypes() {return new ArrayList<>(classWrapper.keySet()); }
 
 	public ClassWrapper getClassWrapper(Class<? extends PersistentObject> cls) {
 		if (classWrapper.containsKey(cls))

@@ -2,8 +2,8 @@ package jormCore.wrapping;
 
 public class AssociationWrapper {
 
-	private ClassWrapper associationPartnerClass;
-	private FieldWrapper associationPartnerPrimaryKeyMember;
+	private final ClassWrapper associationPartnerClass;
+	private final FieldWrapper associationPartnerPrimaryKeyMember;
 	private FieldWrapper associationPartner;
 	private String associationName;
 
@@ -18,7 +18,7 @@ public class AssociationWrapper {
 		}
 	}
 
-	public boolean isAnonym() {
+	public boolean isAnonymous() {
 		return associationPartner == null;
 	}
 

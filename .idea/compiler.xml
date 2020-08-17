@@ -7,8 +7,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="jormSQLite" />
-        <module name="jormMySQL" />
         <module name="jormCore" />
+      </profile>
+      <profile name="Annotation profile for JORM" enabled="true">
+        <sourceOutputDir name="../jormSQLite/target/generated-sources/annotations" />
+        <sourceTestOutputDir name="../jormSQLite/target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="jormMySQL" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

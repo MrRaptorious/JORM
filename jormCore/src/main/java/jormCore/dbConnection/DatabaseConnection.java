@@ -7,7 +7,6 @@ import jormCore.criteria.StatementBuilder;
 import jormCore.PersistentObject;
 import jormCore.criteria.WhereClause;
 import jormCore.wrapping.ClassWrapper;
-import jormCore.wrapping.WrappingHandler;
 import java.util.UUID;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -15,6 +14,7 @@ import java.util.LinkedList;
 /**
  * Abstract base class to represent a generic relational database connection
  */
+@SuppressWarnings("unused")
 public abstract class DatabaseConnection {
 
 	protected String connectionString;
@@ -34,8 +34,6 @@ public abstract class DatabaseConnection {
 
 	/**
 	 * Initializes database (create then update schema)
-	 * 
-	 * @throws SQLException
 	 */
 	protected void initDatabase() throws SQLException {
 

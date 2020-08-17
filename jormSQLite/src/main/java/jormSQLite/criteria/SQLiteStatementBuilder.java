@@ -9,8 +9,6 @@ import jormCore.dbConnection.FieldTypeParser;
 import jormCore.wrapping.ClassWrapper;
 import jormCore.wrapping.FieldWrapper;
 import jormCore.wrapping.WrappingHandler;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -130,7 +128,7 @@ public class SQLiteStatementBuilder extends StatementBuilder {
 
         String delimiter = "";
 
-        for (Map.Entry<String, Object> elm : obj.getChanedFields().entrySet()) {
+        for (Map.Entry<String, Object> elm : obj.getChangedFields().entrySet()) {
 
             FieldWrapper currentFieldWrapper = currentClassWrapper.getFieldWrapper(elm.getKey());
 
@@ -163,7 +161,7 @@ public class SQLiteStatementBuilder extends StatementBuilder {
 
             result += generateFieldDefinition(wr);
 
-            if (wr.isForeigenKey()) {
+            if (wr.isForeignKey()) {
                 fKStatements.add(generateForeignKeyDefinition(wr));
             }
 
@@ -187,7 +185,7 @@ public class SQLiteStatementBuilder extends StatementBuilder {
     }
 
     public List<String> createAllEntity() {
-        ArrayList<String> statements = new ArrayList<String>();
+        ArrayList<String> statements = new ArrayList<>();
 
         for (ClassWrapper classWrapper : wrappingHandler.getWrapperList()) {
             statements.add(createEntity(classWrapper));
@@ -214,9 +212,9 @@ public class SQLiteStatementBuilder extends StatementBuilder {
     }
 
     public String generateForeignKeyDefinition(FieldWrapper wr) {
-        if (wr.isForeigenKey()) {
-            return " FOREIGN KEY(" + wr.getName() + ") REFERENCES " + wr.getForeigenKey().getReferencingType().getName()
-                    + "(" + wr.getForeigenKey().getReferencingPrimaryKeyName() + ") ";
+        if (wr.isForeignKey()) {
+            return " FOREIGN KEY(" + wr.getName() + ") REFERENCES " + wr.getForeignKey().getReferencingType().getName()
+                    + "(" + wr.getForeignKey().getReferencingPrimaryKeyName() + ") ";
         }
         return "";
     }

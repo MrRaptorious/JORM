@@ -14,12 +14,13 @@ import jormCore.wrapping.FieldWrapper;
 /**
  * Represents the base class for all objects in the database
  */
+@SuppressWarnings("unused")
 public class PersistentObject {
 
 	public static final String KeyPropertyName = "ID";
 
 	@NonPersistent
-	private ObjectSpace objectSpace;
+	private final ObjectSpace objectSpace;
 
 	@PrimaryKey
 	@Persistent(name = KeyPropertyName)
@@ -130,7 +131,7 @@ public class PersistentObject {
 	}
 
 	/**
-	 * Sets the membername to the new value and also updates the referenced objects reference
+	 * Sets the member name to the new value and also updates the referenced objects reference
 	 * 
 	 * @param memberName the name of the changed to change
 	 * @param value      the new value
@@ -139,7 +140,7 @@ public class PersistentObject {
 		setMemberValue(memberName, value);
 
 		AssociationWrapper aw = objectSpace.getWrappingHandler().getClassWrapper(this.getClass())
-				.getFieldWrapper(memberName, true).getForeigenKey();
+				.getFieldWrapper(memberName, true).getForeignKey();
 
 		if (aw != null && aw.getAssociationPartner() != null && !aw.getAssociationPartner().isList()) {
 			value.setMemberValue(aw.getAssociationPartner().getOriginalField().getName(), this);
@@ -154,10 +155,10 @@ public class PersistentObject {
 	@SuppressWarnings("unchecked")
 	protected <T extends PersistentObject> JormList<T> getList(String memberName) {
 		if (getMemberValue(memberName) == null) {
-			Association asso = objectSpace.getWrappingHandler().getClassWrapper(this.getClass())
+			Association association = objectSpace.getWrappingHandler().getClassWrapper(this.getClass())
 					.getFieldWrapper(memberName, true).getAnnotation(Association.class);
-			if (asso != null) {
-				JormList<T> list = new JormList<>(objectSpace, this, asso.name());
+			if (association != null) {
+				JormList<T> list = new JormList<>(objectSpace, this, association.name());
 				setMemberValue(memberName, list);
 				return list;
 			}

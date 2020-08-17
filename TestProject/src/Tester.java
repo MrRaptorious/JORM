@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Tester {
 
-            private static String connectionSting = "jdbc:sqlite:testdb.sqlite";
+            private static final String connectionSting = "jdbc:sqlite:testdb.sqlite";
 //    private static String connectionSting = "jdbc:sqlite::memory:";
     private static Connection connection = null;
 
