@@ -75,8 +75,8 @@ public class SQLiteStatementBuilder extends StatementBuilder {
 
         result += " WHERE " + calculateWhereClause(resultingClause);
 
-        System.out.println(result);
-        System.out.println();
+//        System.out.println(result);
+//        System.out.println();
 
         return result;
     }

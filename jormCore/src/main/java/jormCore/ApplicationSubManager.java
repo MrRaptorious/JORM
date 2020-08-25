@@ -3,8 +3,8 @@ package jormCore;
 import jormCore.criteria.StatementBuilder;
 import jormCore.dbConnection.DatabaseConnection;
 import jormCore.dbConnection.FieldTypeParser;
-import jormCore.tracing.LogLevel;
 import jormCore.wrapping.WrappingHandler;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -14,16 +14,14 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class ApplicationSubManager {
 
-    private final LogLevel logLevel;
     private DatabaseConnection connection;
     private FieldTypeParser currentParser;
     private StatementBuilder statementBuilder;
     private WrappingHandler wrappingHandler;
     private final String connectionString;
 
-    public ApplicationSubManager(String connectionString, DependencyConfiguration dependencyConfiguration, LogLevel lvl) {
+    public ApplicationSubManager(DependencyConfiguration dependencyConfiguration, String connectionString) {
         this.connectionString = connectionString;
-        logLevel = lvl;
 
         try {
             statementBuilder = dependencyConfiguration.resolve(StatementBuilder.class);
@@ -105,10 +103,6 @@ public class ApplicationSubManager {
 
     public WrappingHandler getWrappingHandler() {
         return wrappingHandler;
-    }
-
-    public LogLevel getLogLevel() {
-        return logLevel;
     }
 
     public StatementBuilder getStatementBuilder() {

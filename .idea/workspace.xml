@@ -30,11 +30,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0cedc886-a64b-4c02-9e7e-b831bcd27d1c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/JORM_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/jormMySQL_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/jormSQLite_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/jormcore_jar.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/ApplicationSubManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormCore/src/main/java/jormCore/ApplicationSubManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormMySQL/src/main/java/jormMySQL/criteria/SQLiteStatementBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormMySQL/src/main/java/jormMySQL/criteria/SQLiteStatementBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jormSQLite/src/main/java/jormSQLite/criteria/SQLiteStatementBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/jormSQLite/src/main/java/jormSQLite/criteria/SQLiteStatementBuilder.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -500,10 +499,10 @@
     </state>
     <state x="690" y="269" key="extract.method.dialog/0.0.1920.1040@0.0.1920.1040" timestamp="1597325476439" />
     <state x="-1230" y="269" key="extract.method.dialog/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1592048091445" />
-    <state x="1743" y="333" width="1556" height="734" key="find.popup" timestamp="1597091220162">
+    <state x="1743" y="333" width="1556" height="734" key="find.popup" timestamp="1598385441568">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state x="1743" y="333" width="1556" height="734" key="find.popup/-1920.0.1920.1040/0.0.3440.1400@0.0.3440.1400" timestamp="1597091220162" />
+    <state x="1743" y="333" width="1556" height="734" key="find.popup/-1920.0.1920.1040/0.0.3440.1400@0.0.3440.1400" timestamp="1598385441568" />
     <state x="973" y="247" width="868" height="545" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1597075225550" />
     <state x="-1435" y="244" width="867" height="544" key="find.popup/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1591977925448" />
     <state x="1427" y="334" width="586" height="732" key="find.popup/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591890429139" />
