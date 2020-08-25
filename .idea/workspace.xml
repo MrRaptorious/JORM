@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="JORM:jar" />
+      <artifact name="jormMySQL:jar" />
+      <artifact name="jormSQLite:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
@@ -23,7 +30,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0cedc886-a64b-4c02-9e7e-b831bcd27d1c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/JORM_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/jormMySQL_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/jormSQLite_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/jormcore_jar.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -286,9 +296,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="812" y="384" width="778" height="342" key="#com.intellij.codeInsight.template.impl.EditVariableDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1597328972978" />
-    <state x="361" y="302" width="992" height="599" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1597332264385">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="647" y="407" width="1778" height="831" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1598379155105">
+      <screen x="0" y="0" width="3440" height="1400" />
     </state>
+    <state x="647" y="407" width="1778" height="831" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1920.0.1920.1040/0.0.3440.1400@0.0.3440.1400" timestamp="1598379155105" />
     <state x="361" y="302" width="992" height="599" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1597332264385" />
     <state x="-1559" y="302" width="976" height="527" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1592048794775" />
     <state x="647" y="406" width="1092" height="604" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591553978330" />
@@ -434,10 +445,10 @@
     </state>
     <state x="522" y="248" key="Maven.ArtifactSearchDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1591968223498" />
     <state x="1250" y="358" key="Maven.ArtifactSearchDialog/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590602247805" />
-    <state x="423" y="54" width="1587" height="852" key="SettingsEditor" timestamp="1598377182681">
+    <state x="423" y="54" width="1587" height="852" key="SettingsEditor" timestamp="1598379316910">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state x="423" y="54" width="1587" height="852" key="SettingsEditor/-1920.0.1920.1040/0.0.3440.1400@0.0.3440.1400" timestamp="1598377182681" />
+    <state x="423" y="54" width="1587" height="852" key="SettingsEditor/-1920.0.1920.1040/0.0.3440.1400@0.0.3440.1400" timestamp="1598379316910" />
     <state x="236" y="40" width="1398" height="852" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1597332175008" />
     <state x="-1457" y="165" key="SettingsEditor/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1591981083015" />
     <state x="523" y="208" key="SettingsEditor/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1596883127688" />
@@ -497,9 +508,10 @@
     <state x="-1435" y="244" width="867" height="544" key="find.popup/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1591977925448" />
     <state x="1427" y="334" width="586" height="732" key="find.popup/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591890429139" />
     <state x="869" y="328" width="1554" height="733" key="find.popup/0.0.3440.1400@0.0.3440.1400" timestamp="1596637512872" />
-    <state x="613" y="302" key="new project wizard" timestamp="1596806984102">
+    <state x="613" y="302" key="new project wizard" timestamp="1598380205172">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
+    <state x="613" y="302" key="new project wizard/-1920.0.1920.1040/0.0.3440.1400@0.0.3440.1400" timestamp="1598380205172" />
     <state x="-1578" y="224" key="new project wizard/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1590596897936" />
     <state x="613" y="302" key="new project wizard/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1590606652778" />
     <state x="613" y="302" key="new project wizard/0.0.3440.1400@0.0.3440.1400" timestamp="1596806984102" />
@@ -514,9 +526,10 @@
     <state x="-672" y="248" width="376" height="503" key="run.anything.popup/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1591980970932" />
     <state x="2236" y="334" width="672" height="677" key="run.anything.popup/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591890294341" />
     <state x="2236" y="334" width="674" height="678" key="run.anything.popup/0.0.3440.1400@0.0.3440.1400" timestamp="1596804150398" />
-    <state x="1252" y="238" width="672" height="504" key="search.everywhere.popup" timestamp="1597412455396">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="2243" y="320" width="1204" height="679" key="search.everywhere.popup" timestamp="1598379117687">
+      <screen x="0" y="0" width="3440" height="1400" />
     </state>
+    <state x="2243" y="320" width="1204" height="679" key="search.everywhere.popup/-1920.0.1920.1040/0.0.3440.1400@0.0.3440.1400" timestamp="1598379117687" />
     <state x="1252" y="238" width="672" height="504" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1597412455396" />
     <state x="-668" y="238" width="672" height="504" key="search.everywhere.popup/0.0.3440.1400/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1591981802542" />
     <state x="2243" y="320" width="672" height="678" key="search.everywhere.popup/0.0.3440.1400/-1920.0.1920.1040@0.0.3440.1400" timestamp="1591890410373" />

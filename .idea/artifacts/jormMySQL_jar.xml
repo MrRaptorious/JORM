@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="jormMySQL:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/jormMySQL_jar</output-path>
+    <root id="archive" name="jormMySQL.jar">
+      <element id="module-output" name="jormMySQL" />
+      <element id="module-output" name="jormCore" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/jormMySQL/src/main/resources/mysql-connector-java-5.1.48.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jetbrains/annotations/20.0.0/annotations-20.0.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

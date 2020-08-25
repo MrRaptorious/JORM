@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="jormSQLite:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/jormSQLite_jar</output-path>
+    <root id="archive" name="jormSQLite.jar">
+      <element id="module-output" name="jormSQLite" />
+      <element id="module-output" name="jormCore" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jetbrains/annotations/20.0.0/annotations-20.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/jormSQLite/src/main/resources/sqlite-jdbc-3.27.2.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
