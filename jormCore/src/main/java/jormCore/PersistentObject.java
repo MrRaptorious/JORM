@@ -124,8 +124,9 @@ public class PersistentObject {
 	 * @param newValue      the new value of the member
 	 */
 	protected void setPropertyValue(String changedMember, Object newValue) {
+		var memberValue = getMemberValue(changedMember);
 		if (getMemberValue(changedMember) != newValue) {
-			objectSpace.addChangedObject(this, changedMember, newValue);
+			objectSpace.addChangedObject(this, changedMember, newValue,memberValue);
 			this.setMemberValue(changedMember, newValue);
 		}
 	}
@@ -165,6 +166,15 @@ public class PersistentObject {
 		}
 
 		return (JormList<T>) getMemberValue(memberName);
+	}
+
+	/**
+	 * Deletes the object
+	 */
+	public void delete()
+	{
+		objectSpace.addChangedObject(this, "isDeleted", true,false);
+		isDeleted=true;
 	}
 
 	@Override

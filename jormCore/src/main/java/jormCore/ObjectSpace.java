@@ -234,7 +234,7 @@ public class ObjectSpace {
      * @param fieldName     the name of the changed member
      * @param newValue      the new value from the changed member
      */
-    public void addChangedObject(PersistentObject changedObject, String fieldName, Object newValue) {
+    public void addChangedObject(PersistentObject changedObject, String fieldName, Object newValue, Object oldValue) {
         if (!changedObjects.containsKey(changedObject.getClass())) {
             changedObjects.put(changedObject.getClass(), new HashMap<>());
         }
@@ -245,7 +245,7 @@ public class ObjectSpace {
 
         // perhaps put old value in parameter for performance
         changedObjects.get(changedObject.getClass()).get(changedObject)
-                .addChangedField(fieldName, newValue, changedObject.getMemberValue(fieldName));
+                .addChangedField(fieldName, newValue, oldValue);
     }
 
     /**
@@ -269,7 +269,6 @@ public class ObjectSpace {
         createdObjects.clear();
         changedObjects.clear();
     }
-
 
     /**
      * Rolls the current changes in the objectSpace back
@@ -335,7 +334,7 @@ public class ObjectSpace {
                     Object o = createdObject.getMemberValue(relationMemberName);
 
                     if (o != null) {
-                        addChangedObject(createdObject, relationMemberName, o);
+                        addChangedObject(createdObject, relationMemberName, o,null);
                         createdObject.setMemberValue(relationMemberName, null);
                     }
                 }
